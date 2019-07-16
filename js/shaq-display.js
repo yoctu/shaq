@@ -581,7 +581,7 @@ $(document).ready(function() {
       pos = "right";
       alertclass = "alert-info";
     }
-    if (["giveup", "remove", "readd"].indexOf(chat.channel) >= 0) {
+    if (["giveup", "remove", "readd", "readdall", "removeall"].indexOf(chat.channel) >= 0) {
       alertclass = "alert-warning";
       pos = "center";
     }
