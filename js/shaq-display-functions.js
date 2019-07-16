@@ -109,7 +109,7 @@ function readdallbidders() {
           "channel": "readdall",
           "key": window.shaq.key,
           "source": [usercode],
-          "target": window.shaq.target[t],
+          "target": [window.shaq.target[t]],
           "type": "message",
           "status": "sent"
         });
@@ -154,7 +154,7 @@ function removeallbidders() {
           "channel": "removeall",
           "key": window.shaq.key,
           "source": [usercode],
-          "target": window.shaq.target[t],
+          "target": [window.shaq.target[t]],
           "type": "message",
           "status": "sent"
         });
