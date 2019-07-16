@@ -356,7 +356,7 @@ $(document).ready(function() {
         bidderDisplay += '<div id="bidderList_' + window.shaq.target[bidders] + '" class="bidderslist ' + tohide + ' text-' + color + '"><img width="16" src="' + logourl + window.shaq.target[bidders] + '.png" /> ' + window.shaq.targetName[bidders] + '</font>';
         if (usercode === window.shaq.source[0]) {
           if (window.shaq.target[bidders] === "UGO" || window.shaq.target[bidders] === "GOSHIPPO") {
-            bidderDisplay += ' <a onclick="rate(\"'+window.shaq.target[bidders]+'\");" class="rate-bidder" id="' + window.shaq.target[bidders] + '"><span class="glyphicon glyphicon-reload"> </span></a>';
+            bidderDisplay += ' <a onclick="rate(\"'+window.shaq.target[bidders]+'\");" class="rate-bidder" id="' + window.shaq.target[bidders] + '"><span class="glyphicon glyphicon-refresh"> </span></a>';
           } else {
             let glyphiconbidder = "remove";
             if (window.shaq.targetStatus && window.shaq.targetStatus[bidders] === "Removed") glyphiconbidder = "ok";
