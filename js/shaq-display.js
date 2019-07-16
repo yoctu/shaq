@@ -960,6 +960,14 @@ $(document).ready(function() {
     }
   });
 
+  $('#readdall').on('click', function() {
+    readdallbidders();
+  }
+
+  $('#removeall').on('click', function() {
+    removeallbidders();
+  }
+
   $("#shaq-print").on('click', function() {
     window.print();
   });

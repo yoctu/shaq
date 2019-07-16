@@ -2,20 +2,20 @@ function pad(n) {
   return (n < 10 ? "0" + n : n);
 }
 
-function status429 () {
+function status429() {
   if ($("#InformationModal").is(':visible')) $("#InformationModal").modal('hide');
   $('#CenterPage').hide();
   $('#not-found-message-text').html('You have reached your limit... <br>Upgrade your plan or Wait a minute...<br>');
   $('#not-found-message').removeClass('hide');
 }
 
-function TransitCalc(pu,de, pucountry, decountry) {
+function TransitCalc(pu, de, pucountry, decountry) {
   let pudateCet = moment.tz(pu, tzSettings.countries[pucountry].timezones[0]).tz("UTC");
   let dedateCet = moment.tz(de, tzSettings.countries[decountry].timezones[0]).tz("UTC");
   let transitTime = moment.duration(dedateCet.diff(pudateCet));
   let transitTimeDays = parseInt(transitTime.asDays());
-  let transitTimeHours = parseInt(transitTime.asHours()-parseInt(transitTime.asDays())*24);
-  let transitTimeMinutes = transitTime.asMinutes()-transitTimeDays*24*60-transitTimeHours*60;
+  let transitTimeHours = parseInt(transitTime.asHours() - parseInt(transitTime.asDays()) * 24);
+  let transitTimeMinutes = transitTime.asMinutes() - transitTimeDays * 24 * 60 - transitTimeHours * 60;
   return transitTimeDays + 'd ' + transitTimeHours + 'h ' + transitTimeMinutes + 'm';
 }
 
@@ -81,6 +81,96 @@ function sendMessage(data) {
   });
 }
 
+function readdallbidders() {
+  $("#InformationModalText").html('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Applying Action...</span>');
+  $("#InformationModalCloseBtn").attr("disabled", true);
+  $("#InformationModal").modal('show');
+  let data = {
+    type: "notification",
+    action: "readdall"
+  };
+  $.ajax({
+    "url": '/api/shaq/' + usercode + '/readdall/' + window.shaq.key,
+    "method": "POST",
+    "dataType": "json",
+    "contentType": "application/json",
+    "data": JSON.stringify(data),
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + authbasic);
+    },
+    "complete": function(json) {
+      for (let t in window.shaq.target) {
+        sendMessage({
+          "id": uuidv4(),
+          "date": "NOW",
+          "subject": "You have been enabled!",
+          "message": "You have been enabled!",
+          "from": username,
+          "channel": "readdall",
+          "key": window.shaq.key,
+          "source": [usercode],
+          "target": window.shaq.target[t],
+          "type": "message",
+          "status": "sent"
+        });
+      }
+      setTimeout(function() {
+        $("#InformationModal").modal('hide');
+      }, 1000);
+      gtag('event', 'Shaq', {
+        'event_category': 'ShaqRemove',
+        'event_label': usercode,
+        'value': JSON.stringify(data)
+      });
+    }
+  });
+}
+
+function removeallbidders() {
+  $("#InformationModalText").html('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Applying Action...</span>');
+  $("#InformationModalCloseBtn").attr("disabled", true);
+  $("#InformationModal").modal('show');
+  let data = {
+    type: "notification",
+    action: "removeall"
+  };
+  $.ajax({
+    "url": '/api/shaq/' + usercode + '/removeall/' + window.shaq.key,
+    "method": "POST",
+    "dataType": "json",
+    "contentType": "application/json",
+    "data": JSON.stringify(data),
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + authbasic);
+    },
+    "complete": function(json) {
+      for (let t in window.shaq.target) {
+        sendMessage({
+          "id": uuidv4(),
+          "date": "NOW",
+          "subject": "You have been disabled!",
+          "message": "You have been disabled!",
+          "from": username,
+          "channel": "removeall",
+          "key": window.shaq.key,
+          "source": [usercode],
+          "target": window.shaq.target[t],
+          "type": "message",
+          "status": "sent"
+        });
+      }
+      setTimeout(function() {
+        $("#InformationModal").modal('hide');
+      }, 1000);
+      gtag('event', 'Shaq', {
+        'event_category': 'ShaqRemove',
+        'event_label': usercode,
+        'value': JSON.stringify(data)
+      });
+    }
+  });
+}
+
 function removebidder(remove) {
   $("#InformationModalText").html('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Applying Action...</span>');
   $("#InformationModalCloseBtn").attr("disabled", true);
@@ -120,7 +210,7 @@ function removebidder(remove) {
       });
       setTimeout(function() {
         $("#InformationModal").modal('hide');
-      } , 1000 );
+      }, 1000);
       gtag('event', 'Shaq', {
         'event_category': 'ShaqRemove',
         'event_label': usercode,
@@ -216,7 +306,7 @@ function uploadFile(bid) {
     "complete": function(json) {
       let file = 0;
       if (bid.files) file = bid.files.length;
-      $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="'+window.location.protocol+'//' + username + ':' + userkey + '@' + window.location.host +'/api/file/' + usercode + '/bid/downloadbidfile/' + bid.key + '/' + bid.id + '/' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
+      $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="' + window.location.protocol + '//' + username + ':' + userkey + '@' + window.location.host + '/api/file/' + usercode + '/bid/downloadbidfile/' + bid.key + '/' + bid.id + '/' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
       gtag('event', 'Bid', {
         'event_category': 'BidUploadFile',
         'event_label': usercode,
