@@ -592,8 +592,7 @@ $(document).ready(function() {
     else chatName = window.shaq.targetName[window.shaq.target.indexOf(chat.source[0])];
     let pre = '<p><div id="' + chat.id + '" class="chat-container alert ' + alertclass + '" align="' + pos + '"><div class="message"><strong>' + chat.subject + '</strong></div><div>' + date + ' - ' + chatName + ' (' + chat.from + ') </div></div><p>';
     for (let target in chat.target) {
-      console.log("1" + window.shaq.target[chat]);
-      if ((window.shaq.target[chat] === "UGO") || (window.shaq.target[chat] === "GOSHIPPO")) continue;
+      console.log("1" + chat.target);
       if ((chat.target[target] === "UGO") || (chat.target[target] === "GOSHIPPO")) continue;
       console.log("2" + chat.target[target]);
       if (chat.target[target] != usercode) {
