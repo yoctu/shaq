@@ -100,6 +100,7 @@ function readdallbidders() {
     },
     "complete": function(json) {
       for (let t in window.shaq.target) {
+        if ((window.shaq.target[t] === "UGO") || (window.shaq.target[t] === "GOSHIPPO")) continue;
         sendMessage({
           "id": uuidv4(),
           "date": "NOW",
@@ -145,6 +146,7 @@ function removeallbidders() {
     },
     "complete": function(json) {
       for (let t in window.shaq.target) {
+        if ((window.shaq.target[t] === "UGO") || (window.shaq.target[t] === "GOSHIPPO")) continue;
         sendMessage({
           "id": uuidv4(),
           "date": "NOW",
