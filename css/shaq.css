@@ -7,6 +7,10 @@ input, select {
   font-weight: bold;
 }
 
+.showAllBids.enable {
+  color: #4981F1;
+}
+
 .form-control[readonly] {
   border: none;
   -webkit-box-shadow: none;
@@ -67,10 +71,13 @@ input, select {
   background-color: #fff;
 }
 
+.panel-body.bid-panel-body {
+    padding: 0px;
+}
+
 .panel {
   border: 0px #fff;
   border-radius: 8px;
-  padding: 12px;
 }
 
 .panel-footer, .panel-heading, .panel-body {
