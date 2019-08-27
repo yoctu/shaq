@@ -13,7 +13,7 @@ The technical Stack is the following :
 - Css
 
 ## Backend :
-- NodeJs ![NodeJs Logo](https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png)
+- NodeJs ![NodeJs Logo](http://www.topcode.io/wp-content/uploads/nodejs-square-200.png)
 
 ## Storage :
 - Solr
