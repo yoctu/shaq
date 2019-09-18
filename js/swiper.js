@@ -69,6 +69,7 @@ $(document).ready(function() {
     let CurrentDate = new Date().getTime() + CurrentDateFrom.getTimezoneOffset() * 60000;
     if ((CurrentDateFrom > CurrentDate) && window.shaq.source.includes(usercode)) return;
     $card = $(this);
+    if (window.bids[$card.find(".bidBidderId").text()].status != "running" ) return;
     bidCards[$card] = false;
     var startX = e.pageX || e.originalEvent.touches[0].pageX;
     $(document).on("mousemove touchmove", function(e) {

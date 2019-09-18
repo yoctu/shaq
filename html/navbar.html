@@ -1,0 +1,85 @@
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid navbar-theme">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img alt="logo" class="navbar-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></a>
+      <a id="alert-target" class="glyphicon glyphicon-bell" style="padding-top: 15px;"></a>
+      <span id="navbar-badge-notification" class="badge-notif">0</span>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav">
+        <li class="shaq-center-url"><a href="/" id="shaq-navbar-url"></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown"><span class="imageAvatar"></span>
+          <a href="" class="dropdown-toggle shaq-center-url" data-toggle="dropdown" id="navbar-usercode"></a>
+          <ul class="dropdown-menu">
+            <li class="divider"></li>
+            <li><a href="/" target="_blank" id="navbarNewOrder"><span class="glyphicon glyphicon-plus-sign"></span> <span id="navbar-neworder">New Order</span></a></li>
+            <li class="divider"></li>
+            <li><a href="/" target="_blank" id="navbarSettings"><span class="glyphicon glyphicon-wrench"></span> <span id="navbar-settings">Settings</span></a></li>
+            <li class="divider"></li>
+            <li><a href="/" target="_blank" id="navbarHelp"><span class="glyphicon glyphicon-envelope"></span> <span id="navbar-help">Help</span></a></li>
+            <li class="divider"></li>
+            <li><a href="/" id="navbarLogout"><span class="glyphicon glyphicon-log-out"></span> <span id="navbar-logout">Logout</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="top-message hide" id="not-found-message">
+  <div class="panel panel-default col-sm-4 col-md-8" style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);">
+    <div class="panel-title text-center"><b>Info</b></div>
+    <div class="panel-body text-center" id="not-found-message-text"></div>
+  </div>
+</div>
+
+<div id="InformationModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Information</h4>
+      </div>
+      <div class="modal-body" id="InformationModalText"></div>
+      <div class="modal-footer">
+        <button type="button" id="InformationModalCloseBtn" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="QuestionModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Question</h4>
+      </div>
+      <div class="modal-body" id="QuestionModalText"></div>
+      <div class="modal-footer">
+        <button type="button" id="QuestionModalYesBtn" class="btn btn-primary" data-dismiss="modal">Yes</button>
+        <button type="button" id="QuestionModalNoBtn" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#navbar-usercode').html(auth.usercodename + '<b class="caret"></b>');
+  $("#shaq-navbar-url").attr("href", auth.usercode);
+  $("#navbarNewOrder").attr("href", auth.orderingurl);
+  $("#navbarSettings").attr("href", "/" + auth.usercode + "/settings");
+  $("#navbarHelp").attr("href", "/" + auth.usercode + "/help");
+  $("#navbarLogout").attr("href", "/endpoint/logout?ReturnTo=/" + auth.usercode + "/logout");
+  $('#navbarLogout').on("click", function() {
+    localSettings = JSON.parse(localStorage.getItem('shaqSettings'));
+    localStorage.clear();
+    localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
+  });
+</script>

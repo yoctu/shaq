@@ -1,26 +1,24 @@
-$(document).ready(function() {
-var defaultLanguage = lang + '_' + lang.toUpperCase();
-if (lang === "en") defaultLanguage = 'en_US';
+  var defaultLanguage = auth.lang + '_' + auth.lang.toUpperCase();
+  if (auth.lang === "en") defaultLanguage = 'en_US';
 
-config = {
+  let translateconfig = {
     baseUrl: 'https://translate.easy4pro.com',
     defaultLanguage: defaultLanguage,
     fallbackLanguage: 'en_US',
     namespace: '/shaq',
     cacheDuration: 86400,
     localStorageKey: 'Shaqtranslations'
-};
+  };
 
-var translations = {};
-var translateClient = new TranslateClient(config);
-translateClient.getAllTranslations()
+  var translations = {};
+  var translateClient = new TranslateClient(translateconfig);
+  translateClient.getAllTranslations()
     .then(function(allTranslations) {
-        translations = allTranslations;
-        for (var translation in translations) {
-          $("#"+translation).html(translations[translation]);
-        }
+      translations = allTranslations;
+      for (var translation in translations) {
+        $("#" + translation).html(translations[translation]);
+      }
     })
     .catch(function(error) {
-        console.log(error);
+      console.log(error);
     });
-});
