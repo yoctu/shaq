@@ -1,0 +1,428 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="https://yoctu.github.io/yoctu-website/shaq/img/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="https://yoctu.github.io/yoctu-website/shaq/img/favicon.ico" type="image/x-icon" />
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+<title>ShaQ</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/js/countries-tz.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.25/moment-timezone-with-data.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/r-2.2.2/datatables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/css/shaq.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/css/shaq.css" id="theme-css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js"></script>
+<script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
+</head>
+
+<body>
+
+<div id="load-navbar"></div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283327-2"></script>
+<script>
+  var userCodePath = window.location.pathname.split("/")[1];
+  $.getScript("/" + userCodePath + "/js/shaq.js");
+</script>
+
+<br><br><br><br>
+<div class="row hide" id="settingsScreen">
+  <div class="container">
+    <div class="pull-right"><button class="btn btn-default btn-primary" id="saveSettingsBtn"><span id="shaq-settings-save-btn">Save</span></button></div>
+  </div><br>
+  <div id="myCarousel" class="carousel" data-interval="false">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <li data-target="#myCarousel" data-slide-to="3"></li>
+      <li data-target="#myCarousel" data-slide-to="4"></li>
+      <li data-target="#myCarousel" data-slide-to="5"></li>
+      <li data-target="#myCarousel" data-slide-to="6"></li>
+    </ol>
+    <div class="carousel-inner">
+
+      <div class="container item active">
+        <div id="settings-user-profile" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <b><span id="shaq-settings-user-profile">User Profile</span></b>
+            <span class="pull-right"><img id="shaq-settings-auth-image" src="" width="48" alt="auth" /></span>
+          </div>
+          <div class="panel-body">
+            <div id="settings-username" class="hide">
+              <div class="col-sm-6">
+                <h5>Username : </h5>
+              </div>
+              <div class="col-sm-6 text-right">
+                <h5><span id="shaq-settings-username"></span></h5>
+              </div>
+            </div>
+            <div id="settings-email" class="hide">
+              <div class="col-sm-6">
+                <h5>Email : </h5>
+              </div>
+              <div class="col-sm-6 text-right">
+                <h5><span id="shaq-settings-email"></span></h5>
+              </div>
+            </div>
+            <div id="settings-firstname" class="hide">
+              <div class="col-sm-6">
+                <h5>Firstname : </h5>
+              </div>
+              <div class="col-sm-6 text-right">
+                <h5><span id="shaq-settings-firstname"></span></h5>
+              </div>
+            </div>
+            <div id="settings-lastname" class="hide">
+              <div class="col-sm-6">
+                <h5>Lastname : </h5>
+              </div>
+              <div class="col-sm-6 text-right">
+                <h5><span id="shaq-settings-lastname"></span></h5>
+              </div>
+            </div>
+            <div id="settings-lang" class="hide">
+              <div class="col-sm-6">
+                <h5>Language : </h5>
+              </div>
+              <div class="col-sm-6 text-right">
+                <h5><img width="24" id="imgLang" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/fr.svg" alt="lang" /></h5>
+              </div>
+            </div>
+            <div id="settings-apikey" class="hide">
+              <div class="col-sm-6">
+                <h5>ApiKey : </h5>
+              </div>
+              <div class="col-sm-6 text-right">
+                <h5><span id="shaq-settings-apikey"></span></h5>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <hr>
+            </div>
+            <div class="col-sm-6">
+              <h5>Max Bid Accept : </h5>
+            </div>
+            <div class="col-sm-6 text-right">
+              <h5><span id="shaq-settings-bidvaluemax"></span>   <span id="bidvaluemaxmodif" class="glyphicon glyphicon-edit" title="request change"></span></h5>
+            </div>
+            <div class="col-sm-6">
+              <h5>Email Validation : </h5>
+            </div>
+            <div class="col-sm-6 text-right">
+              <h5><span id="shaq-settings-validatoremail"></span></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container item">
+        <div id="settings-company" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <b><span id="shaq-settings-company-profile"></span></b>
+            <span class="pull-right">
+              <img id="shaq-settings-company-profile-image" src="" width="48" />
+            </span>
+            <div id="bidBidderRatingScore" class="hide" style="padding-top:5px;"></div>
+            <div class="col-sm-12">
+              <div id="bidBidderScoring" class="pull-left hide" style="padding:10px;">
+                <div class="col-sm-3">
+                    <span id="refresh-score" class="glyphicon glyphicon-repeat" style="padding-top:25px;"></span>
+                </div>
+                <div class="col-sm-3">
+                  <div class="shaqlabel" for="invited">shaq.invited</div>
+                  <div class="round hollow hollowinvited" style="margin-right:50px;">
+                    <span class="scoreinvitedspan">0</span>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="shaqlabel" for="particpation">shaq.avgbid</div>
+                  <div class="round hollow hollowavgbid" style="margin-right:50px;">
+                    <span class="scoreavgbidspan">0</span>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="shaqlabel" for="winning">shaq.winning</div>
+                  <div class="round hollow hollowwinning" style="margin-right:50px;">
+                    <span class="scorewinningspan">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body"><br>
+            <label><span id="shaq-settings-usercode">Code</span> : </label>
+            <input type="text" class="form-control" id="usercodeSettings" value="" disabled /><br>
+            <label><span id="shaq-settings-usercodename">Name</span> : <font color="red">*</font></label>
+            <input type="text" class="form-control" id="usercodenameSettings" value="" /><br>
+            <label><span id="shaq-settings-usercodeemail">Email</span> : <font color="red">*</font></label>
+            <input type="text" class="form-control" id="usercodeemailSettings" value="" /><br>
+            <label><span id="shaq-settings-orderingurl">Order URL</span> : <font color="red">*</font></label>
+            <input type="text" class="form-control" id="orderingurlSettings" value="" /><br>
+            <label><span id="shaq-settings-maxbids">Bid per Shaq</span> : </label>
+            <input type="text" class="form-control" id="maxbidsSettings" disabled /><br>
+            <label><span id="shaq-settings-archiving">Archiving Days</span> : </label>
+            <input type="text" class="form-control" id="archiveSettings" value="" disabled /><br>
+            <h6>
+              <font color="red">*</font> requires a reload of your service
+            </h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="container item">
+        <div id="settings-user-settings" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <b><span id="shaq-settings-user-settings">User Settings</span></b>
+            <span class="pull-right glyphicon glyphicon-user" style="font-size: 48px;"></span>
+          </div>
+          <div class="panel-body">
+            <input id="idSettings" type="hidden" value="5">
+            <h5><span id="shaq-settings-date-format">Date Format</span> :</h5>
+            <select class="form-control text-center" id="dateSettings">
+              <option>YYYY-MM-dd HH:mm</option>
+              <option>dd-MM-YYYY HH:mm</option>
+              <option>MM-dd-YYYT HH:mm</option>
+            </select><br>
+            <h5><span id="shaq-settings-currency">Currency</span> : </h5>
+            <select class="form-control" id="currencySettings">
+              <option>Euros</option>
+              <option>Dollars</option>
+            </select><br>
+            <h5><span id="shaq-settings-distance">Distance</span> : </h5>
+            <select class="form-control" id="distanceSettings">
+              <option>Kilometers</option>
+              <option>Miles</option>
+            </select><br>
+            <h5><span id="shaq-settings-unit">Unit</span> : </h5>
+            <select class="form-control" id="unitSettings">
+              <option>Metric</option>
+              <option>Imperial</option>
+            </select><br>
+            <h5><span id="shaq-settings-weight">Weight</span> : </h5>
+            <select class="form-control" id="weightSettings">
+              <option>Kgs</option>
+              <option>Pounds</option>
+            </select><br>
+          </div>
+        </div>
+      </div>
+
+      <div class="container item">
+        <div id="settings-ugo" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href="https://www.upela.com" target="_blank"><b><span id="shaq-settings-rating-ugo">Ugo</span></b></a>
+            <span class="glyphicon" id="shaq-settings-rating-ugo-auto" title="auto launch"></span>
+            <a href="https://www.upela.com" target="_blank"><span class="pull-right"><img id="shaq-settings-rating-ugo-image" src="" width="48" alt="ugo" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-ugo-body" class="hide">
+              <label><span id="shaq-settings-rating-ugo-url">Ugo URL</span> : </label>
+              <input class="form-control" id="ugoUrlSettings" /><br>
+              <label><span id="shaq-settings-rating-ugo-login">Ugo Login</span> : </label>
+              <input class="form-control" id="ugoLoginSettings" /><br>
+              <label><span id="shaq-settings-rating-ugo-password">Ugo Password</span> : </label>
+              <input type="password" class="form-control" id="ugoPasswordSettings" /><br>
+              <div class="pull-right"><button class="btn btn-default" id="saveUgoCarriersBtn"><span id="shaq-ugo-carriers-btn">View</span></button></div>
+              <div class="container hide" id="UgoCarriersDisplay"></div>
+            </div>
+          </div>
+        </div>
+        <div id="settings-shipengine" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href="https://shipengine.com/" target="_blank"><b><span id="shaq-settings-rating-shipengine">ShipEngine</span></b></a>
+            <span class="glyphicon" id="shaq-settings-rating-shipengine-auto" title="auto launch"></span>
+            <a href="https://shipengine.com/" target="_blank"><span class="pull-right"><img id="shaq-settings-rating-shipengine-image" src="" width="48" alt="shipengine" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-shipengine-body" class="hide">
+              <label><span id="shaq-settings-rating-shipengine-url">ShipEngine URL</span> : </label>
+              <input class="form-control" id="shipengineUrlSettings" /><br>
+              <label><span id="shaq-settings-rating-shipengine-carrier_ids">ShipEngine Carriers</span> : </label>
+              <input class="form-control" id="shipengineCarrierIdsSettings" /><br>
+              <label><span id="shaq-settings-rating-shipengine-login">ShipEngine Token</span> : </label>
+              <input class="form-control" id="shipengineTokenSettings" /><br>
+              <div class="pull-right hide"><button class="btn btn-default" id="saveShipEngineCarriersBtn"><span id="shaq-shipengine-carriers-btn">View</span></button></div>
+              <div class="hide" id="ShipEngineCarriersDisplay"></div>
+            </div>
+          </div>
+        </div>
+        <div id="settings-goshippo" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href="https://goshippo.com/" target="_blank"><b><span id="shaq-settings-rating-goshippo">Goshippo</span></b></a>
+            <span class="glyphicon" id="shaq-settings-rating-goshippo-auto" title="auto launch"></span>
+            <a href="https://goshippo.com/" target="_blank"><span class="pull-right"><img id="shaq-settings-rating-goshippo-image" src="" width="48" alt="goshippo" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-goshippo-body" class="hide">
+              <label><span id="shaq-settings-rating-goshippo-url">Goshippo URL</span> : </label>
+              <input class="form-control" id="goshippoUrlSettings" /><br>
+              <label><span id="shaq-settings-rating-goshippo-login">Goshippo Token</span> : </label>
+              <input class="form-control" id="goshippoTokenSettings" /><br>
+              <div class="pull-right hide"><button class="btn btn-default" id="saveGoShippoCarriersBtn"><span id="shaq-goshippo-carriers-btn">View</span></button></div>
+              <div class="hide" id="GoShippoCarriersDisplay"></div>
+            </div>
+          </div>
+        </div>
+        <div id="settings-skyquote" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href=""><b><span id="shaq-settings-rating-skyquote">Skyquote</span></b></a>
+            <span class="glyphicon" id="shaq-settings-rating-skyquote-auto" title="auto launch"></span>
+            <a href=""><span class="pull-right"><img id="shaq-settings-rating-skyquote-image" src="" width="48" alt="skyquote" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-skyquote-body" class="hide">
+              <label><span id="shaq-settings-rating-skyquote-url">Skyquote URL</span> : </label>
+              <input class="form-control" id="skyquoteUrlSettings" value="NA" /><br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container item">
+        <div id="settings-skoreway" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href="https://www.skoreway.com" target="_blank"><b><span id="shaq-settings-rating-skoreway">Skoreway</span></b>
+              <span class="pull-right"><img id="shaq-settings-rating-skoreway-image" src="" width="48" alt="skoreway" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-skoreway-body" class="hide">
+              <label><span id="shaq-settings-rating-skoreway-url">Skoreway URL</span> : </label>
+              <input class="form-control" id="skorewayUrlSettings" /><br>
+            </div>
+          </div>
+        </div>
+        <div id="settings-easy4pro" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href="https://easy4pro.com/" target="_blank"><b><span id="shaq-settings-rating-easy4pro">Easy4pro</span></b>
+              <span class="pull-right"><img id="shaq-settings-rating-easy4pro-image" src="" width="48" alt="easy4pro" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-easy4pro-body" class="hide">
+              <label><span id="shaq-settings-rating-easy4pro-url">Easy4pro URL</span> : </label>
+              <input class="form-control" id="easy4proUrlSettings" /><br>
+              <label><span id="shaq-settings-rating-easy4pro-login">Easy4pro Login</span> : </label>
+              <input type="password" class="form-control" id="easy4proLoginSettings" /><br>
+              <label><span id="shaq-settings-rating-easy4pro-password">Easy4pro Password</span> : </label>
+              <input type="password" class="form-control" id="easy4proPasswordSettings" /><br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container item">
+        <div id="settings-notifications" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <b><span id="shaq-settings-notifications">Notifications</span></b>
+            <span class="pull-right glyphicon glyphicon-equalizer" style="font-size: 48px;"></span>
+          </div>
+          <div class="panel-body">
+            <label><span id="shaq-settings-notif-popup">Popup</span> : </label>
+            <select class="form-control" id="notifPopup">
+              <option value="0" selected>Disabled</option>
+              <option value="1">Enabled</option>
+            </select><br>
+            <label><span id="shaq-settings-notif-chat">Chat</span> : </label>
+            <select class="form-control" id="notifChat">
+              <option value="0" selected>Disabled</option>
+              <option value="1">Enabled</option>
+            </select><br>
+            <label><span id="shaq-settings-notif-mail">Mail</span> : </label>
+            <select class="form-control" id="notifMail">
+              <option value="0" selected>Disabled</option>
+              <option value="2">Enabled</option>
+            </select><br>
+            <label><span id="shaq-settings-notif-discord">Discord</span> : </label>
+            <select class="form-control" id="notifDiscord">
+              <option value="0" selected>Disabled</option>
+              <option value="4">Enabled</option>
+            </select><br>
+            <div id="discordSettings" class="hide">
+              <div class="col-sm-6">
+                <label><span id="shaq-settings-notif-discord-key">Discord Key</span> : </label>
+                <input class="form-control" id="discordTokenSettings" />
+              </div>
+              <div class="col-sm-3">
+                <label><span id="shaq-settings-notif-discord-channel">Discord Channel</span> : </label>
+                <input class="form-control" id="discordChannelSettings" disabled />
+              </div>
+              <div class="col-sm-3">
+                <div class="pull-right"><br><button class="btn btn-primary" id="discordTestSettings">Test</button></div>
+              </div>
+            </div>
+          </div><br>
+        </div>
+      </div>
+
+      <div class="container item">
+        <div id="settings-chat" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <b><span id="shaq-settings-display">Display</span></b>
+            <span class="pull-right glyphicon glyphicon-blackboard" style="font-size: 48px;"></span>
+          </div>
+          <div class="panel-body">
+            <label><span id="shaq-settings-theme">Theme</span> : </label>
+            <select class="form-control" id="themeSettings">
+              <option value="Default">Default</option>
+              <option value="e4p">Grey</option>
+              <option value="yoctu">Blue</option>
+              <option value="upela">Orange</option>
+              <option value="flash">Red</option>
+              <option value="schwerdt">Yellow</option>
+            </select><br>
+            <label><span id="shaq-settings-message-history">Messages history</span> : </label>
+            <input class="form-control" id="chatHistorySettings"><br>
+            <label><span id="shaq-settings-validity-timer">Shaq Validity Timer</span> : </label>
+            <select class="form-control" id="shaqValidTimerSettings">
+              <option>Enable</option>
+              <option>Disable</option>
+            </select><br>
+            <label><span id="shaq-settings-shipment-visibility">Shipment Box</span> : </label>
+            <select class="form-control" id="shaqShipmentVisibilitySettings">
+              <option>Show</option>
+              <option>Hide</option>
+            </select><br>
+            <label><span id="shaq-settings-chat-visibility">Chat Box</span> : </label>
+            <select class="form-control" id="shaqChatVisibilitySettings">
+              <option>Show</option>
+              <option>Hide</option>
+            </select><br>
+          </div>
+        </div>
+      </div>
+
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+  </div><br><br>
+</div>
+
+<script type="text/javascript">
+var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq ||
+{widgetcode:"f8e6c56792406da3186145dfec1621da92497006f382a048adfe9da553a3dd8e", values:{},ready:function(){}};
+var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;
+s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");
+</script>
+
+<div id="load-footer"></div>
+
+</body>
+</html>
