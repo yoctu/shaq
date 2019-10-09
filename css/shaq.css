@@ -89,7 +89,8 @@ input, select {
 }
 
 .well {
-  border-radius: 8px;
+  border: 0px;
+  border-radius: 0px;
 }
 
 .btn-room {
