@@ -152,6 +152,10 @@ input, select {
 }
 
 .segment {
+  font-weight: bold;
+}
+
+.segmentlight {
   font-weight: 400;
 }
 
