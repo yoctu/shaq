@@ -157,6 +157,7 @@ input, select {
 
 .segmentlight {
   font-weight: 400;
+  padding-bottom: 5px;
 }
 
 .bidBidderCode {
