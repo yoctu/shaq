@@ -1,14 +1,14 @@
-var MOTD = 3;
-
+var MOTD = 4;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
-  <div class="text-center"><b>New Release !</b></div><br><br>\
-  <p><ul> <b>Attach File to Shaq</b> : You can now attach file to shaq</ul>\
-  <ul> <b>Get more Trust</b> : Bidders can request Validators to increase max bidding allowance</ul>\
-  <ul> <b>Show the TMS</b> : Which TMS created a shaq ? You can now see the TMS logo on shaq pages.</ul></p>\
+  <div class="text-center"><b><font color="#4981F1">Bid comment is out there !</font></b></div><br>\
+  <p><div class="text-center">You can now add comment to your bids.<br>\
+  They can be private (only you can see it) <br>or<br> public (both auctioneer and bidder can see it).<br>\
+  Color is yours !<br></p>\
+  </div>\
 </div>\
-<div class="col-sm-12 text-center"><br><b>Happy Shaqing !<b></div>\
+<div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
 <div class="col-sm-12 text-right"><br><br>\
   <a href="https://shaq.yoctu.com" target="_blank">\
   <img style="width:64px;" src="https://shaq.yoctu.com/img/shaqlogo.png" /></a>\

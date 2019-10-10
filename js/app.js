@@ -88,6 +88,9 @@ function informShow(msg, close = true) {
   $("#InformationModalText").html(msg);
   $("#InformationModal").modal("show");
   $("#InformationModalCloseBtn").attr("disabled", close);
+  if (close) setTimeout(function() {
+    $("#InformationModal").modal('hide');
+  }, 1000);
 }
 
 function questionShow(msg, btnmsg) {
@@ -100,9 +103,9 @@ function questionShow(msg, btnmsg) {
 console.log("%cClose the console and shaq !", "color: blue; font-size: 28px");
 notificationInit();
 if (localSettings.themeSettings !== "Default") {
-  $('#theme-css').attr('href', auth.css.substr(0, usercss.lastIndexOf("/")) + '/' + localSettings.themeSettings + '.css');
+  $('#theme-css').attr('href', auth.app.css.substr(0, auth.app.css.lastIndexOf("/")) + '/' + localSettings.themeSettings + '.css');
 } else {
-  $('#theme-css').attr('href', auth.css);
+  $('#theme-css').attr('href', auth.app.css);
 }
 
 $('#alert-target').on('click', function() {
@@ -124,7 +127,7 @@ $('#alert-target').on('click', function() {
   notificationInit();
   socket.emit('notification', {
     "type": "notification",
-    "user": username,
+    "user": auth.username,
     "action": "clear"
   });
 });

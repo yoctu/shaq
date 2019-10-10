@@ -10,11 +10,11 @@ var solrBidTarget = "";
 
 window.shaqs = [];
 
-localStorage.setItem(auth.usercode + "-shaqCenterID", window.id)
+localStorage.setItem(auth.auth.usercode + "-shaqCenterID", window.id)
 window.addEventListener('storage', storageChanged);
 
 function storageChanged(event) {
-  if (window.id !== localStorage.getItem(auth.usercode + "-shaqCenterID")) window.location.href = "https://shaq.yoctu.com/shaqcenter.html";
+  if (window.id !== localStorage.getItem(auth.auth.usercode + "-shaqCenterID")) window.location.href = "https://shaq.yoctu.com/shaqcenter.html";
 }
 
 function searchShaqID(shaqId) {
@@ -59,12 +59,12 @@ function showmore(showmore) {
 
 function closeShaq(shaq) {
   $.ajax({
-    "url": "/api/shaq/" + auth.usercode + "/cancel/" + shaq,
+    "url": "/api/shaq/" + auth.auth.usercode + "/cancel/" + shaq,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqCancelled', JSON.stringify(data));
@@ -90,13 +90,13 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.usercode + '/' + action + '/' + key,
+    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       "200": function(xhr) {
@@ -116,19 +116,19 @@ function removebidder(remove) {
 function subscribe(button) {
   let id = $(button).attr("id").split("_")[1];
   let data = {
-    usercode: auth.usercode,
-    usercodename: auth.usercodename,
+    usercode: auth.auth.usercode,
+    usercodename: auth.auth.usercodename,
     type: "notification",
     action: "subscribe"
   };
   $.ajax({
-    "url": '/api/shaq-public/' + auth.usercode + '/subscribe/' + id,
+    "url": '/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(json) {
       shaqGTAG('Shaq', 'ShaqSubscribe', JSON.stringify(data));
@@ -142,7 +142,7 @@ function renderFunc(row, data) {
   let btnStatus = "disabled"
   if (row.visible === "public") {
     labelColor = "success";
-    if ((row.target && row.target.includes(auth.usercode)) || row.source.includes(auth.usercode)) {
+    if ((row.target && row.target.includes(auth.auth.usercode)) || row.source.includes(auth.auth.usercode)) {
       labelText = row.visible;
     } else {
       labelText = "subscribe";
@@ -151,7 +151,7 @@ function renderFunc(row, data) {
   }
   let returnData = '<div><button onclick="subscribe(this);" id="subscribeBtn_' + row.key + '" class="btn btn-' + labelColor + ' pull-right subscribe ' + row.key + '" style="font-size: 12px; padding: 0px 4px;" ' + btnStatus + '>' + row.visible + '</button></div>';
   for (var d in data) {
-    returnData += '<img width="16" src="' + auth.logourl + row.source[0] + '.png" /> ' + data[d] + '<br>';
+    returnData += '<img width="16" src="' + auth.app.logourl + row.source[0] + '.png" /> ' + data[d] + '<br>';
   }
   return returnData.replace(',', '<br>');
 }
@@ -174,8 +174,8 @@ function renderFuncBidders(row, data) {
         color = "warning";
         bidderglyphicon = "ok";
       }
-      returnData += '<div id="bidderList_' + row.key + '_' + row.target[d] + '" class="bidderslist ' + invisible + ' text-' + color + '"><img width="16" src="' + auth.logourl + row.target[d] + '.png" /> ' + data[d] + '&nbsp';
-      if ((solrTarget !== "-archive") && (auth.usercode === row.source[0])) returnData += ' <a onclick="removebidder(this);" class="remove-bidder" id="' + row.target[d] + '"><span class="glyphicon glyphicon-' + bidderglyphicon + '"> </span></a>';
+      returnData += '<div id="bidderList_' + row.key + '_' + row.target[d] + '" class="bidderslist ' + invisible + ' text-' + color + '"><img width="16" src="' + auth.app.logourl + row.target[d] + '.png" /> ' + data[d] + '&nbsp';
+      if ((solrTarget !== "-archive") && (auth.auth.usercode === row.source[0])) returnData += ' <a onclick="removebidder(this);" class="remove-bidder" id="' + row.target[d] + '"><span class="glyphicon glyphicon-' + bidderglyphicon + '"> </span></a>';
       returnData += '<span class="label label-primary pull-right" data-bids-number="' + row.key + '_' + row.target[d] + '">0</span></div>';
     }
   }
@@ -211,8 +211,8 @@ var renderFunctionDEPlace = function(data, type, row, meta) {
 function renderFuncId(row, data) {
   let IdData = JSON.stringify(data).replace(/\"|\[|\]/g, '');
   let IdDataRender = "";
-  if ((solrTarget !== "-archive") && (auth.usercode === row.source[0])) IdDataRender += ' <a onclick="closeShaq(\'' + row.key + '\');" class="close-shaq"><span class="glyphicon glyphicon-trash"> </span></a>';
-  IdDataRender += '&nbsp;<a href="/' + auth.usercode + '/display/' + row.key + '?type=' + solrTarget + '" target="_blank">' + IdData + '</a>&nbsp;<span class="label label-primary" data-id="' + row.key + '">0</span>&nbsp;';
+  if ((solrTarget !== "-archive") && (auth.auth.usercode === row.source[0])) IdDataRender += ' <a onclick="closeShaq(\'' + row.key + '\');" class="close-shaq"><span class="glyphicon glyphicon-trash"> </span></a>';
+  IdDataRender += '&nbsp;<a href="/' + auth.auth.usercode + '/display/' + row.key + '?type=' + solrTarget + '" target="_blank">' + IdData + '</a>&nbsp;<span class="label label-primary" data-id="' + row.key + '">0</span>&nbsp;';
   let bestbidprice = 0;
   if (row.bestbidprice) bestbidprice = row.bestbidprice;
   IdDataRender += '<span data-toggle="tooltip" title="best Bid" class="label label-success pull-right bestbid_' + row.key + '" style="padding: 4px 4px;">' + bestbidprice + '</span></span><span class="pull-right">&nbsp;</span>';
@@ -232,7 +232,7 @@ function renderFuncId(row, data) {
     default:
       break;
   }
-  IdDataRender += '<br><br><div class="pull-right"><img width="32px;" src="' + auth.logourl + row.creator + '.png" title="TMS : ' + row.creator + '"/></div>';
+  IdDataRender += '<br><br><div class="pull-right"><img width="32px;" src="' + auth.app.logourl + row.creator + '.png" title="TMS : ' + row.creator + '"/></div>';
   IdDataRender += '<div style="padding-bottom: 5px;"></div>';
   IdDataRender += '<div class="shaqlabel"><span id="shaq-created-on">created on<span>: <span id="shaq-date">' + moment(row.reported_at).format('YYYY-MM-DD H:mm') + '</span></div>';
   IdDataRender += '<div class="shaqlabel"><span id="shaq-valid-from">valid from<span>: <span id="shaq-valid-from_' + row.id + '">' + moment(row.valid_from).format('YYYY-MM-DD H:mm') + '</span></div>';
@@ -299,11 +299,11 @@ $('#shaqList').DataTable({
   },
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
+      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
       "dataType": "json",
       "json": "json.wrf",
       "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
       },
       "statusCode": {
         "429": function(xhr) {
@@ -326,11 +326,11 @@ $('#shaqList').DataTable({
         $("#CenterPage").removeClass("hide");
         callback(o);
         $.ajax({
-          "url": '/api/bid' + solrBidTarget + '/' + auth.usercode + '?rows=10000&fl=id,key',
+          "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
           "dataType": "json",
           "json": "json.wrf",
           "beforeSend": function(xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+            xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
           },
           "statusCode": {
             "429": function(xhr) {
@@ -427,7 +427,7 @@ $('#shaqList').on('length.dt', function(e, settings, len) {
   localSettings.pageLenght = rows;
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
 });
-socket.on(auth.usercode, function(data) {
+socket.on(auth.auth.usercode, function(data) {
   let msg = JSON.parse(data.value);
   let statusMessage = "Unkown";
   switch (msg.type) {
@@ -507,8 +507,9 @@ socket.on(auth.usercode, function(data) {
       if ($("." + msg.id).length > 0) break;
       if ((solrTarget === "-public") && (msg.visible !== "public")) break;
       if ((solrTarget === "-archive") && (["created", "running", "selected", "validated", "failed"].includes(msg.status))) break;
-      if (!msg.source.includes(auth.usercode) && (solrTarget !== "-public") && !msg.target) break;
-      if (!msg.source.includes(auth.usercode) && (solrTarget !== "-public") && !msg.target.includes(auth.usercode)) break;
+      if ((solrTarget === "") && (["completed", "cancelled"].includes(msg.status))) break;
+      if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target) break;
+      if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target.includes(auth.auth.usercode)) break;
 
       $('.dataTables_empty').hide();
       labelColor = "danger";

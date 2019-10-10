@@ -1,19 +1,19 @@
 $('#contactHelpBtn').on('click', function() {
   let data = {
-    target: [auth.usercode],
-    username: auth.username,
-    usercode: auth.usercode,
-    email: auth.email,
-    lang: auth.lang,
-    firstname: auth.firstname,
-    lastname: auth.lastname,
+    target: [auth.auth.usercode],
+    username: auth.auth.username,
+    usercode: auth.auth.usercode,
+    email: auth.auth.email,
+    lang: auth.auth.lang,
+    firstname: auth.auth.firstname,
+    lastname: auth.auth.lastname,
     subject: $("#subjectHelp").val(),
     description: $("#descriptionHelp").val(),
     type: "notification",
     action: "mailsupport"
   };
   $.ajax({
-    "url": '/' + auth.usercode + '/help',
+    "url": '/' + auth.auth.usercode + '/help',
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",

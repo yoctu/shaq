@@ -1,5 +1,5 @@
-  var defaultLanguage = auth.lang + '_' + auth.lang.toUpperCase();
-  if (auth.lang === "en") defaultLanguage = 'en_US';
+  var defaultLanguage = auth.auth.lang + '_' + auth.auth.lang.toUpperCase();
+  if (auth.auth.lang === "en") defaultLanguage = 'en_US';
 
   let translateconfig = {
     baseUrl: 'https://translate.easy4pro.com',

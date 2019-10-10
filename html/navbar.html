@@ -71,12 +71,12 @@
   </div>
 </div>
 <script>
-  $('#navbar-usercode').html(auth.usercodename + '<b class="caret"></b>');
-  $("#shaq-navbar-url").attr("href", auth.usercode);
-  $("#navbarNewOrder").attr("href", auth.orderingurl);
-  $("#navbarSettings").attr("href", "/" + auth.usercode + "/settings");
-  $("#navbarHelp").attr("href", "/" + auth.usercode + "/help");
-  $("#navbarLogout").attr("href", "/endpoint/logout?ReturnTo=/" + auth.usercode + "/logout");
+  $('#navbar-usercode').html(auth.app.usercodename + '<b class="caret"></b>');
+  $("#shaq-navbar-url").attr("href", auth.auth.usercode);
+  $("#navbarNewOrder").attr("href", auth.app.orderingurl);
+  $("#navbarSettings").attr("href", "/" + auth.auth.usercode + "/settings");
+  $("#navbarHelp").attr("href", "/" + auth.auth.usercode + "/help");
+  $("#navbarLogout").attr("href", "/endpoint/logout?ReturnTo=/" + auth.auth.usercode + "/logout");
   $('#navbarLogout').on("click", function() {
     localSettings = JSON.parse(localStorage.getItem('shaqSettings'));
     localStorage.clear();
