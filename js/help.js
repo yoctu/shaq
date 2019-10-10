@@ -13,7 +13,7 @@ $('#contactHelpBtn').on('click', function() {
     action: "mailsupport"
   };
   $.ajax({
-    "url": '/' + auth.auth.usercode + '/help',
+    "url": '/api/help/' + auth.auth.usercode + '/send/now',
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
