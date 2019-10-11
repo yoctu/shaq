@@ -63,6 +63,9 @@ $(document).ready(function() {
       "403": function(xhr) {
         status403();
       },
+      "500": function(xhr) {
+        status500();
+      }
     },
     "success": function(configapi) {
       $.extend(true, auth, auth, configapi);
