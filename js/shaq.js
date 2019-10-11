@@ -39,6 +39,7 @@ if (getCookie("ConnectUser") !== "") {
 }
 if (getCookie("Auth0User") !== "") {
   auth.auth = JSON.parse(getCookie("Auth0User"));
+  auth.auth.usercode = userCodePath;
   auth.auth.provider = "auth0";
 }
 
