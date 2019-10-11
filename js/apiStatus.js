@@ -19,4 +19,5 @@ function status406() {
 }
 
 function status500() {
+  window.location.replace("/error500.html");
 }
