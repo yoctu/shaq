@@ -21,6 +21,7 @@ function gtag() {
 }
 gtag('js', new Date());
 gtag('config', 'UA-135283327-2');
+$.getScript("/" + userCodePath + "/js/apiStatus.js");
 
 var localSettings = localStorage.getItem('shaqSettings');
 
@@ -77,7 +78,6 @@ $(document).ready(function() {
         },
         path: '/' + auth.auth.usercode + '/socket.io'
       });
-      $.getScript("/" + userCodePath + "/js/apiStatus.js");
       $.getScript("/" + userCodePath + "/js/translate.js");
       $.getScript("/" + userCodePath + "/js/motd.js");
       $.getScript("/" + userCodePath + "/js/app.js");
