@@ -44,7 +44,7 @@ if (getCookie("Auth0User") !== "") {
 }
 
 auth.auth.authbasic = btoa(auth.auth.username + ":" + auth.auth.userkey)
-if (!auth.auth.lang) auth.auth.lang = "en";
+if (!auth.auth.lang || (auth.auth.lang == "(null)")) auth.auth.lang = "en";
 
 var socket;
 $(document).ready(function() {
