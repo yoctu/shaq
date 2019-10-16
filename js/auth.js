@@ -16,7 +16,7 @@ function getCookie(cname) {
   return "";
 }
 
-var auth = {}; auth.auth = {};
+var auth = {}; auth.auth = {};auth.version = "1.0.0";
 if (getCookie("ConnectUser") !== "") {
   let ConnectUser = JSON.parse(getCookie("ConnectUser"));
   auth.auth.usercode = window.location.pathname.split("/")[1];;
