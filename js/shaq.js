@@ -3,7 +3,6 @@ function gtag() {
 }
 gtag('js', new Date());
 gtag('config', 'UA-135283327-2');
-$.getScript("/" + userCodePath + "/js/apiStatus.js");
 
 var localSettings = localStorage.getItem('shaqSettings');
 
@@ -30,9 +29,10 @@ $(document).ready(function() {
       }
     },
     "success": function(configapi) {
-      $.extend(true, auth, auth, configapi);
-      $("#load-navbar").load("/" + userCodePath + "/html/navbar.html");
-      $("#load-footer").load("/" + userCodePath + "/html/footer.html");
+      $.getScript("/" + auth.auth.usercode + "/js/apiStatus.js");
+      $.extend(true, auth, auth, auth.auth.usercode);
+      $("#load-navbar").load("/" + auth.auth.usercode + "/html/navbar.html");
+      $("#load-footer").load("/" + auth.auth.usercode + "/html/footer.html");
       socket = io('/shaq', {
         transportOptions: {
           polling: {
@@ -43,30 +43,30 @@ $(document).ready(function() {
         },
         path: '/' + auth.auth.usercode + '/socket.io'
       });
-      $.getScript("/" + userCodePath + "/js/translate.js");
-      $.getScript("/" + userCodePath + "/js/motd.js");
-      $.getScript("/" + userCodePath + "/js/app.js");
+      $.getScript("/" + auth.auth.usercode + "/js/translate.js");
+      $.getScript("/" + auth.auth.usercode + "/js/motd.js");
+      $.getScript("/" + auth.auth.usercode + "/js/app.js");
       switch (window.location.pathname.split("/")[2]) {
         case "settings":
-          $.getScript("/" + userCodePath + "/js/settings.js");
+          $.getScript("/" + auth.auth.usercode + "/js/settings.js");
           break;
         case "display":
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey +'&callback=initMap');
-          $.getScript("/" + userCodePath + "/js/shaq-display-functions.js");
-          $.getScript("/" + userCodePath + "/js/shaq-display.js");
-          $.getScript("/" + userCodePath + "/js/swiper.js");
+          $.getScript("/" + auth.auth.usercode + "/js/shaq-display-functions.js");
+          $.getScript("/" + auth.auth.usercode + "/js/shaq-display.js");
+          $.getScript("/" + auth.auth.usercode + "/js/swiper.js");
           break;
         case "maxbidauthorizations":
-          $.getScript("/" + userCodePath + "/js/mba.js");
+          $.getScript("/" + auth.auth.usercode + "/js/mba.js");
           break;
         case "bidauthorizations":
-          $.getScript("/" + userCodePath + "/js/ba.js");
+          $.getScript("/" + auth.auth.usercode + "/js/ba.js");
           break;
         case "help":
-          $.getScript("/" + userCodePath + "/js/help.js");
+          $.getScript("/" + auth.auth.usercode + "/js/help.js");
           break;
         default:
-          $.getScript("/" + userCodePath + "/js/shaq-center.js");
+          $.getScript("/" + auth.auth.usercode + "/js/shaq-center.js");
           break;
       }
     }
