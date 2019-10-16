@@ -9,7 +9,7 @@ var localSettings = localStorage.getItem('shaqSettings');
 var socket;
 $(document).ready(function() {
   $.ajax({
-    "url": "/api/config/" + auth.auth.usercode,
+    "url": window.location.protocol + "//" + window.location.host + "/api/config/" + auth.auth.usercode,
     "dataType": "json",
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
@@ -30,7 +30,7 @@ $(document).ready(function() {
     },
     "success": function(configapi) {
       $.getScript("/" + auth.auth.usercode + "/js/apiStatus.js");
-      $.extend(true, auth, auth, auth.auth.usercode);
+      $.extend(true, auth, auth, configapi);
       $("#load-navbar").load("/" + auth.auth.usercode + "/html/navbar.html");
       $("#load-footer").load("/" + auth.auth.usercode + "/html/footer.html");
       socket = io('/shaq', {

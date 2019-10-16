@@ -71,6 +71,7 @@
   </div>
 </div>
 <script>
+$(document).ready(function() {
   $('#navbar-usercode').html(auth.app.usercodename + '<b class="caret"></b>');
   $("#shaq-navbar-url").attr("href", auth.auth.usercode);
   $("#navbarNewOrder").attr("href", auth.app.orderingurl);
@@ -82,4 +83,5 @@
     localStorage.clear();
     localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
   });
+});
 </script>
