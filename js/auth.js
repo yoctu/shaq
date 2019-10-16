@@ -1,5 +1,9 @@
 window.dataLayer = window.dataLayer || [];
 
+var auth = {};
+auth.auth = {};
+auth.version = "1.0.0";
+
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -16,7 +20,6 @@ function getCookie(cname) {
   return "";
 }
 
-var auth = {}; auth.auth = {};auth.version = "1.0.0";
 if (getCookie("ConnectUser") !== "") {
   let ConnectUser = JSON.parse(getCookie("ConnectUser"));
   auth.auth.usercode = window.location.pathname.split("/")[1];;
