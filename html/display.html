@@ -13,13 +13,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.25/moment-timezone-with-data.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/r-2.2.2/datatables.min.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/css/shaq.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/css/shaq.css" id="theme-css" />
+<link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" />
+<link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" id="theme-css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js"></script>
 <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
@@ -97,7 +93,7 @@
             <div class="pull-right"><img width="32px;" id="tmslogo" src="/" /></div>
             <div id="shaq-files" class="hide" style="padding-top: 10px;">
               <div id="ShaqFile" class="pull-right">
-                <input multiple="" class="form-control fileupload" style="display: none !important;" id="fileshaq" name="file[]" type="file" onchange="uploadshaqFile()"/>
+                <input multiple="" class="form-control fileupload" style="display: none !important;" id="fileshaq" name="file[]" type="file" onchange="uploadshaqFile()" />
                 <div class="table-responsive"><a id="hrefshaq" class="btn btn-xs btn-primary upload_add_shaq_files">Add files...</a></div>
               </div>
             </div>
@@ -106,7 +102,7 @@
           <div class="clearfix"></div>
         </div>
         <div class="col-md-12 panel-shipment-background" style="padding-top: 20px;">
-          <div class="col-md-4" style="height: 320px; padding-bottom: 20px;">
+          <div class="col-md-4">
             <div id="map" style="height: 300px; padding-bottom: 20px;"></div>
             <div id="googleMapStart"></div>
             <div id="googleMapEnd"></div>
@@ -136,7 +132,13 @@
                 });
               }
             </script>
-
+            <div id="get-it-now" class="col-sm-12 col-md-12 col-lg-12 hide">
+              <div class="row">
+                <div class="well text-center">
+                  <button class="btn btn-default btn-danger get-it-now-text btn-bid"></button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-md-4" style="padding-bottom: 20px;">
             <div class="well" style="padding-left: 40px;">
@@ -153,7 +155,7 @@
             </div>
             <div id="shaq-well-transport-extra" class="well">
               <div style="padding-left: 40px;">
-                <div class="shaqlabel">Distance</div>
+                <div id="shaq-distance-label" class="shaqlabel hide">Distance</div>
                 <div id="shaq-distance" class="segment"></div>
               </div>
               <div style="padding-left: 40px;">
@@ -189,19 +191,29 @@
         </div>
         <div class="col-sm-12" id="package-list">
           <div class="well well-package" id="total-packages-well">
-            <div class="col-sm-3">
-              <div class="shaqlabel">Total quantity</div>
-              <div id="shaq-total-package" class="segment"></div>
+            <div class="col-sm-3 col-xs-12" align="center">
+              <div class="col-sm-6 col-xs-6">
+                <div class="well well-package-total" style="padding-top:15px;">
+                  <div class="shaqlabel">Total Q</div>
+                  <div id="shaq-total-package" class="segment text-center" style="padding-top:15px;padding-bottom:15px;"></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-6">
+                <span><img src="https://yoctu.github.io/yoctu-website/img/package.png" width="92" /></span>
+              </div>
             </div>
-            <div class="col-sm-3">
-              <div class="shaqlabel">Total weight</div>
-              <div id="shaq-total-weight" class="segment"></div>
-            </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3 col-xs-12 text-center">
               <div class="shaqlabel">Total volume</div>
               <div id="shaq-total-volume" class="segment"></div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3 col-xs-12 text-center">
+              <div class="shaqlabel">Total weight</div>
+              <div id="shaq-total-weight" class="segment"></div>
+            </div>
+            <div class="col-sm-1 col-xs-6 text-center">
+              <span><img src="https://yoctu.github.io/yoctu-website/img/no-ADR.svg" width="64" style="padding-top:15px;"/></span>
+            </div>
+            <div class="col-sm-2 col-xs-6">
               <button class="btn btn-default pull-right btn-glyphicon showPackage">
                 <span class="glyphicon glyphicon-triangle-bottom btn-message-extend-glyphicon"></span>
               </button>
@@ -210,21 +222,37 @@
           </div>
           <div class="hide" id="packageList">
             <div class="well well-package" id="packages-well">
-              <div class="col-sm-3">
-                <div class="shaqlabel">Quantity</div>
-                <div class="segment shaq-pkg-number"></div>
+              <div class="col-sm-3 col-xs-12" align="center">
+                <div class="col-sm-6 col-xs-6">
+                  <div class="well well-package-list" style="padding-top:15px;">
+                    <div class="shaqlabel">Quantity</div>
+                    <div class="segment shaq-pkg-number"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                  <span><img src="https://yoctu.github.io/yoctu-website/img/package.png" width="92" /></span>
+                </div>
               </div>
-              <div class="col-sm-3">
-                <div class="shaqlabel">Dimension</div>
-                <div id="shaq-dimension" class="segment shaq-pkg-dimension"></div>
+              <div class="col-sm-3 col-xs-12">
+                <div class="shaqlabel">Dimensions</div>
+                <div class="segmentlight text-center shaq-pkg-dimension-lenght"></div>
+                <div class="segmentlight text-center shaq-pkg-dimension-width"></div>
+                <div class="segmentlight text-center shaq-pkg-dimension-height"></div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-2 col-xs-12">
+                <div class="shaqlabel">Weight</div>
+                <div class="segmentlight text-center segmentlight text-center shaq-pkg-dimension-weight"></div>
+              </div>
+              <div class="col-sm-2 col-xs-12">
                 <div class="shaqlabel">Stackable</div>
-                <div id="shaq-stackable" class="segment shaq-pkg-stackable"></div>
-              </div>
-              <div class="col-sm-3">
+                <div class="segment text-center shaq-pkg-stackable"></div>
                 <div class="shaqlabel">Notes</div>
-                <div id="shaq-pkg-notes" class="segment shaq-pkg-notes"></div>
+                <div id="shaq-pkg-notes" class="segment text-center shaq-pkg-notes"></div>
+              </div>
+              <div class="col-sm-1 col-xs-12 text-center">
+                <span><img src="https://yoctu.github.io/yoctu-website/img/no-ADR.svg" width="64" style="padding-top:15px;"/></span>
+              </div>
+              <div class="col-sm-1 text-center">
               </div>
               <div class="clearfix"></div>
             </div>
@@ -232,17 +260,17 @@
         </div>
       </div>
 
-      <div id="get-it-now" class="col-sm-12 col-md-12 col-lg-12 hide">
-        <div class="container">
-          <div class="well text-center">
-            <button class="btn btn-default btn-danger get-it-now-text btn-bid"></button>
-          </div>
-        </div>
-      </div>
-
       <div id="bid-add" class="col-sm-12 text-left hide">
         <div id="bid-info" class="bid-info-list" style="page-break-after:always;">
-          <div class="well">
+          <div class="well" style="padding-top:0px;">
+            <div class="col-sm-9"></div>
+            <div class="col-sm-3 text-center">
+              <span>&nbsp</span>
+              <span class="glyphicon glyphicon-bookmark fa-2x aflag1 hide" style="color:red;"></span>
+              <span class="glyphicon glyphicon-bookmark fa-2x aflag2 hide" style="color:blue;"></span>
+              <span class="glyphicon glyphicon-bookmark fa-2x bflag1 hide" style="color:green;"></span>
+              <span class="glyphicon glyphicon-bookmark fa-2x bflag2 hide" style="color:orange;"></span>
+            </div>
             <div class="col-sm-12" style="padding-bottom:10px;padding-left:5px; padding-right:5px">
               <span class="pull-right glyphicon glyphicon-plus bidflags" title="add flag and comment"></span>
               <div class="col-sm-4 col-xs-12" style="padding-left:5px; padding-right:5px;">
@@ -479,7 +507,7 @@
                     <button type="button" id="cancel-all-btn" class="btn btn-default btn-warning"><span class="glyphicon glyphicon-minus"></span> Cancel all</button>
                   </span>
                 </div>
-                <div id="set-it-now" class="input-group pull-right hide"  style="padding: 5px;">
+                <div id="set-it-now" class="input-group pull-right hide" style="padding: 5px;">
                   <span class="input-group-btn text-center">
                     <button type="button" id="set-it-now-btn" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
                   </span>

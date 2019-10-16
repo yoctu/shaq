@@ -89,7 +89,8 @@ input, select {
 }
 
 .well {
-  border-radius: 8px;
+  border: 0px;
+  border-radius: 0px;
 }
 
 .btn-room {
@@ -153,7 +154,11 @@ input, select {
 
 .segment {
   font-weight: bold;
-  line-height: 1.5;
+}
+
+.segmentlight {
+  font-weight: 400;
+  padding-bottom: 5px;
 }
 
 .bidBidderCode {
@@ -318,4 +323,24 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
     -webkit-box-shadow: 0px 0px 0px 3px var(--main-bg-color);
     -moz-box-shadow: 0px 0px 0px 3px var(--main-bg-color);
     box-shadow: 0px 0px 0px 3px var(--main-bg-color);
+}
+
+.well-package-list {
+  width:70px;
+  background-color:#40598B;
+  color:white;
+  padding-top:5px;
+  padding-bottom:15px;
+  margin-bottom:15px;
+  border-radius: 8px;
+}
+
+.well-package-total {
+  width:70px;
+  background-color:#444444;
+  color:white;
+  padding-top:5px;
+  padding-bottom:5px;
+  margin-bottom:0px;
+  border-radius: 8px;
 }

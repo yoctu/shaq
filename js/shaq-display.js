@@ -6,18 +6,19 @@ var solrTarget = new URLSearchParams(location.search).has('type') ? new URLSearc
 window.shaq = '';
 window.timerBid = [];
 window.bids = [];
+window.chats = [];
 window.bidsInfo = [];
 window.chatsInfo = [];
 
-localStorage.setItem(auth.usercode + "-" + ShaqID, window.id);
+localStorage.setItem(auth.auth.usercode + "-" + ShaqID, window.id);
 window.addEventListener('storage', storageChanged);
 
 function storageChanged(event) {
-  if (window.id !== localStorage.getItem(auth.usercode + "-" + ShaqID)) window.location.href = "https://shaq.yoctu.com/shaqcenter.html";
+  if (window.id !== localStorage.getItem(auth.auth.usercode + "-" + ShaqID)) window.location.href = "https://shaq.yoctu.com/shaqcenter.html";
 }
 
-$('#bid-add').find('.bidBidderName').text(auth.username);
-if (auth.maxbids > 0) $('#bidMaxBidder').text(" / " + auth.maxbids);
+$('#bid-add').find('.bidBidderName').text(auth.auth.username);
+if (auth.auth.maxbids > 0) $('#bidMaxBidder').text(" / " + auth.auth.maxbids);
 if ((auth.notifications & 1) || (localSettings.chatShow === "Show")) $('#chat-box').removeClass("hide");
 
 $("#dateTimePicker").DateTimePicker({
@@ -36,12 +37,12 @@ $('input[data-field="datetime"], input[data-field="date"], input[data-field="tim
 function closeShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Closing Shaq</span>');
   $.ajax({
-    "url": "/api/shaq/" + auth.usercode + "/cancel/" + window.shaq.key,
+    "url": "/api/shaq/" + auth.auth.usercode + "/cancel/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqCancelled', JSON.stringify(data));
@@ -57,7 +58,6 @@ function noSolution() {
   $('.btn-getitnow-bid').attr('title', 'Get It Now !');
   $('#bid-add .well').find("input").prop("disabled", true);
   $('#bid-add .well').find("select").prop("disabled", true);
-  if ($("#InformationModal").is(':visible')) $("#InformationModal").modal('hide');
 }
 
 function showmore(showmore) {
@@ -79,20 +79,20 @@ function showmore(showmore) {
 function sendMessage(data) {
   data.id = uuidv4();
   data.date = new Date().toISOString();
-  data.from = username;
+  data.from = auth.auth.username;
   data.key = window.shaq.key;
-  data.target = [window.chatCurrent];
+  if (!data.target) data.target = [window.chatCurrent];
   data.type = "message";
   data.status = "sent";
   $.ajax({
-    "url": "/api/chat/" + auth.usercode + "/" + window.shaq.key,
+    "url": "/api/chat/" + auth.auth.usercode + "/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify([data]),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(msgs) {
       shaqGTAG('Chat', 'ChatSend', JSON.stringify(data));
@@ -108,17 +108,14 @@ function rate(rater) {
   $("#" + rater + "_RefreshBtn").addClass("hide");
   if (window.shaq.visible === "public") service = "shaq-public";
   $.ajax({
-    "url": '/api/' + service + '/' + auth.usercode + '/' + rater + '/' + window.shaq.key,
+    "url": '/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
-      setTimeout(function() {
-        $("#InformationModal").modal('hide');
-      }, 1000);
     }
   });
 }
@@ -130,13 +127,13 @@ function readdallbidders() {
     action: "readdall"
   };
   $.ajax({
-    "url": '/api/shaq/' + auth.usercode + '/readdall/' + window.shaq.key,
+    "url": '/api/shaq/' + auth.auth.usercode + '/readdall/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
       for (let t in window.shaq.target) {
@@ -148,9 +145,6 @@ function readdallbidders() {
           "target": [window.shaq.target[t]]
         });
       }
-      setTimeout(function() {
-        $("#InformationModal").modal('hide');
-      }, 1000);
       shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
     }
   });
@@ -163,13 +157,13 @@ function removeallbidders() {
     action: "removeall"
   };
   $.ajax({
-    "url": '/api/shaq/' + auth.usercode + '/removeall/' + window.shaq.key,
+    "url": '/api/shaq/' + auth.auth.usercode + '/removeall/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
       for (let t in window.shaq.target) {
@@ -181,9 +175,6 @@ function removeallbidders() {
           "target": [window.shaq.target[t]]
         });
       }
-      setTimeout(function() {
-        $("#InformationModal").modal('hide');
-      }, 1000);
       shaqGTAG('Shaq', 'ShaqRemoveAll', JSON.stringify(data));
     }
   });
@@ -200,13 +191,13 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": '/api/shaq/' + auth.usercode + '/' + action + '/' + window.shaq.key,
+    "url": '/api/shaq/' + auth.auth.usercode + '/' + action + '/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
       let actionText = "You have been enabled!";
@@ -217,9 +208,6 @@ function removebidder(remove) {
         "channel": action,
         "target": [target]
       });
-      setTimeout(function() {
-        $("#InformationModal").modal('hide');
-      }, 1000);
       shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
     }
   });
@@ -236,15 +224,15 @@ function extendShaqDecision(xHour) {
     action: "extenddecision"
   }
   $.ajax({
-    "url": '/api/shaq/' + auth.usercode + '/extenddecision/' + window.shaq.key,
+    "url": '/api/shaq/' + auth.auth.usercode + '/extenddecision/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
-    "complete": function(json) {
+    "success": function(json) {
       shaqGTAG('Shaq', 'ShaqExtendDecision', JSON.stringify(data));
       if (json.status === 404) return;
       let colorClass = "text-success";
@@ -266,13 +254,13 @@ function extendShaqValidity(xHour) {
     action: "extendvalidity"
   }
   $.ajax({
-    "url": '/api/shaq/' + auth.usercode + '/extendvalidity/' + window.shaq.key,
+    "url": '/api/shaq/' + auth.auth.usercode + '/extendvalidity/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
       let colorClass = "text-success";
@@ -298,8 +286,8 @@ function bidderDisplay() {
     if (window.shaq.targetStatus && window.shaq.targetStatus[bidders] === "Removed") color = "text-warning";
     if (window.shaq.targetStatus && window.shaq.targetStatus[bidders] === "Searching") color = "text-success";
     $('#bid-filtering-field').append('<option value="' + window.shaq.target[bidders] + '">' + window.shaq.targetName[bidders] + '</option>');
-    bidderDisplay += '<div id="bidderList_' + window.shaq.target[bidders] + '" class="bidderslist ' + tohide + ' ' + color + '"><img width="16" src="' + auth.logourl + window.shaq.target[bidders] + '.png" /> ' + window.shaq.targetName[bidders] + '</font>';
-    if (auth.usercode === window.shaq.source[0]) {
+    bidderDisplay += '<div id="bidderList_' + window.shaq.target[bidders] + '" class="bidderslist ' + tohide + ' ' + color + '"><img width="16" src="' + auth.app.logourl + window.shaq.target[bidders] + '.png" /> ' + window.shaq.targetName[bidders] + '</font>';
+    if (auth.auth.usercode === window.shaq.source[0]) {
       let glyphiconbidder = "remove";
       if (window.shaq.targetStatus && (window.shaq.targetStatus[bidders] === "Removed")) glyphiconbidder = "ok";
       bidderDisplay += ' <a onclick="removebidder(this);" class="remove-bidder" id="' + window.shaq.target[bidders] + '"><span class="glyphicon glyphicon-' + glyphiconbidder + '"> </span></a> ';
@@ -327,18 +315,18 @@ function uploadFile(bid) {
   let formData = new FormData();
   formData.append('file', fileBid[0], fileBid[0].name);
   $.ajax({
-    "url": '/api/bid/' + auth.usercode + '/uploadbidfile/' + window.shaq.key + "?id=" + bid.id,
+    "url": '/api/bid/' + auth.auth.usercode + '/uploadbidfile/' + window.shaq.key + "?id=" + bid.id,
     "method": "POST",
     "processData": false,
     "contentType": false,
     "data": formData,
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
       let file = 0;
       if (bid.files) file = bid.files.length;
-      $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="' + window.location.protocol + '//' + auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
+      $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
       shaqGTAG('Bid', 'BidUploadFile', fileBid[0].name);
     }
   });
@@ -350,21 +338,21 @@ function uploadshaqFile() {
   let formData = new FormData();
   formData.append('file', fileShaq[0], fileShaq[0].name);
   $.ajax({
-    "url": '/api/shaq/' + auth.usercode + '/uploadshaqfile/' + window.shaq.key + "?id=" + shaq.id,
+    "url": '/api/shaq/' + auth.auth.usercode + '/uploadshaqfile/' + window.shaq.key + "?id=" + shaq.id,
     "method": "POST",
     "processData": false,
     "contentType": false,
     "data": formData,
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
       $("#filetoUploadShaq").html("");
       let file = 0;
       if (shaq.files) file = shaq.files.length;
       for (file in shaq.files) {
-        //$("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + username + ':' + userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
-        $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + username + ':' + userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + shaq.key + '?id=' + shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + shaq.files[file].slice(shaq.files[file].indexOf("_") + 1) + '</a></div>');
+        //$("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
+        $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + shaq.key + '?id=' + shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + shaq.files[file].slice(shaq.files[file].indexOf("_") + 1) + '</a></div>');
       }
       shaqGTAG('Shaq', 'ShaqUploadFile', fileShaq[0].name);
     }
@@ -373,12 +361,14 @@ function uploadshaqFile() {
 
 
 function ShaqCompleted(winbid) {
+  if (["created","searching","running","selected","validated"].includes(window.shaq.status)) return;
   $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>').prop("disabled", true);
   $('#shaq-status').attr("title", window.shaq.status);
   $('.btn-send-message').prop("disabled", true);
   $('.notifyAllBidders').prop("disabled", true);
   $("#set-it-now-btn").prop("disabled", true);
   $("#decline-all-btn").prop("disabled", true);
+  $("#cancel-all-btn").prop("disabled", true);
   $("#winningbidcalc").prop("disabled", true);
   $(".bidflags").addClass("hide");
   $('.btn-bid').prop("disabled", true);
@@ -389,7 +379,6 @@ function ShaqCompleted(winbid) {
   $('#shaq-valid').html("00:00");
   $('#shaq-from').html("00:00");
   $('#shaq-from-title').html("00:00");
-  $('#shaq-name').prop("disabled", true);
   $(".get-it-now-text").prop("disabled", true);
   $(".set-it-now").addClass("hide");
   $(".fileuploadQueue-handler").hide();
@@ -438,20 +427,20 @@ function bidRefresh(bidInfo, bid) {
     if (window.shaq.target[key] === bid.source[0]) {
       bidInfo.find('.bidBidderCode').html(window.shaq.targetName[key]);
       bidInfo.find('.bidBidderId').html(bid.id);
-      if (((bid.source[0]) === auth.usercode) && auth.fileUpload) {
+      if (((bid.source[0]) === auth.auth.usercode) && auth.app.fileUpload) {
         let fileData = '<input multiple="" class="form-control fileupload" style="display: none !important;" id="file' + bid.id.substring(1, 8) + '" name="file[]" type="file" onchange=\'uploadFile(' + JSON.stringify(bid) + ');\'/><div class="table-responsive fileuploadQueue-handler">';
         fileData += '<a id="href' + bid.id.substring(1, 8) + '" class="btn btn-xs btn-primary upload_add_files" onclick="$(\'#file' + bid.id.substring(1, 8) + '\').trigger(\'click\');">Add files...</a></div>';
         fileData += '<div id="filetoUpload' + bid.id.substring(1, 8) + '"></div>';
         for (file in bid.files) {
-          fileData += '<div><a href="' + window.location.protocol + '//' + username + ':' + userkey + '@' + window.location.host + '/api/bid/' + auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
+          fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
         }
         bidInfo.find('.bidBidderFile').html(fileData);
       }
     } else {
-      if ((bid.target[0] === auth.usercode) && auth.fileUpload) {
+      if ((bid.target[0] === auth.auth.usercode) && auth.app.fileUpload) {
         let fileData = "";
         for (file in bid.files) {
-          fileData += '<div><a href="' + window.location.protocol + '//' + username + ':' + userkey + '@' + window.location.host + '/api/bid/' + auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
+          fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
         }
         bidInfo.find('.bidBidderFile').html(fileData);
       }
@@ -470,7 +459,33 @@ function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidVehicle').attr('disabled', 'disabled');
   bidInfo.find('.bidDeDate').val(moment(bid.deDate).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', ''));
   bidInfo.find('.bidDeDate').removeAttr("data-field");
-  if (window.shaq.source.includes(auth.usercode)) bidInfo.find('.hollowData').removeClass("hide");
+  if (bid.sourceComment && (bid.sourceComment.length > 0)) {
+    bidInfo.find(".bflag1").css("color", bid.sourceComment[0]);
+    bidInfo.find(".bflag1").removeClass("hide");
+    bidInfo.find(".bflag1").attr('title', bid.sourceComment[1]);
+  }
+  if (bid.sourceComment && (bid.sourceComment.length > 4)) {
+    bidInfo.find(".bflag2").css("color", bid.sourceComment[4]);
+    bidInfo.find(".bflag2").removeClass("hide");
+    bidInfo.find(".bidflags").addClass("hide");
+    bidInfo.find(".bflag2").attr('title', bid.sourceComment[5]);
+  }
+  if (bid.targetComment && (bid.targetComment.length > 0)) {
+    bidInfo.find(".aflag1").css("color", bid.targetComment[0]);
+    bidInfo.find(".aflag1").removeClass("hide");
+    bidInfo.find(".aflag1").attr('title', bid.targetComment[1]);
+  }
+  if (bid.targetComment && (bid.targetComment.length > 4)) {
+    bidInfo.find(".aflag2").css("color", bid.targetComment[4]);
+    bidInfo.find(".aflag2").removeClass("hide");
+    bidInfo.find(".bidflags").addClass("hide");
+    bidInfo.find(".aflag2").attr('title', bid.targetComment[5]);
+  }
+  bidInfo.find('.bidflags').bind("click", function() {
+    bidInfo.find('.bidflags').data("id", bid.id);
+    bidsFlag(bidInfo.find('.bidflags'))
+  });
+  if (window.shaq.source.includes(auth.auth.usercode)) bidInfo.find('.hollowData').removeClass("hide");
   if (bid.score) {
     bidInfo.find(".scoreinvitedspan").text(bid.score[0]);
     bidInfo.find(".scoreavgbidspan").text(bid.score[1]);
@@ -494,6 +509,9 @@ function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidLang').val(bid.lang);
   bidInfo.find('.bidLang').attr('disabled', 'disabled');
   bidInfo.find('.btn-bid-extend-glyphicon').data("bid-id-to-extend", bid.id);
+  bidInfo.find('.btn-bid-extend-glyphicon').bind("click", function() {
+    bidsextendsDetail(bidInfo.find('.btn-bid-extend-glyphicon'))
+  });
   bidInfo.find('.btn-bid-extend-detail').addClass('hide');
   if (["running"].includes(window.shaq.status)) {
     if (["created", "running", "forwarded", "authorized"].includes(bid.status)) bidInfo.find('.well').addClass('well-warning');
@@ -515,7 +533,7 @@ function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidTransitTime').text(TransitCalc(bidInfo.find('.bidPuDate').val(), bidInfo.find('.bidDeDate').val(), window.shaq.puPlace[4], window.shaq.dePlace[4]));
   if (bid.loaded === "Yes") bidInfo.find('.bidLoaded').addClass("btn-info");
   if (bid.driver == "2") bidInfo.find('.bidDriver').addClass("btn-info");
-  bidInfo.find('.img-bidder-logo').attr("src", auth.logourl + bid.source[0] + ".png");
+  bidInfo.find('.img-bidder-logo').attr("src", auth.app.logourl + bid.source[0] + ".png");
   if (bid.logo && Raters.includes(bid.source[0])) {
     bidInfo.find('.img-rating-logo').attr("src", bid.logo);
     bidInfo.find('.img-rating-logo').removeClass("hide");
@@ -601,7 +619,7 @@ function bidRefresh(bidInfo, bid) {
     bidInfo.find('.btn-forward-bid').addClass('hide');
     bidInfo.find('.btn-decline-bid').addClass('hide');
   }
-  if (Object.values(window.bids).length >= auth.maxbids) {
+  if (Object.values(window.bids).length >= auth.auth.maxbids) {
     $('.btn-create-bid').attr("disabled", true);
     $('.btn-create-bid').attr('title', 'Maximum Bids reached !');
     $('.btn-no-solution-bid').attr("disabled", true);
@@ -614,22 +632,26 @@ function bidRefresh(bidInfo, bid) {
 
 function shaqRefresh() {
   $('#shaq-status').attr("title", window.shaq.status);
-  $("#tmslogo").attr('src', auth.logourl + window.shaq.creator + ".png");
-  auth.usercodeName = window.shaq.sourceName[0];
-  $('#ChatList').html('<p><button id="Notifications-Chat" class="btn btn-default btn-room"><img class="bidder-image" src="https://yoctu.github.io/yoctu-website/img/logo-svg/notification.svg" /> Notifications <span id="chatBadge-notification" class="badge"></span></button></p>');
-  $('#ChatList').append('<p><button id="' + window.shaq.source[0] + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.logourl + window.shaq.source[0] + '.png" />  ' + window.shaq.sourceName[0] + ' <span id="chatBadge-' + window.shaq.source[0] + '" class="badge">0</span></button></p>');
-  if (window.shaq.target && window.shaq.target.includes(auth.usercode)) {
-    auth.usercodeName = window.shaq.targetName[window.shaq.target.indexOf(auth.usercode)];
-    $('#ChatList').append('<p><button id="' + auth.usercode + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.logourl + auth.usercode + '.png" />  ' + auth.usercodeName + ' <span id="chatBadge-' + auth.usercode + '" class="badge">0</span></button></p>');
-    window.chatsInfo[auth.usercode] = [];
-  }
-  if (window.shaq.target && window.shaq.target.includes(auth.usercode)) {
+  $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
+  auth.auth.usercodeName = window.shaq.sourceName[0];
+  if (window.shaq.target && window.shaq.target.includes(auth.auth.usercode)) {
+    if (window.shaq.targetStatus[window.shaq.target.indexOf(auth.auth.usercode)] === "Removed") {
+      window.shaq = {};
+      $('.header-content').hide();
+      $('#not-found-message-text').html('<a href="#">You have been Removed</a><br><br>try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.');
+      $('#not-found-message').removeClass('hide');
+      return;
+    } else {
+      $('#not-found-message').addClass('hide');
+      $('.header-content').show();
+    }
     $('.btn-bidder').removeClass("hide");
     $('#bid-add').removeClass("hide");
     $('#bid-add').find('.btn-bid-extend-detail').removeClass("hide");
     $("#bid-add").find('.btn-create-bid').removeClass('hide');
     $("#bid-add").find('.btn-no-solution-bid').removeClass('hide');
     $("#bid-add").find('.btn-getitnow-bid').removeClass('hide');
+    $("#bid-add").find(".bidBidderRatingScore").html("");
     for (var ratingCpt = 1; ratingCpt < auth.rating; ratingCpt++) {
       $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating1.png" />');
     }
@@ -637,7 +659,25 @@ function shaqRefresh() {
       $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating0.png" />');
     }
   }
-  if (window.shaq.source.includes(auth.usercode)) {
+  $('#ChatList').html('<p><button id="Notifications-Chat" class="btn btn-default btn-room"><img class="bidder-image" src="https://yoctu.github.io/yoctu-website/img/logo-svg/notification.svg" /> Notifications <span id="chatBadge-notification" class="badge"></span></button></p>');
+  $('#ChatList').append('<p><button id="' + window.shaq.source[0] + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.app.logourl + window.shaq.source[0] + '.png" />  ' + window.shaq.sourceName[0] + ' <span id="chatBadge-' + window.shaq.source[0] + '" class="badge">0</span></button></p>');
+  if (window.shaq.target && window.shaq.target.includes(auth.auth.usercode)) {
+    auth.auth.usercodeName = window.shaq.targetName[window.shaq.target.indexOf(auth.auth.usercode)];
+    $('#ChatList').append('<p><button id="' + auth.auth.usercode + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.app.logourl + auth.auth.usercode + '.png" />  ' + auth.auth.usercodeName + ' <span id="chatBadge-' + auth.auth.usercode + '" class="badge">0</span></button></p>');
+    window.chatsInfo[auth.auth.usercode] = [];
+  }
+  for (let chat in window.shaq.source) {
+    window.chatsInfo[window.shaq.source[chat]] = [];
+  }
+  for (let chat in window.shaq.target) {
+    if (Raters.includes(window.shaq.target[chat])) continue;
+    window.chatsInfo[window.shaq.target[chat]] = [];
+  }
+  for (let chat in window.chats.sort()) {
+    updateChat(window.chats[chat])
+  }
+  if (window.chats.length > 0) switchRoom();
+  if (window.shaq.source.includes(auth.auth.usercode)) {
     if (["running", "selected", "validated", "failed"].includes(window.shaq.status)) $('.btnbidderAction').removeClass("hide");
     $('#bid-filtering-field-grp').removeClass("hide");
     $('#bid-sorting-field-grp').removeClass("hide");
@@ -646,7 +686,7 @@ function shaqRefresh() {
     $("#set-it-now").removeClass("hide");
     for (var rooms in window.shaq.target) {
       if (Raters.includes(window.shaq.target[rooms])) continue;
-      $('#ChatList').append('<p><button id="' + window.shaq.target[rooms] + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.logourl + window.shaq.target[rooms] + '.png" />  ' + window.shaq.targetName[rooms] + ' <span id="chatBadge-' + window.shaq.target[rooms] + '" class="badge">0</span></button></p>');
+      $('#ChatList').append('<p><button id="' + window.shaq.target[rooms] + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.app.logourl + window.shaq.target[rooms] + '.png" />  ' + window.shaq.targetName[rooms] + ' <span id="chatBadge-' + window.shaq.target[rooms] + '" class="badge">0</span></button></p>');
     }
     $("#shaq-valid-from-btn").prop("disabled", false);
     $("#shaq-valid-btn").prop("disabled", false);
@@ -657,7 +697,7 @@ function shaqRefresh() {
   $("#shaq-name").html('<div class="shaqlabel text-left">Order</div><div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
   if (window.shaq.targetName) $('#bid-add .bidBidderCode').text(window.shaq.targetName[0]);
   if (window.shaq.getitnow && parseFloat(window.shaq.getitnow) > 0) {
-    if (window.shaq.source.includes(auth.usercode)) {
+    if (window.shaq.source.includes(auth.auth.usercode)) {
       $(".get-it-now-text").attr("disabled", true);
     }
     $(".get-it-now-text").html('<span class="glyphicon glyphicon-screenshot"></span> ' + parseFloat(window.shaq.getitnow).toFixed(2) + ' ' + window.shaq.currency);
@@ -679,11 +719,14 @@ function shaqRefresh() {
   $("#shaq-dedate-cet").attr("title", "UTC time : " + dedateCet.format("YYYY-MM-DD HH:mm"));
   $("#shaq-transit-time").text(TransitCalc(pudateCet, dedateCet, window.shaq.puPlace[4], window.shaq.dePlace[4]));
   $('#bid-add .bidTransitTime').text(TransitCalc(pudateCet, dedateCet, window.shaq.puPlace[4], window.shaq.dePlace[4]));
-  let distance = parseInt(window.shaq.distance);
-  if (localSettings.distance === "Miles") {
-    distance = (Math.ceil(distance * 62.14) / 100);
+  if (window.shaq.distance) {
+    let distance = parseInt(window.shaq.distance);
+    if (localSettings.distance === "Miles") {
+      distance = (Math.ceil(distance * 62.14) / 100);
+    }
+    $("#shaq-distance-label").removeClass("hide");
+    $("#shaq-distance").text(distance + ' ' + localSettings.distance);
   }
-  $("#shaq-distance").text(distance + ' ' + localSettings.distance);
   if (window.shaq.puContact) {
     $("#shaq-puContactCompany").html(window.shaq.puContact[0]);
     $("#shaq-puContactName").html(window.shaq.puContact[1]);
@@ -702,7 +745,7 @@ function shaqRefresh() {
   $("#shaq-stackable").text(window.shaq.stackable);
   $(".shaq-pkg-notes").text(window.shaq.notes);
   $("#shaq-notes").text(window.shaq.notes);
-  $("#shaq-auctioneer").html('<img width="24" src="' + auth.logourl + window.shaq.source[0] + '.png" />  <b>' + window.shaq.sourceName[0] + '</b>');
+  $("#shaq-auctioneer").html('<img width="24" src="' + auth.app.logourl + window.shaq.source[0] + '.png" />  <b>' + window.shaq.sourceName[0] + '</b>');
   bidderDisplay();
   $('#pickupdate').val(moment(window.shaq.puDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
   $('#deliverydate').val(moment(window.shaq.deDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
@@ -714,20 +757,28 @@ function shaqRefresh() {
   let dim = window.shaq.dimension;
   let totaldim = [0, 0, 0];
   for (let pkg = 0; pkg <= dim.length - 6; pkg = pkg + 6) {
-    let dimUnit = dim[pkg + 1] + ' cm x ' + dim[pkg + 2] + ' cm x ' + dim[pkg + 3] + ' cm';
-    let dimWeight = '<br>' + dim[pkg + 4] + ' kgs';
+    let dimUnit = [];
+    dimUnit[0] = "<b>Lenght</b> : " + dim[pkg + 1] + ' cm';
+    dimUnit[1] = "<b>Width</b> : " + dim[pkg + 2] + ' cm';
+    dimUnit[2] = "<b>Height</b> : " + dim[pkg + 3] + ' cm';
+    let dimWeight = "<b>Weight</b> : " + dim[pkg + 4] + ' kgs';
     totaldim[0] += parseInt(dim[pkg]);
     totaldim[1] += parseFloat(dim[pkg + 4]);
     totaldim[2] += parseInt(dim[pkg]) * (parseFloat(dim[pkg + 1]) * parseFloat(dim[pkg + 2]) * parseFloat(dim[pkg + 3]));
     if (localSettings.unit === "Imperial") {
-      dimUnit = (Math.ceil(dim[pkg + 1] * 39.37) / 100) + ' inches x ' + (Math.ceil(dim[pkg + 2] * 39.37) / 100) + ' inches x ' + (Math.ceil(dim[pkg + 3] * 39.37) / 100) + ' inches';
+      dimUnit[0] = "<b>Lenght</b> : " + (Math.ceil(dim[pkg + 1] * 39.37) / 100) + ' inches'
+      dimUnit[1] = "<b>Width</b> : " + (Math.ceil(dim[pkg + 2] * 39.37) / 100) + ' inches'
+      dimUnit[2] = "<b>Height</b> : " + (Math.ceil(dim[pkg + 3] * 39.37) / 100) + ' inches';
     }
     if (localSettings.weight === "Pounds") {
-      dimWeight = '<br>' + (Math.ceil(dim[pkg + 4] * 220.46) / 100) + ' pounds';
+      dimWeight = "<b>Weight</b> : " + (Math.ceil(dim[pkg + 4] * 220.46) / 100) + ' pounds';
     }
     if (pkg === 0) {
       $('.shaq-pkg-number').html(dim[pkg]);
-      $('.shaq-pkg-dimension').html(dimUnit + dimWeight);
+      $('.shaq-pkg-dimension-lenght').html(dimUnit[0]);
+      $('.shaq-pkg-dimension-width').html(dimUnit[1]);
+      $('.shaq-pkg-dimension-height').html(dimUnit[2]);
+      $('.shaq-pkg-dimension-weight').html(dimWeight);
       $('.shaq-pkg-stackable').html(dim[pkg + 5]);
       $('.shaq-pkg-notes').html();
     } else {
@@ -812,16 +863,13 @@ function shaqRefresh() {
     }, 1000);
   }
   for (file in window.shaq.files) {
-    $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + username + ':' + userkey + '@' + window.location.host + '/api/shaq/' + auth.usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
+    $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + auth.auth.usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
   }
-
-  for (let chat in window.shaq.source) {
-    window.chatsInfo[window.shaq.source[chat]] = [];
-  }
-  for (let chat in window.shaq.target) {
-    if (Raters.includes(window.shaq.target[chat])) continue;
-    window.chatsInfo[window.shaq.target[chat]] = [];
-  }
+  $('#ChatList').find(".btn-room").each(function() {
+    $(this).bind("click", function() {
+      btnroomclick($(this))
+    });
+  });
   for (let targetStatus in window.shaq.targetStatus) {
     switch (window.shaq.targetStatus[targetStatus]) {
       case "Removed":
@@ -864,11 +912,11 @@ function shaqRefresh() {
 }
 
 $.ajax({
-  "url": "/api/shaq" + solrTarget + "/" + auth.usercode + "/" + ShaqID + "?rows=1",
+  "url": "/api/shaq" + solrTarget + "/" + auth.auth.usercode + "/" + ShaqID + "?rows=1",
   "dataType": "json",
   "json": "json.wrf",
   "beforeSend": function(xhr) {
-    xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+    xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
   },
   "statusCode": {
     "200": function(xhr) {
@@ -889,6 +937,7 @@ $.ajax({
     }
     window.shaq = shaq.docs[0];
     shaqRefresh();
+    ShaqCompleted(window.shaq.winningbid);
 
     const sort = new Object();
     sort[$('#bid-sorting-field').val()] = $('#bid-sorting-dir').val();
@@ -903,9 +952,10 @@ $.ajax({
 
 function BidRender(bids) {
   $('#bidCount').text(bids.docs.length);
+  $('#bid-list').empty();
   if (bids.docs.length > 0) {
-    if (window.shaq.source.includes(auth.usercode)) $("#decline-all").removeClass("hide");
-    if (window.shaq.target.includes(auth.usercode)) $("#cancel-all").removeClass("hide");
+    if (window.shaq.source.includes(auth.auth.usercode)) $("#decline-all").removeClass("hide");
+    if (window.shaq.target.includes(auth.auth.usercode)) $("#cancel-all").removeClass("hide");
   }
   for (let bid in bids.docs) {
     window.bids[bids.docs[bid].id] = bids.docs[bid];
@@ -934,11 +984,11 @@ function getBids(orderBy = {
   Object.keys(orderBy).forEach(key => sort[key] = orderBy[key]);
 
   $.ajax({
-    "url": '/api/bid' + solrTarget + '/' + auth.usercode + '/' + ShaqID + '?rows=100&sort=' + JSON.stringify(sort),
+    "url": '/api/bid' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort=' + JSON.stringify(sort),
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       "429": function(xhr) {
@@ -946,8 +996,8 @@ function getBids(orderBy = {
       }
     },
     "success": function(bids) {
+      console.log(bids);
       BidRender(bids);
-      if (window.shaq.status !== "running") ShaqCompleted(window.shaq.winningbid);
     }
   });
 }
@@ -962,12 +1012,16 @@ function AddChatNotification(chat) {
 function updateChat(chat) {
   let pos = "left";
   let alertclass = "alert-success";
-  if (chat.source.includes(auth.usercode)) {
+  if (chat.source.includes(auth.auth.usercode)) {
     pos = "right";
     alertclass = "alert-info";
   }
   if (["giveup", "remove", "readd", "readdall", "removeall"].indexOf(chat.channel) >= 0) {
     alertclass = "alert-warning";
+    pos = "center";
+  }
+  if (["biddingscore"].indexOf(chat.channel) >= 0) {
+    alertclass = "alert-success";
     pos = "center";
   }
   let date = moment(new Date()).format("YYYY-MM-DD HH:mm");;
@@ -978,16 +1032,16 @@ function updateChat(chat) {
   let pre = '<p><div id="' + chat.id + '" class="chat-container alert ' + alertclass + '" align="' + pos + '"><div class="message"><strong>' + chat.subject + '</strong></div><div>' + date + ' - ' + chatName + ' (' + chat.from + ') </div></div><p>';
   for (let target in chat.target) {
     if (Raters.includes(chat.target[target])) continue;
-    if (chat.target[target] != auth.usercode) {
+    if (chat.target[target] != auth.auth.usercode) {
       window.chatsInfo[chat.target[target]].push(pre);
       $('#chatBadge-' + chat.target[target]).text(parseInt($('#chatBadge-' + chat.target[target]).text()) + 1);
-    } else if (chat.source[0] == auth.usercode) {
-      window.chatsInfo[auth.usercode].push(pre);
-      $('#chatBadge-' + auth.usercode).text(parseInt($('#chatBadge-' + auth.usercode).text()) + 1);
+    } else if (chat.source[0] == auth.auth.usercode) {
+      window.chatsInfo[auth.auth.usercode].push(pre);
+      $('#chatBadge-' + auth.auth.usercode).text(parseInt($('#chatBadge-' + auth.auth.usercode).text()) + 1);
     }
   }
   for (let source in chat.source) {
-    if (chat.source[source] != auth.usercode) {
+    if (chat.source[source] != auth.auth.usercode) {
       window.chatsInfo[chat.source[source]].push(pre);
       $('#chatBadge-' + chat.source[source]).text(parseInt($('#chatBadge-' + chat.source[source]).text()) + 1);
     }
@@ -997,11 +1051,11 @@ function updateChat(chat) {
 
 function getChatMsgs() {
   $.ajax({
-    "url": '/api/chat' + solrTarget + '/' + auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort={"date": "desc"}',
+    "url": '/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort={"date": "desc"}',
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1010,12 +1064,12 @@ function getChatMsgs() {
     },
     "success": function(chats) {
       $('#chatCount').text('0');
-      let output = "";
-      for (let chat in chats.docs.reverse()) {
-        updateChat(chats.docs[chat])
+      window.chats = chats.docs;
+      for (let chat in window.chats.reverse()) {
+        updateChat(window.chats[chat])
       }
-      window.chatCurrent = auth.usercode;
-      $('#' + auth.usercode).addClass('btn-danger').find('.badge').addClass('badge-danger');
+      window.chatCurrent = auth.auth.usercode;
+      $('#' + auth.auth.usercode).addClass('btn-danger').find('.badge').addClass('badge-danger');
       switchRoom();
     }
   });
@@ -1023,11 +1077,11 @@ function getChatMsgs() {
 
 function getNotifMsgs() {
   $.ajax({
-    "url": '/api/notif' + solrTarget + '/' + auth.usercode + '/' + ShaqID + '?rows=100&sort={"date": "desc"}',
+    "url": '/api/notif' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort={"date": "desc"}',
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1045,54 +1099,35 @@ function getNotifMsgs() {
   });
 }
 
-socket.on(auth.usercode, function(data) {
+socket.on(auth.auth.usercode, function(data) {
   let msg = JSON.parse(data.value);
+  if (!msg.key || (!jQuery.isEmptyObject(window.shaq) && msg.key !== window.shaq.key)) return;
   let statusMessage = "Unkown";
   switch (msg.type) {
     case "auction":
-      if (msg.id === window.shaq.id) {
+      if (jQuery.isEmptyObject(window.shaq) || (msg.id === window.shaq.id)) {
         window.shaq = msg;
         shaqRefresh();
+        ShaqCompleted(window.shaq.winningbid);
       }
       break;
     case "bid":
-      if (msg.key !== window.shaq.key) break;
-      if (window.bids[msg.id]) {
-        bidRefresh(window.bidsInfo[msg.id], msg);
-      } else {
-        let bidInfo = $("#bid-info").clone();
-        window.bidsInfo[msg.id] = bidInfo;
-        bidRefresh(bidInfo, msg);
-        $('#bidCount').text(parseInt($('#bidCount').text()) + 1);
-        bidInfo.appendTo("#bid-list");
-      }
-      if ($("#InformationModal").is(':visible')) setTimeout(function() {
-        $("#InformationModal").modal('hide')
-      }, 1000);
       window.bids[msg.id] = msg;
-      if (msg.status === "accepted") {
-        ShaqCompleted(msg.id);
-      } else {
-        $('.bid-info-list').find('.well').removeClass("well-success").not('.well-danger').addClass("well-warning");
-        $('#bid-add').find('.well').removeClass("well-warning");
-        if (window.shaq.bestbid && window.bidsInfo[window.shaq.bestbid]) {
-          window.bidsInfo[window.shaq.bestbid].find('.well').removeClass("well-warning").addClass("well-success");
-        }
+      let Bids = { docs: [] };
+      for (let Bid in window.bids) {
+        Bids["docs"].push(window.bids[Bid]);
       }
-      if (Raters.includes(msg.source[0])) {
-        $("#" + msg.source[0] + "LoadingOfferText").html("Getting offers...");
-      }
+      BidRender(Bids);
       break;
     case "message":
-      if (msg.key !== window.shaq.key) break;
       if ($('#' + msg.id).length) break;
+      window.chats.push(msg);
       $(".btn-send-message").attr("disabled", false);
       updateChat(msg);
       switchRoom();
       break;
     case "notification":
-      if (msg.action === "clear") break;
-      if ((msg.action === "archive") && (msg.id === window.shaq.id)) {
+      if (msg.action === "archive") {
         setTimeout(function() {
           $('.header-content').hide();
           $('#not-found-message-text').html('<a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">Shaq has been closed</a>');
@@ -1101,7 +1136,6 @@ socket.on(auth.usercode, function(data) {
         }, 1000);
         break;
       }
-      if (msg.key !== window.shaq.key) break;
       if ($('#' + msg.id).length) break;
       AddChatNotification(msg);
       $('#notifCount').text(parseInt($('#notifCount').text()) + 1);
@@ -1113,14 +1147,14 @@ socket.on(auth.usercode, function(data) {
 
 function updateBid(bidData) {
   $.ajax({
-    "url": "/api/bid/" + auth.usercode + "/" + ShaqID,
+    "url": "/api/bid/" + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": bidData,
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1139,25 +1173,25 @@ function sendMessageAll() {
     "date": "NOW",
     "subject": window.shaq.name,
     "message": $('#chatNotifyModal-message').val(),
-    "from": username,
+    "from": auth.auth.username,
     "category": "shaq",
     "key": window.shaq.key,
-    "source": [auth.usercode],
-    "target": [auth.usercode],
+    "source": [auth.auth.usercode],
+    "target": [auth.auth.usercode],
     "type": "notification",
     "status": "sent",
     "channel": ["message", "mail"],
     "flags": ""
   };
   $.ajax({
-    "url": "/api/notif/" + auth.usercode + "/" + ShaqID,
+    "url": "/api/notif/" + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify([dataSendMessageAll]),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1180,11 +1214,11 @@ function sendBid() {
     "id": uuidv4(),
     "reported_at": "NOW",
     "key": window.shaq.key,
-    "from": auth.username,
-    "source": [auth.usercode],
+    "from": auth.auth.username,
+    "source": [auth.auth.usercode],
     "target": window.shaq.source,
     "type": "bid",
-    "logo": auth.logourl + auth.usercode + ".png",
+    "logo": auth.app.logourl + auth.auth.usercode + ".png",
     "status": bidstatus,
     "auction": window.shaq.source[0],
     "valid_until": moment($('#validitydate').val()).tz('UTC'),
@@ -1199,14 +1233,14 @@ function sendBid() {
     "driver": driver
   };
   $.ajax({
-    "url": "/api/bid/" + auth.usercode + "/" + ShaqID,
+    "url": "/api/bid/" + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify([dataSendBid]),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       429: function(xhr) {
@@ -1259,7 +1293,7 @@ function invitesearch() {
       "dataType": "json",
       "contentType": "application/json",
       "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
       },
       "statusCode": {
         "200": function(xhr) {
@@ -1282,7 +1316,7 @@ function SetItNow() {
   let NewSetItNow = parseFloat($('#newsetitnow').val()).toFixed(2);
   if (NewSetItNow < window.shaq.bestbidprice) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.usercode + '/setitnow/' + window.shaq.key,
+      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/setitnow/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
@@ -1290,7 +1324,7 @@ function SetItNow() {
         setitnow: NewSetItNow
       }),
       "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
       },
       "statusCode": {
         "500": function(xhr) {
@@ -1308,7 +1342,7 @@ function invite() {
   if (!window.shaq.target.includes($('#InviteModalCode').text().toUpperCase()) &&
     !window.shaq.source.includes($('#InviteModalCode').text().toUpperCase())) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.usercode + '/invite/' + '/' + window.shaq.key,
+      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + '/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
@@ -1317,7 +1351,7 @@ function invite() {
         usercodename: $('#InviteModalName').text()
       }),
       "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
       },
       "statusCode": {
         "403": function(xhr) {
@@ -1372,21 +1406,26 @@ $("#shaq-print").on('click', function() {
 });
 
 $('#winningbidcalc').on('click', function() {
-  $('#bid-list').empty();
   getBids();
-  informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Calculating Offers...</span>');
+  informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Calculating Offers...</span>', true);
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.usercode + '/winningbidcalc/' + window.shaq.key,
+    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/winningbidcalc/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
-    "complete": function(json) {
-      setTimeout(function() {
-        $("#InformationModal").modal('hide');
-      }, 1000)
+    "success": function(json) {
+      if (json.scoremin && json.scoremax) {
+        sendMessage({
+          "subject": "Your offer is between <b>" + json.scoremin + "%</b> and <b>" + json.scoremax + "%</b> more expensive than the leading one!",
+          "message": "Your offer is between <b>" + json.scoremin + "%</b> and <b>" + json.scoremax + "%</b> more expensive than the leading one!",
+          "channel": "biddingscore",
+          "source": [auth.auth.usercode],
+          "target": [auth.auth.usercode]
+        });
+      }
     }
   });
 });
@@ -1406,43 +1445,48 @@ $('#shaq-status').on('click', function() {
   });
 });
 
-$(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .btn-forward-bid, .btn-no-solution-bid', function() {
+$(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .btn-forward-bid', function() {
   if ($(this).hasClass('btn-decline-bid')) window.bids[$(this).data("btn-bid-id")].status = "declined";
   if ($(this).hasClass('btn-cancel-bid')) window.bids[$(this).data("btn-bid-id")].status = "cancelled";
   if ($(this).hasClass('btn-accept-bid')) window.bids[$(this).data("btn-bid-id")].status = "accepted";
-  if ($(this).hasClass('btn-forward-bid')) window.bids[$(this).data("btn-bid-id")].status = "forwarded";
+  if ($(this).hasClass('btn-forward-bid')) {
+    window.bids[$(this).data("btn-bid-id")].status = "forwarded";
+    window.bids[$(this).data("btn-bid-id")].forwarder = auth.auth.username;
+  }
+  window.bids[$(this).data("btn-bid-id")].decision_maker = auth.auth.username;
   updateBid(JSON.stringify([window.bids[$(this).data("btn-bid-id")]]));
 });
 
 $(document).on('click', '.btn-no-solution-bid', function() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Giving Up...</span>');
   let data = {
-    target: auth.usercode,
+    target: auth.auth.usercode,
     type: "notification",
     action: "giveup"
   };
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.usercode + '/giveup/' + window.shaq.key,
+    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/giveup/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
-      "429": function(xhr) {
+      "429": function(error) {
         status429();
+      },
+      "200": function(response) {
+        sendMessage({
+          "subject": "No Solution !",
+          "message": "No Solution !",
+          "channel": "giveup",
+          "source": [auth.auth.usercode],
+          "target": [window.shaq.source[0]]
+        });
+        shaqGTAG('Bid', 'BidGiveUp', JSON.stringify(shaq));
       }
-    },
-    "success": function(json) {
-      sendMessage({
-        "subject": "No Solution !",
-        "message": "No Solution !",
-        "channel": "giveup",
-        "target": [target]
-      });
-      shaqGTAG('Bid', 'BidGiveUp', JSON.stringify(shaq));
     }
   });
 });
@@ -1484,11 +1528,11 @@ $('.hideShipment').on('click', function() {
   $("#total-packages-well").toggleClass('hide');
 });
 
-$('.btn-bid-extend').on('click', function() {
-  $(this).find('.btn-bid-extend-glyphicon').toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-top');
-  let bidIdDetail = $(this).find('.btn-bid-extend-glyphicon').data('bid-id-to-extend');
+function bidsextendsDetail(bed) {
+  bed.toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-top');
+  let bidIdDetail = bed.data('bid-id-to-extend');
   $(window.bidsInfo[bidIdDetail]).find('.btn-bid-extend-detail').toggleClass('hide');
-});
+}
 
 $('.showAllBids').on('click', function() {
   showAllbids = !showAllbids;
@@ -1509,7 +1553,7 @@ $('.btn-send-message').on('click', function() {
   if (window.chatCurrent && ($('#chat-msg-text').val() !== "")) {
     $(".btn-send-message").attr("disabled", true);
     sendMessage({
-      "channel": auth.usercode,
+      "channel": auth.auth.usercode,
       "subject": $('#chat-msg-text').val(),
       "message": $('#chat-msg-text').val(),
       "target": [window.chatCurrent]
@@ -1517,14 +1561,14 @@ $('.btn-send-message').on('click', function() {
   }
 });
 
-$('.btn-room').on('click', function() {
+function btnroomclick(elt) {
   $('.btn-room').removeClass('btn-danger');
-  $(this).addClass('btn-danger');
-  if ($(this).attr('id') === "Notifications-Chat") {
+  elt.addClass('btn-danger');
+  if (elt.attr('id') === "Notifications-Chat") {
     $('#chat-notifications-container').removeClass('hide');
     $('#chat-messages-container').addClass('hide');
     $(".btn-room .badge").removeClass("badge-danger");
-    $(this).find(".badge").addClass("badge-danger");
+    elt.find(".badge").addClass("badge-danger");
     $('.chat-container').addClass("hide");
     $('.chat-container-notification').removeClass("hide");
   } else {
@@ -1533,11 +1577,11 @@ $('.btn-room').on('click', function() {
     $(".btn-room .badge").removeClass("badge-danger");
     $('.chat-container').removeClass("hide");
     $('.chat-container-notification').addClass("hide");
-    $(this).find(".badge").addClass("badge-danger");
-    window.chatCurrent = $(this).attr('id');
+    elt.find(".badge").addClass("badge-danger");
+    window.chatCurrent = elt.attr('id');
     switchRoom();
   }
-});
+}
 
 $('#bid-add #pickupdate').on('change', function(event) {
   $('#bid-add .bidTransitTime').text(TransitCalc($('#bid-add #pickupdate').val(), $('#bid-add #deliverydate').val(), window.shaq.puPlace[4], window.shaq.dePlace[4]));
@@ -1546,7 +1590,6 @@ $('#bid-add #deliverydate').on('change', function(event) {
   $('#bid-add .bidTransitTime').text(TransitCalc($('#bid-add #pickupdate').val(), $('#bid-add #deliverydate').val(), window.shaq.puPlace[4], window.shaq.dePlace[4]));
 });
 $('#bid-sorting-field').on('change', function(event) {
-  $('#bid-list').empty();
   const sort = new Object();
   sort[event.target.value] = $('#bid-sorting-dir').val();
   let Bids = [];
@@ -1580,8 +1623,29 @@ $("#cancel-all-btn").on('click', function(event) {
   }
 });
 
+$("#shaq-name").on('click', function(event) {
+  $.ajax({
+    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + "/auditstatus/" + window.shaq.key,
+    "method": "GET",
+    "dataType": "json",
+    "contentType": "application/json",
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    },
+    "statusCode": {
+      "200": function(auditStatus) {
+        let audits = '<div class="row">';
+        for (a in auditStatus[0]) {
+          if (auditStatus[0][a].status) audits += '<div class="col-sm-6 text-center">' + auditStatus[0][a].status + '</div><div><div class="col-sm-6 text-center">' + auditStatus[0][a].date.substring(0, 19).replace("T", " ") + '</div>';
+        }
+        audits += '</div>';
+        informShow(audits, false);
+      }
+    }
+  });
+});
+
 $('#bid-filtering-field').on('change', function(event) {
-  $('#bid-list').empty();
   let Bids = [];
   let RenderBid = {};
   RenderBid.docs = [];
@@ -1593,7 +1657,6 @@ $('#bid-filtering-field').on('change', function(event) {
 });
 
 $('#bid-filtering-dir').on('click', function(event) {
-  $('#bid-list').empty();
   let Bids = [];
   let RenderBid = {};
   RenderBid.docs = [];
@@ -1616,3 +1679,40 @@ $('#bid-sorting-dir').on('click', function() {
 
   $('#bid-sorting-field').change();
 });
+
+function bidsFlag(bf) {
+  questionShow('<div class="form-group"><label>Comment : </label>\
+              <input id="FlagComment" type="text" class="form-control pull-right" autofocus></input></div><br><br>\
+              <div class="form-group"><label>Comment : </label>\
+              <select id="FlagType" class="form-control pull-right"><option>public</option><option selected>private</option></select></div><br><br>\
+              <div class="form-group"><label>Color : </label>\
+              <input id="FlagColor" type="color" value="#ff0000" class="pull-right" style="padding: 0 0;"></input></div>');
+  $("#QuestionModalYesBtn").on("click", function() {
+    console.log(bf);
+    $.ajax({
+      "url": '/api/bid/' + auth.auth.usercode + '/comment/' + bf.data("id"),
+      "method": "POST",
+      "dataType": "json",
+      "contentType": "application/json",
+      "data": JSON.stringify({
+        comment: [$("#FlagColor").val(), $("#FlagComment").val(), $("#FlagType").val(), new Date().toISOString()]
+      }),
+      "beforeSend": function(xhr) {
+        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      },
+      "statusCode": {
+        "429": function(xhr) {
+          status429();
+        }
+      },
+      "statusCode": {
+        "406": function(xhr) {
+          status406();
+        }
+      },
+      "success": function(json) {
+        shaqGTAG('Bid', 'BidComment', JSON.stringify(bid));
+      }
+    });
+  });
+}

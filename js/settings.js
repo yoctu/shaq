@@ -1,7 +1,7 @@
 window.config = {};
 
-if (auth.lang === "en") auth.lang = "gb";
-$('#imgLang').attr('src', 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + auth.lang.toLowerCase() + '.svg');
+if (auth.auth.lang === "en") auth.auth.lang = "gb";
+$('#imgLang').attr('src', 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + auth.auth.lang.toLowerCase() + '.svg');
 $('#unitSettings').val(localSettings.unit);
 $('#currencySettings').val(localSettings.currency);
 $('#dateSettings').val(localSettings.date);
@@ -14,41 +14,41 @@ $('#shaqChatVisibilitySettings').val(localSettings.chatShow);
 $('#shaqShipmentVisibilitySettings').val(localSettings.shipmentShow);
 $('#notifPopup').val(localSettings.autoNotify);
 
-if (auth.username) {
-  $("#shaq-settings-username").text(auth.username);
+if (auth.auth.username) {
+  $("#shaq-settings-username").text(auth.auth.username);
   $("#settings-username").removeClass("hide");
 }
-if (auth.firstname) {
-  $("#shaq-settings-firstname").text(auth.firstname);
+if (auth.auth.firstname) {
+  $("#shaq-settings-firstname").text(auth.auth.firstname);
   $("#settings-firstname").removeClass("hide");
 }
-if (auth.lastname) {
-  $("#shaq-settings-lastname").text(auth.lastname);
+if (auth.auth.lastname) {
+  $("#shaq-settings-lastname").text(auth.auth.lastname);
   $("#settings-lastname").removeClass("hide");
 }
-if (auth.email) {
-  $("#shaq-settings-email").text(auth.email);
+if (auth.auth.email) {
+  $("#shaq-settings-email").text(auth.auth.email);
   $("#settings-email").removeClass("hide");
 }
-if (auth.userkey) {
-  $("#shaq-settings-apikey").text(auth.userkey);
+if (auth.auth.userkey) {
+  $("#shaq-settings-apikey").text(auth.auth.userkey);
   $("#settings-apikey").removeClass("hide");
 }
-if (auth.lang) {
-  $("#shaq-settings-lang").text(auth.lang);
+if (auth.auth.lang) {
+  $("#shaq-settings-lang").text(auth.auth.lang);
   $("#settings-lang").removeClass("hide");
 }
-if (auth.provider) {
-  $("#shaq-settings-auth-image").attr("src", auth.logourl + auth.provider + ".png");
+if (auth.auth.provider) {
+  $("#shaq-settings-auth-image").attr("src", auth.app.logourl + auth.auth.provider + ".png");
 }
-if (auth.logourl) {
-  $("#shaq-settings-rating-ugo-image").attr("src", auth.logourl + "UGO.png");
-  $("#shaq-settings-rating-shipengine-image").attr("src", auth.logourl + "SHIPENGINE.png");
-  $("#shaq-settings-rating-goshippo-image").attr("src", auth.logourl + "GOSHIPPO.png");
-  $("#shaq-settings-rating-skyquote-image").attr("src", auth.logourl + "SKYQUOTE.png");
-  $("#shaq-settings-rating-skoreway-image").attr("src", auth.logourl + "SKOREWAY.png");
-  $("#shaq-settings-rating-easy4pro-image").attr("src", auth.logourl + "EASY4PRO.png");
-  $("#shaq-settings-company-profile-image").attr("src", auth.logourl + auth.usercode + ".png");
+if (auth.app.logourl) {
+  $("#shaq-settings-rating-ugo-image").attr("src", auth.app.logourl + "UGO.png");
+  $("#shaq-settings-rating-shipengine-image").attr("src", auth.app.logourl + "SHIPENGINE.png");
+  $("#shaq-settings-rating-goshippo-image").attr("src", auth.app.logourl + "GOSHIPPO.png");
+  $("#shaq-settings-rating-skyquote-image").attr("src", auth.app.logourl + "SKYQUOTE.png");
+  $("#shaq-settings-rating-skoreway-image").attr("src", auth.app.logourl + "SKOREWAY.png");
+  $("#shaq-settings-rating-easy4pro-image").attr("src", auth.app.logourl + "EASY4PRO.png");
+  $("#shaq-settings-company-profile-image").attr("src", auth.app.logourl + auth.auth.usercode + ".png");
 }
 
 function setConfigValue(data) {
@@ -109,7 +109,7 @@ function setConfigValue(data) {
   if (data.app.notifications & 4) {
     $("#notifDiscord").val("4");
     $("#discordTokenSettings").val(data.discord.key);
-    $("#discordChannelSettings").val(auth.usercode.toLowerCase());
+    $("#discordChannelSettings").val(auth.auth.usercode.toLowerCase());
     $("#discordSettings").removeClass("hide");
   }
   if (data.app.rating > 0) {
@@ -130,11 +130,11 @@ function setConfigValue(data) {
 }
 
 $.ajax({
-  "url": "/api/config/" + auth.usercode,
+  "url": "/api/config/" + auth.auth.usercode,
   "dataType": "json",
   "json": "json.wrf",
   "beforeSend": function(xhr) {
-    xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+    xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
   },
   "statusCode": {
     "429": function(xhr) {
@@ -212,14 +212,14 @@ function saveSettings() {
     window.config.discord.key = $("#discordTokenSettings").val();
   }
   $.ajax({
-    "url": "/api/config/" + auth.usercode,
+    "url": "/api/config/" + auth.auth.usercode,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify(window.config),
     "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.authbasic);
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "statusCode": {
       201: function(data) {
@@ -278,7 +278,7 @@ $("#shaq-settings-rating-goshippo-auto,#shaq-settings-rating-ugo-auto,#shaq-sett
 
 $("#discordTestSettings").on('click', function() {
   $.ajax({
-    "url": "/api/shaq/" + auth.usercode + "/discordtest/test",
+    "url": "/api/shaq/" + auth.auth.usercode + "/discordtest/test",
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -319,7 +319,7 @@ $('#bidvaluemaxmodif').on('click', function() {
 
 $('#refresh-score').on('click', function() {
   $.ajax({
-    "url": "api/shaq/" + auth.usercode + "/score/now",
+    "url": "api/shaq/" + auth.auth.usercode + "/score/now",
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -355,7 +355,7 @@ $('#themeSettings').on('change', function(e) {
   }
 });
 
-socket.on(auth.usercode, function(data) {
+socket.on(auth.auth.usercode, function(data) {
   let msg = JSON.parse(data.value);
   if (msg.type !== "config") return;
   window.config = msg.config;
