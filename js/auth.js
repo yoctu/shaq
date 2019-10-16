@@ -19,7 +19,7 @@ function getCookie(cname) {
 var auth = {}; auth.auth = {};
 if (getCookie("ConnectUser") !== "") {
   let ConnectUser = JSON.parse(getCookie("ConnectUser"));
-  auth.auth.usercode = userCodePath;
+  auth.auth.usercode = window.location.pathname.split("/")[1];;
   auth.auth.username = ConnectUser.user_name;
   auth.auth.firstname = ConnectUser.first_name;
   auth.auth.lastname = ConnectUser.last_name;
@@ -30,7 +30,7 @@ if (getCookie("ConnectUser") !== "") {
 }
 if (getCookie("Auth0User") !== "") {
   auth.auth = JSON.parse(getCookie("Auth0User"));
-  auth.auth.usercode = userCodePath;
+  auth.auth.usercode = window.location.pathname.split("/")[1];;
   auth.auth.provider = "auth0";
 }
 
