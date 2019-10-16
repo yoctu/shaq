@@ -18,22 +18,16 @@
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" />
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" id="theme-css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<script src="https://yoctu.github.io/shaq-view/js/auth.js" />
+<script src="https://yoctu.github.io/shaq-view/js/shaq.js" />
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
 <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
 </head>
-
 <body>
-
   <div id="load-navbar"></div>
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283327-2"></script>
-  <script>
-    var userCodePath = window.location.pathname.split("/")[1];
-    $.getScript("/" + userCodePath + "/js/shaq.js");
-  </script>
-
   <br><br><br><br>
   <div id="CenterPage" class="text-center hide" style="padding-right:2%; padding-left:2%; magrin-right:2px; margin-left:2px;">
     <div id="shaqCol" class="col-sm-12 col-md-12 text-left">
@@ -54,24 +48,7 @@
     </div>
     <div class="col-lg-1">&nbsp;</div>
   </div>
-
-  <script type="text/javascript">
-    var $zoho = $zoho || {};
-    $zoho.salesiq = $zoho.salesiq || {
-      widgetcode: "f8e6c56792406da3186145dfec1621da92497006f382a048adfe9da553a3dd8e",
-      values: {},
-      ready: function() {}
-    };
-    var d = document;
-    s = d.createElement("script");
-    s.type = "text/javascript";
-    s.id = "zsiqscript";
-    s.defer = true;
-    s.src = "https://salesiq.zoho.com/widget";
-    t = d.getElementsByTagName("script")[0];
-    t.parentNode.insertBefore(s, t);
-    d.write("<div id='zsiqwidget'></div>");
-  </script>
+  <script type="text/javascript" src="https://yoctu.github.io/shaq-view/js/chat.js"></script>
 
   <div id="load-footer"></div>
 
