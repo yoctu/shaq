@@ -5,8 +5,11 @@ gtag('js', new Date());
 gtag('config', 'UA-135283327-2');
 
 var localSettings = localStorage.getItem('shaqSettings');
-
 var socket;
+$.ajaxSetup({
+  cache: true
+});
+
 $(document).ready(function() {
   $.ajax({
     "url": window.location.protocol + "//" + window.location.host + "/api/config/" + auth.auth.usercode,
@@ -51,7 +54,7 @@ $(document).ready(function() {
           $.getScript("/" + auth.auth.usercode + "/js/settings.js");
           break;
         case "display":
-          $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey +'&callback=initMap');
+          $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
           $.getScript("/" + auth.auth.usercode + "/js/shaq-display-functions.js");
           $.getScript("/" + auth.auth.usercode + "/js/shaq-display.js");
           $.getScript("/" + auth.auth.usercode + "/js/swiper.js");
