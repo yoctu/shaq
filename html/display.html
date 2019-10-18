@@ -310,26 +310,6 @@
                     <input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate" readonly>
                   </div>
                 </div>
-                <div class="col-xs-12 hollowData hide" style="padding-bottom: 10px;">
-                  <div class="col-sm-4 col-xs-4">
-                    <div class="shaqlabel" for="invited">shaq.invited</div>
-                    <div class="round hollow hollowinvited">
-                      <span class="scoreinvitedspan">0</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-xs-4">
-                    <div class="shaqlabel" for="particpation">shaq.avgbid</div>
-                    <div class="round hollow hollowavgbid">
-                      <span class="scoreavgbidspan">0</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-xs-4">
-                    <div class="shaqlabel" for="winning">shaq.winning</div>
-                    <div class="round hollow hollowwinning">
-                      <span class="scorewinningspan">0</span>
-                    </div>
-                  </div>
-                </div>
               </div>
               <div class="col-xs-12 col-sm-2 form-group action-container">
                 <button class="btn btn-default btn-status-bid hide">shaq.bid.status</button>
@@ -430,6 +410,26 @@
                 </label>
                 shaq.co-loaded
               </div>
+              <div class="col-xs-12 hollowData text-center hide" style="padding-bottom: 10px;">
+                <div class="col-sm-4 col-xs-4">
+                  <div class="shaqlabel" for="invited">shaq.invited</div>
+                  <div class="round hollow hollowinvited">
+                    <span class="scoreinvitedspan">0</span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                  <div class="shaqlabel" for="particpation">shaq.avgbid</div>
+                  <div class="round hollow hollowavgbid">
+                    <span class="scoreavgbidspan">0</span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                  <div class="shaqlabel" for="winning">shaq.winning</div>
+                  <div class="round hollow hollowwinning">
+                    <span class="scorewinningspan">0</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -499,20 +499,14 @@
                     </button>
                   </span>
                 </div>
-                <div id="decline-all" class="input-group pull-right hide" style="padding: 5px;">
-                  <span class="input-group-btn text-center">
-                    <button type="button" id="decline-all-btn" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline all</button>
-                  </span>
+                <div id="decline-all" class="input-group pull-right text-center hide" style="padding: 5px;">
+                  <button type="button" id="decline-all-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-remove"></span> Decline all</button>
                 </div>
-                <div id="cancel-all" class="input-group pull-right hide" style="padding: 5px;">
-                  <span class="input-group-btn text-center">
-                    <button type="button" id="cancel-all-btn" class="btn btn-default btn-warning"><span class="glyphicon glyphicon-minus"></span> Cancel all</button>
-                  </span>
+                <div id="cancel-all" class="input-group pull-right text-center hide" style="padding: 5px;">
+                  <button type="button" id="cancel-all-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-minus"></span> Cancel all</button>
                 </div>
-                <div id="set-it-now" class="input-group pull-right hide" style="padding: 5px;">
-                  <span class="input-group-btn text-center">
-                    <button type="button" id="set-it-now-btn" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
-                  </span>
+                <div id="set-it-now" class="input-group pull-right text-center hide" style="padding: 5px;">
+                  <button type="button" id="set-it-now-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
                 </div>
                 <div id="bid-sorting-field-grp" class="input-group pull-right hide" style="padding: 5px;">
                   <select class="form-control" id="bid-sorting-field">

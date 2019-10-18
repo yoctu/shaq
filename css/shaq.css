@@ -136,7 +136,6 @@ input, select {
 
 #shaq-name, #shaq-valid-from-btn, #shaq-valid-btn, #shaq-from-title-btn {
   font-size: 200%;
-  border-radius: 16px;
   min-width: 200px;
 }
 
