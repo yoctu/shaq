@@ -88,6 +88,15 @@ function setConfigValue(data) {
       if (data.raters.ugo.auto) $("#shaq-settings-rating-ugo-auto").addClass("glyphicon-remove");
       else $("#shaq-settings-rating-ugo-auto").addClass("glyphicon-ok");
     }
+    if (data.raters.boxtal) {
+      $("#settings-boxtal-body").removeClass("hide");
+      $("#boxtalUrlSettings").val(data.raters.boxtal.url);
+      $("#boxtalLoginSettings").val(data.raters.boxtal.username);
+      $("#boxtalPasswordSettings").val(data.raters.boxtal.password);
+      $("#boxtalKeySettings").val(data.raters.boxtal.access_key);
+      if (data.raters.boxtal.auto) $("#shaq-settings-rating-boxtal-auto").addClass("glyphicon-remove");
+      else $("#shaq-settings-rating-boxtal-auto").addClass("glyphicon-ok");
+    }
     if (data.raters.goshippo) {
       $("#settings-goshippo-body").removeClass("hide");
       $("#goshippoUrlSettings").val(data.raters.goshippo.url);
@@ -181,6 +190,14 @@ function saveSettings() {
     window.config.raters.ugo.password = $("#ugoPasswordSettings").val();
     if ($("#shaq-settings-rating-ugo-auto").hasClass("glyphicon-remove")) window.config.raters.ugo.auto = 1;
     else window.config.raters.ugo.auto = 0;
+  }
+  if ($("#boxtalUrlSettings").val()) {
+    window.config.raters.boxtal.url = $("#boxtalUrlSettings").val();
+    window.config.raters.boxtal.username = $("#boxtalLoginSettings").val();
+    window.config.raters.boxtal.password = $("#boxtalPasswordSettings").val();
+    window.config.raters.boxtal.access_key = $("#boxtalKeySettings").val();
+    if ($("#shaq-settings-rating-boxtal-auto").hasClass("glyphicon-remove")) window.config.raters.boxtal.auto = 1;
+    else window.config.raters.boxtal.auto = 0;
   }
   if ($("#goshippoUrlSettings").val()) {
     window.config.raters.goshippo.url = $("#goshippoUrlSettings").val();

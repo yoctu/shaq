@@ -1,4 +1,4 @@
-const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE"];
+const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
 
 function pad(n) {
   return (n < 10 ? "0" + n : n);
