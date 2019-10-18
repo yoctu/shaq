@@ -244,8 +244,8 @@ table.dataTable.no-footer {
 #orderdetail {
    background-color: white;
    padding-top: 20px;
-   border-top-left-radius: 8px;
-   border-top-right-radius: 8px;
+   border-top-left-radius: 3px;
+   border-top-right-radius: 3px;
    padding-bottom: 20px;
 }
 
