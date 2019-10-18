@@ -44,6 +44,7 @@ if (auth.auth.provider) {
 }
 if (auth.app.logourl) {
   $("#shaq-settings-rating-ugo-image").attr("src", auth.app.logourl + "UGO.png");
+  $("#shaq-settings-rating-boxtal-image").attr("src", auth.app.logourl + "BOXTAL.png");
   $("#shaq-settings-rating-shipengine-image").attr("src", auth.app.logourl + "SHIPENGINE.png");
   $("#shaq-settings-rating-goshippo-image").attr("src", auth.app.logourl + "GOSHIPPO.png");
   $("#shaq-settings-rating-skyquote-image").attr("src", auth.app.logourl + "SKYQUOTE.png");
