@@ -85,7 +85,7 @@ input, select {
 
 .panel {
   border: 0px #fff;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
 .panel-footer, .panel-heading, .panel-body {
@@ -209,11 +209,12 @@ table.dataTable thead th {
 table.dataTable.no-footer {
   border-bottom: 0;
 }
+
 #package-list{
     background-color: white;
     padding-top: 20px; padding-bottom: 5px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 #shaqContainer {
