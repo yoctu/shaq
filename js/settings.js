@@ -14,6 +14,7 @@ $('#shaqChatVisibilitySettings').val(localSettings.chatShow);
 $('#shaqShipmentVisibilitySettings').val(localSettings.shipmentShow);
 $('#notifPopup').val(localSettings.autoNotify);
 
+if (auth.auth.usercode) $("#shaq-settings-company-profile-image").text(auth.auth.usercode);
 if (auth.auth.username) {
   $("#shaq-settings-username").text(auth.auth.username);
   $("#settings-username").removeClass("hide");
