@@ -570,7 +570,7 @@ function bidRefresh(bidInfo, bid) {
       bidInfo.find('.btn-status-bid').addClass('hide').data("btn-bid-id", bid.id);
       break;
     case "expired":
-      bidInfo.find('.btn-status-bid').removeClass('hide').html('<span class="glyphicon glyphicon-remove"></span> Expired').addClass('btn-danger').attr("disabled", "disabled");
+      bidInfo.find('.btn-status-bid').removeClass('hide').html('<span class="glyphicon glyphicon-remove"></span> Expired').addClass('btn-primary').attr("disabled", "disabled");
       bidInfo.find('.bid-validity-count').removeClass('hide');
       bidInfo.find('.bidValidUntil').html("expired");
       bidHideAllBtn(bidInfo);
