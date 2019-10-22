@@ -44,7 +44,10 @@ function deleteShaq() {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqDeleted', JSON.stringify(data));
+      shaqGTAG('Shaq', 'ShaqDeleted', window.shaq.key);
+      $('.header-content').hide();
+      $('#not-found-message-text').html('<a href="#">Shaq ' + window.shaq.key + ' has been deleted</a><br><br>');
+      $('#not-found-message').removeClass('hide');
     }
   });
 }
@@ -60,7 +63,7 @@ function archiveShaq() {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqArchived', JSON.stringify(data));
+      shaqGTAG('Shaq', 'ShaqArchived', window.shaq.key);
     }
   });
 }
@@ -76,7 +79,7 @@ function closeShaq() {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqCancelled', JSON.stringify(data));
+      shaqGTAG('Shaq', 'ShaqCancelled', window.shaq.key);
     }
   });
 }
@@ -664,7 +667,10 @@ function shaqRefresh() {
   if (solrTarget !== "-archive") {
     if (["created","searching","searched","running","selected","validated"].includes(window.shaq.status)) $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>');
     else $('#shaq-status').html('<span class="glyphicon glyphicon-glyphicon-floppy-disk"></span>');
-  } else $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
+  } else  {
+    $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
+    //if ()
+  }
 
   $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
   auth.auth.usercodeName = window.shaq.sourceName[0];
@@ -965,7 +971,9 @@ $.ajax({
     $("#DisplayPage").removeClass("hide");
     if ((shaq.numFound) === 0) {
       $('.header-content').hide();
-      $('#not-found-message-text').html('<a href="#">Shaq not found</a><br><br>try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.');
+      let msg = '<a href="#">Shaq not found</a><br><br>';
+      if (solrTarget !== "-archive") msg += 'try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.';
+      $('#not-found-message-text').html(msg);
       $('#not-found-message').removeClass('hide');
       return;
     }
