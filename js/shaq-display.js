@@ -33,6 +33,37 @@ $('input[data-field="datetime"], input[data-field="date"], input[data-field="tim
   $('#dateTimePicker input:first').focus();
 });
 
+function deleteShaq() {
+  informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Deleting Shaq</span>');
+  $.ajax({
+    "url": "/api/shaq/" + auth.auth.usercode + "/delete/" + window.shaq.key,
+    "type": "POST",
+    "dataType": "json",
+    "contentType": "application/json",
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    },
+    "success": function(msgs) {
+      shaqGTAG('Shaq', 'ShaqDeleted', JSON.stringify(data));
+    }
+  });
+}
+
+function archiveShaq() {
+  informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Archiving Shaq</span>');
+  $.ajax({
+    "url": "/api/shaq/" + auth.auth.usercode + "/archive/" + window.shaq.key,
+    "type": "POST",
+    "dataType": "json",
+    "contentType": "application/json",
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    },
+    "success": function(msgs) {
+      shaqGTAG('Shaq', 'ShaqArchived', JSON.stringify(data));
+    }
+  });
+}
 
 function closeShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Closing Shaq</span>');
@@ -67,7 +98,7 @@ function showmore(showmore) {
     $(showmore).html('<i><h6>show more (' + bidderlst.length + ')<h6></i></a>');
     $(showmore).removeClass("tohide");
     for (let i = 0; i < bidderlst.length; i++) {
-      if (i > 4) $(bidderlst[i]).addClass("hide");
+      if (i > 3) $(bidderlst[i]).addClass("hide");
     }
   } else {
     $("#shaq-bidder").find(".bidderslist").removeClass("hide");
@@ -361,9 +392,7 @@ function uploadshaqFile() {
 
 
 function ShaqCompleted(winbid) {
-  if (["created","searching","running","selected","validated"].includes(window.shaq.status)) return;
-  $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>').prop("disabled", true);
-  $('#shaq-status').attr("title", window.shaq.status);
+  if (["created","searching","searched","running","selected","validated"].includes(window.shaq.status)) return;
   $('.btn-send-message').prop("disabled", true);
   $('.notifyAllBidders').prop("disabled", true);
   $("#set-it-now-btn").prop("disabled", true);
@@ -632,6 +661,11 @@ function bidRefresh(bidInfo, bid) {
 
 function shaqRefresh() {
   $('#shaq-status').attr("title", window.shaq.status);
+  if (solrTarget !== "-archive") {
+    if (["created","searching","searched","running","selected","validated"].includes(window.shaq.status)) $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>');
+    else $('#shaq-status').html('<span class="glyphicon glyphicon-glyphicon-floppy-disk"></span>');
+  } else $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
+
   $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
   auth.auth.usercodeName = window.shaq.sourceName[0];
   if (window.shaq.target && window.shaq.target.includes(auth.auth.usercode)) {
@@ -1439,10 +1473,21 @@ $('#bid-add').find('.bidLoaded input').on('change', function() {
 });
 
 $('#shaq-status').on('click', function() {
-  questionShow('Are you sure to close shaq ?', 'Yes');
-  $("#QuestionModalYesBtn").on("click", function() {
-    closeShaq();
-  });
+  if ($("#shaq-status").find(".glyphicon-stop").length > 0) {
+    questionShow('Are you sure to close shaq ?', 'Yes');
+    $("#QuestionModalYesBtn").on("click", function() {
+      closeShaq();
+    });
+  }
+  if ($("#shaq-status").find(".glyphicon-floppy-disk").length > 0) {
+    archiveShaq();
+  }
+  if ($("#shaq-status").find(".glyphicon-trash").length > 0) {
+    questionShow('Are you sure to delete shaq ?', 'Yes');
+    $("#QuestionModalYesBtn").on("click", function() {
+      deleteShaq();
+    });
+  }
 });
 
 $(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .btn-forward-bid', function() {

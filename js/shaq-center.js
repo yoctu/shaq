@@ -48,7 +48,7 @@ function showmore(showmore) {
     $(showmore).html('<i><h6>show more (' + bidderlst.length + ')<h6></i></a>');
     $(showmore).removeClass("tohide");
     for (let i = 0; i < bidderlst.length; i++) {
-      if (i > 4) $(bidderlst[i]).addClass("hide");
+      if (i > 3) $(bidderlst[i]).addClass("hide");
     }
   } else {
     $(showmore).closest("tr").find(".bidderslist").removeClass("hide");
