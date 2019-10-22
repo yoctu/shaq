@@ -46,7 +46,7 @@ function deleteShaq() {
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqDeleted', window.shaq.key);
       $('.header-content').hide();
-      $('#not-found-message-text').html('<a href="#">Shaq ' + window.shaq.key + ' has been deleted</a><br><br>');
+      $('#not-found-message-text').html('<a href="/' + auth.auth.usercode + '">Shaq ' + window.shaq.key + ' has been deleted</a><br><br>');
       $('#not-found-message').removeClass('hide');
     }
   });
@@ -971,7 +971,7 @@ $.ajax({
     $("#DisplayPage").removeClass("hide");
     if ((shaq.numFound) === 0) {
       $('.header-content').hide();
-      let msg = '<a href="#">Shaq not found</a><br><br>';
+      let msg = '<a href="/'+auth.auth.usercode+'">Shaq not found</a><br><br>';
       if (solrTarget !== "-archive") msg += 'try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.';
       $('#not-found-message-text').html(msg);
       $('#not-found-message').removeClass('hide');
