@@ -1,3 +1,5 @@
+const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
+
 function gtag() {
   dataLayer.push(arguments);
 }
