@@ -665,11 +665,10 @@ function bidRefresh(bidInfo, bid) {
 function shaqRefresh() {
   $('#shaq-status').attr("title", window.shaq.status);
   if (solrTarget !== "-archive") {
-    if (["created","searching","searched","running","selected","validated"].includes(window.shaq.status)) $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>');
+    if (["created","searching","searched","running","selected","validated","failed"].includes(window.shaq.status)) $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>');
     else $('#shaq-status').html('<span class="glyphicon glyphicon-glyphicon-floppy-disk"></span>');
   } else  {
     $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
-    //if ()
   }
 
   $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
@@ -735,6 +734,7 @@ function shaqRefresh() {
     if ((new Date().toUTCString()) < (new Date(window.shaq.valid_from).toUTCString())) $("#shaq-files").removeClass("hide");
   }
   $("#shaq-name").html('<div class="shaqlabel text-left">Order</div><div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
+  if (window.shaq.status === "failed") $("#shaq-name").removeClass("btn-primary").addClass("btn-danger");
   if (window.shaq.targetName) $('#bid-add .bidBidderCode').text(window.shaq.targetName[0]);
   if (window.shaq.getitnow && parseFloat(window.shaq.getitnow) > 0) {
     if (window.shaq.source.includes(auth.auth.usercode)) {
