@@ -455,6 +455,7 @@ function bidHideAllBtn(bidInfo) {
 
 function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidPrice').val(parseFloat(bid.price).toFixed(2));
+  bidInfo.attr("id","bid_id_" + bid.id);
   for (key in window.shaq.target) {
     if (window.shaq.target[key] === bid.source[0]) {
       bidInfo.find('.bidBidderCode').html(window.shaq.targetName[key]);
@@ -949,6 +950,11 @@ function shaqRefresh() {
         break;
     }
   }
+  if (window.shaq.bestbid) {
+    $("#bid-list").find('.well').removeClass("well-warning").removeClass('.well-danger').removeClass("well-success");
+    $("#bid-list").find('.well').addClass("well-warning");
+    $("#bid_id_" + window.shaq.bestbid).find('.well').removeClass("well-warning").addClass("well-success");
+  }
 }
 
 $.ajax({
@@ -967,7 +973,6 @@ $.ajax({
     }
   },
   "success": function(shaq) {
-    console.log(shaq);
     $("#DisplayPage").removeClass("hide");
     if ((shaq.numFound) === 0) {
       $('.header-content').hide();
@@ -1038,7 +1043,6 @@ function getBids(orderBy = {
       }
     },
     "success": function(bids) {
-      console.log(bids);
       BidRender(bids);
     }
   });
@@ -1741,7 +1745,6 @@ function bidsFlag(bf) {
               <div class="form-group"><label>Color : </label>\
               <input id="FlagColor" type="color" value="#ff0000" class="pull-right" style="padding: 0 0;"></input></div>');
   $("#QuestionModalYesBtn").on("click", function() {
-    console.log(bf);
     $.ajax({
       "url": '/api/bid/' + auth.auth.usercode + '/comment/' + bf.data("id"),
       "method": "POST",
