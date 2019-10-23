@@ -186,21 +186,6 @@ table.dataTable {
   -webkit-border-vertical-spacing: 10px;
 }
 
-.table>tbody>tr>td:not(.child):first-child {
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-}
-
-.lastVisibleChild {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-
-.table>tbody>tr>td:not(.child):last-child {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-
 table.dataTable thead th {
   border-bottom: 0;
 }
