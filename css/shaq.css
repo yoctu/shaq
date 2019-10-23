@@ -279,10 +279,6 @@ table.dataTable.no-footer {
   top: 100px;
 }
 
-table.dataTable > tbody > tr.child ul.dtr-details > li {
-    min-width: 300px;
-}
-
 .round.hollow.danger {
   color: #d9534f;
   -webkit-box-shadow: 0px 0px 0px 3px #d9534f;
