@@ -595,7 +595,7 @@ function bidRefresh(bidInfo, bid) {
       bidInfo.find('.btn-create-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-no-solution-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-getitnow-bid').addClass('hide').data("btn-bid-id", bid.id);
-      if ((auth.bidvaluemax !== 0) && (bid.price > auth.bidvaluemax)) bidInfo.find('.btn-forward-bid').removeClass('hide').data("btn-bid-id", bid.id);
+      if ((auth.app.bidvaluemax !== 0) && (bid.price > auth.app.bidvaluemax)) bidInfo.find('.btn-forward-bid').removeClass('hide').data("btn-bid-id", bid.id);
       else bidInfo.find('.btn-accept-bid').removeClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-decline-bid').removeClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-cancel-bid').removeClass('hide').data("btn-bid-id", bid.id);
