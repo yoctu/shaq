@@ -7,6 +7,11 @@ input, select {
   font-weight: bold;
 }
 
+tr td:first-child {
+  border-left-width: 5px;
+  border-left-style: solid;
+}
+
 .bid-list-row {
   padding: 0px;
   background-color: #EAEDF3;
