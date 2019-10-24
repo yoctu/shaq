@@ -410,7 +410,6 @@ function ShaqCompleted(winbid) {
   $('#shaq-valid').prop("disabled", true);
   $('#shaq-valid').html("00:00");
   $('#shaq-from').html("00:00");
-  $('#shaq-from-title').html("00:00");
   $(".get-it-now-text").prop("disabled", true);
   $(".set-it-now").addClass("hide");
   $(".fileuploadQueue-handler").hide();
@@ -731,7 +730,6 @@ function shaqRefresh() {
     $("#shaq-valid-from-btn").prop("disabled", false);
     $("#shaq-valid-btn").prop("disabled", false);
     $("#shaq-status").prop("disabled", false);
-    $("#shaq-from-title-btn").prop("disabled", false);
     if ((new Date().toUTCString()) < (new Date(window.shaq.valid_from).toUTCString())) $("#shaq-files").removeClass("hide");
   }
   $("#shaq-name").html('<div class="shaqlabel text-left">Order</div><div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
@@ -871,7 +869,6 @@ function shaqRefresh() {
   if (localSettings.chatShow === "Hide") $(".hideMessage").click();
   if (localSettings.shipmentShow === "Hide") $(".hideShipment").click();
   $('#shaq-from').html("00:00");
-  $('#shaq-from-title').html("00:00");
   let validDateFrom = window.shaq.valid_from.substring(0, 16).replace('T', ' ');
   let CurrentDateFrom = new Date(validDateFrom).getTime();
   if ((CurrentDateFrom > CurrentDate) && (window.shaq.status === "running")) {
@@ -890,7 +887,6 @@ function shaqRefresh() {
       var remainingFromSeconds = timerFrom % 60;
       if (timerFrom >= 0) {
         $('#shaq-from').html(pad(hoursFrom) + ":" + pad(minutesFrom) + ":" + pad(remainingFromSeconds));
-        $('#shaq-from-title').html(pad(hoursFrom) + ":" + pad(minutesFrom) + ":" + pad(remainingFromSeconds));
         timerFrom--;
       } else {
         $(".btn-accept-bid").prop("disabled", false);

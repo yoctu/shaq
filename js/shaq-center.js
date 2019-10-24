@@ -325,29 +325,31 @@ $('#shaqList').DataTable({
         };
         $("#CenterPage").removeClass("hide");
         callback(o);
-        $.ajax({
-          "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
-          "dataType": "json",
-          "json": "json.wrf",
-          "beforeSend": function(xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
-          },
-          "statusCode": {
-            "429": function(xhr) {
-              status429();
+        if (json.numFound > 0) {
+          $.ajax({
+            "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "dataType": "json",
+            "json": "json.wrf",
+            "beforeSend": function(xhr) {
+              xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+            },
+            "statusCode": {
+              "429": function(xhr) {
+                status429();
+              }
+            },
+            "success": function(json) {
+              let key, source;
+              for (let docs in json.docs) {
+                key = json.docs[docs].key;
+                source = json.docs[docs].source[0];
+                $('span[data-id=' + key + ']').text(parseInt($('span[data-id=' + key + ']').first().text()) + 1);
+                $('span[data-bids-number=' + key + '_' + source + ']').text(parseInt($('span[data-bids-number=' + key + '_' + source + ']').first().text()) + 1).addClass(json.docs[docs].id);
+                if (searchShaqWinning(json.docs[docs].id)) $('span[data-bids-number=' + key + '_' + source + ']').removeClass('label-primary').addClass("label-success");
+              }
             }
-          },
-          "success": function(json) {
-            let key, source;
-            for (let docs in json.docs) {
-              key = json.docs[docs].key;
-              source = json.docs[docs].source[0];
-              $('span[data-id=' + key + ']').text(parseInt($('span[data-id=' + key + ']').first().text()) + 1);
-              $('span[data-bids-number=' + key + '_' + source + ']').text(parseInt($('span[data-bids-number=' + key + '_' + source + ']').first().text()) + 1).addClass(json.docs[docs].id);
-              if (searchShaqWinning(json.docs[docs].id)) $('span[data-bids-number=' + key + '_' + source + ']').removeClass('label-primary').addClass("label-success");
-            }
-          }
-        });
+          });
+        } else $("#shaqList").find("tr td:first-child").css("border-left-width","0px");
       }
     });
   }
@@ -466,6 +468,7 @@ socket.on(auth.auth.usercode, function(data) {
     case "auction":
       updateShaq(msg);
       $(".dataTables_info").text("Showing 1 to 10 of " + $("#shaqList_length").val() + " entries (filtered from " + window.shaqs.length + " total entries)");
+      $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
       if (searchShaqID(msg.id)) {
         if (msg.bestbidprice) $('.bestbid_' + msg.key).text(parseFloat(msg.bestbidprice).toFixed(2));
         if (msg.getitnow && parseFloat(msg.getitnow) > 0) $('.getitnow_' + msg.key).removeClass("hide").text(parseFloat(msg.getitnow).toFixed(2));
