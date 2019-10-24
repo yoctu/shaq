@@ -12,6 +12,10 @@ tr td:first-child {
   border-left-style: solid;
 }
 
+.form-group {
+    margin-bottom: 0px;
+}
+
 .bid-list-row {
   padding: 0px;
   background-color: #EAEDF3;
