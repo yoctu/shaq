@@ -862,7 +862,7 @@ function shaqRefresh() {
   }
   $("#shaq-total-package").html(totaldim[0]);
   $("#shaq-total-weight").html(totaldim[1] + " " + totalUnitWeight);
-  $("#shaq-total-volume").html(totaldim[2].toFixed(2) + " " + totalUnitCubed);
+  $("#shaq-total-volume").html(totaldim[2].toFixed(3) + " " + totalUnitCubed);
   let now = new Date();
   let CurrentDate = now.getTime() + now.getTimezoneOffset() * 60000;
   validDate = new Date(validDate).getTime();

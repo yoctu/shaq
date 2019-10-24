@@ -136,6 +136,11 @@ function subscribe(button) {
   });
 }
 
+function addBid(msg) {
+  $('span[data-id=' + msg.key + ']').text(parseInt($('span[data-id=' + msg.key + ']').text()) + 1);
+  $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text(parseInt($('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text()) + 1).addClass(msg.id);
+}
+
 function renderFunc(row, data) {
   if (!row.visible) row.visible = "private";
   let labelColor = "danger";
@@ -445,15 +450,10 @@ socket.on(auth.auth.usercode, function(data) {
     case "bid":
       switch (msg.status) {
         case "created":
-          $('span[data-id=' + msg.key + ']').text(parseInt($('span[data-id=' + msg.key + ']').text()) + 1);
-          $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text(parseInt($('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text()) + 1).addClass(msg.id);
-          for (shaq in window.shaqs) {
-            if (window.shaqs[shaq].key !== msg.key) continue;
-            $('span[data-bids-number=' + window.shaqs[shaq].key + '_' + window.shaqs[shaq].source[0] + ']').removeClass('label-success').addClass("label-primary");
-            if (window.shaqs[shaq].bestbid) $('.' + window.shaqs[shaq].bestbid).removeClass('label-primary').addClass("label-success");
-          }
+          addBid(msg);
           break;
         case "running":
+          if (Raters.includes(msg.source[0])) addBid(msg);
           break;
         case "cancelled":
           break;
@@ -502,6 +502,8 @@ socket.on(auth.auth.usercode, function(data) {
               break;
           }
         }
+        $('.' + msg.bestbid).removeClass('label-success').addClass("label-primary");
+        if (msg.bestbid) $('.' + msg.bestbid).removeClass('label-primary').addClass("label-success");
       }
       if ((solrTarget === "-public") && msg.target && msg.target.includes(usercode)) {
         $("." + msg.id).remove();
