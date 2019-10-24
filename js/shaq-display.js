@@ -149,7 +149,14 @@ function rate(rater) {
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
-    "complete": function(json) {}
+    "complete": function(json) {
+      sendMessage({
+        "subject": rater + " has been launched",
+        "message": rater + " has been launched",
+        "channel": rater,
+        "target": [auth.auth.usercode]
+      });
+    }
   });
 }
 
@@ -233,14 +240,24 @@ function removebidder(remove) {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
     "complete": function(json) {
-      let actionText = "You have been enabled!";
-      if (action === "remove") actionText = "You have been disabled!";
+      let actionText = target + " has been enabled!";
+      if (action === "remove") actionText = target + " has been disabled!";
       sendMessage({
         "subject": actionText,
         "message": actionText,
         "channel": action,
-        "target": [target]
+        "target": [auth.auth.usercode]
       });
+      if (!Raters.includes(target)) {
+        actionText = "You have been enabled!";
+        if (action === "remove") actionText = "You have been disabled!";
+        sendMessage({
+          "subject": actionText,
+          "message": actionText,
+          "channel": action,
+          "target": [target]
+        });
+      }
       shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
     }
   });
@@ -897,6 +914,7 @@ function shaqRefresh() {
       }
     }, 1000);
   }
+  $("#filetoUploadShaq").html("");
   for (file in window.shaq.files) {
     $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + auth.auth.usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
   }
@@ -1086,7 +1104,7 @@ function updateChat(chat) {
       $('#chatBadge-' + chat.source[source]).text(parseInt($('#chatBadge-' + chat.source[source]).text()) + 1);
     }
   }
-  $('#chatCount').text(parseInt($('#chatCount').text()) + 1);
+  $('#chatCount').text(window.chats.length);
 }
 
 function getChatMsgs() {
