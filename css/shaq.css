@@ -31,6 +31,7 @@ tr td:first-child {
 .form-control[readonly] {
   border: none;
   -webkit-box-shadow: none;
+  -webkit-appearance: none;
   box-shadow: none;
 }
 
