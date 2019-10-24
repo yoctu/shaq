@@ -16,7 +16,7 @@ tr td:first-child {
     margin-bottom: 0px;
 }
 
-.bidpuplace {
+.bidpuplace, .biddeplace {
     background-color: white;
     color: var(--main-bg-color);
     border: none;

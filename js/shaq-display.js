@@ -548,11 +548,14 @@ function bidRefresh(bidInfo, bid) {
   if (bid.deDate.substring(0, 16) !== window.shaq.deDate.substring(0, 16)) {
     bidInfo.find('.bidDeDate').css("color", "#d9534f");
   }
+  if (bid.dePlace && bid.dePlace[4] !== "") bidInfo.find('.biddeplace').removeClass("glyphicon-home").addClass("glyphicon-map-marker");
+
   bidInfo.find('.bidPuDate').val(moment(bid.puDate).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', ''));
   bidInfo.find('.bidPuDate').removeAttr("data-field");
   if (bid.puDate.substring(0, 16) !== window.shaq.puDate.substring(0, 16)) {
     bidInfo.find('.bidPuDate').css("color", "#d9534f");
   }
+  if (bid.puPlace && bid.puPlace[4] !== "") bidInfo.find('.bidpuplace').removeClass("glyphicon-home").addClass("glyphicon-map-marker");
   bidInfo.find('.bidValidDate').val(moment(bid.valid_until).format('YYYY-MM-DD HH:mm').replace(' 00:00', ''));
   bidInfo.find('.bidLang').val(bid.lang);
   bidInfo.find('.bidLang').attr('disabled', 'disabled');
