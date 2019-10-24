@@ -149,8 +149,7 @@ function rate(rater) {
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
     },
-    "complete": function(json) {
-    }
+    "complete": function(json) {}
   });
 }
 
@@ -395,7 +394,7 @@ function uploadshaqFile() {
 
 
 function ShaqCompleted(winbid) {
-  if (["created","searching","searched","running","selected","validated"].includes(window.shaq.status)) return;
+  if (["created", "searching", "searched", "running", "selected", "validated"].includes(window.shaq.status)) return;
   $('.btn-send-message').prop("disabled", true);
   $('.notifyAllBidders').prop("disabled", true);
   $("#set-it-now-btn").prop("disabled", true);
@@ -454,7 +453,7 @@ function bidHideAllBtn(bidInfo) {
 
 function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidPrice').val(parseFloat(bid.price).toFixed(2));
-  bidInfo.attr("id","bid_id_" + bid.id);
+  bidInfo.attr("id", "bid_id_" + bid.id);
   for (key in window.shaq.target) {
     if (window.shaq.target[key] === bid.source[0]) {
       bidInfo.find('.bidBidderCode').html(window.shaq.targetName[key]);
@@ -665,9 +664,9 @@ function bidRefresh(bidInfo, bid) {
 function shaqRefresh() {
   $('#shaq-status').attr("title", window.shaq.status);
   if (solrTarget !== "-archive") {
-    if (["created","searching","searched","running","selected","validated","failed"].includes(window.shaq.status)) $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>');
+    if (["created", "searching", "searched", "running", "selected", "validated", "failed"].includes(window.shaq.status)) $('#shaq-status').html('<span class="glyphicon glyphicon-stop"></span>');
     else $('#shaq-status').html('<span class="glyphicon glyphicon-glyphicon-floppy-disk"></span>');
-  } else  {
+  } else {
     $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
   }
 
@@ -847,7 +846,6 @@ function shaqRefresh() {
   let now = new Date();
   let CurrentDate = now.getTime() + now.getTimezoneOffset() * 60000;
   validDate = new Date(validDate).getTime();
-  $('#shaq-valid').html("00:00");
   if (window.shaqValid) clearInterval(window.shaqValid);
   if ((validDate > CurrentDate) && (window.shaq.status === "running")) {
     shaqValiditytimer = Math.floor((validDate - CurrentDate) / 1000);
@@ -868,7 +866,6 @@ function shaqRefresh() {
   if (localSettings.shaqvalidtimer === "Disable") $('#shaq-valid').addClass('hide');
   if (localSettings.chatShow === "Hide") $(".hideMessage").click();
   if (localSettings.shipmentShow === "Hide") $(".hideShipment").click();
-  $('#shaq-from').html("00:00");
   let validDateFrom = window.shaq.valid_from.substring(0, 16).replace('T', ' ');
   let CurrentDateFrom = new Date(validDateFrom).getTime();
   if ((CurrentDateFrom > CurrentDate) && (window.shaq.status === "running")) {
@@ -879,6 +876,7 @@ function shaqRefresh() {
     $('.btn-accept-bid').attr('title', 'Decision time is Running !');
     $('.btn-forward-bid').attr('title', 'Decision time is Running !');
     $('.btn-decline-bid').attr('title', 'Decision time is Running !');
+    if (window.shaqFromValid) clearInterval(window.shaqFromValid);
     window.shaqFromValid = setInterval(function() {
       var hoursFromLeft = Math.floor(timerFrom);
       var hoursFrom = Math.floor(hoursFromLeft / 3600);
@@ -972,7 +970,7 @@ $.ajax({
     $("#DisplayPage").removeClass("hide");
     if ((shaq.numFound) === 0) {
       $('.header-content').hide();
-      let msg = '<a href="/'+auth.auth.usercode+'">Shaq not found</a><br><br>';
+      let msg = '<a href="/' + auth.auth.usercode + '">Shaq not found</a><br><br>';
       if (solrTarget !== "-archive") msg += 'try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.';
       $('#not-found-message-text').html(msg);
       $('#not-found-message').removeClass('hide');
@@ -1155,7 +1153,9 @@ socket.on(auth.auth.usercode, function(data) {
       break;
     case "bid":
       window.bids[msg.id] = msg;
-      let Bids = { docs: [] };
+      let Bids = {
+        docs: []
+      };
       for (let Bid in window.bids) {
         Bids["docs"].push(window.bids[Bid]);
       }
