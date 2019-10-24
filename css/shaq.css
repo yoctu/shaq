@@ -16,6 +16,13 @@ tr td:first-child {
     margin-bottom: 0px;
 }
 
+.bidpuplace {
+    background-color: white;
+    color: var(--main-bg-color);
+    border: none;
+    padding: 0px;
+}
+
 .bid-list-row {
   padding: 0px;
   background-color: #EAEDF3;
