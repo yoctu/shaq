@@ -298,6 +298,7 @@ $('#shaqList').DataTable({
   "pagingType": "numbers",
   "createdRow": function(createdRow, data, dataIndex) {
     $(createdRow).addClass(data.id);
+    if (data.status === "failed") $(createdRow).find("td:first-child").css("border-left-color","red");
   },
   "initComplete": function(settings, json) {
     getLastVisibleColumn();
@@ -532,6 +533,7 @@ socket.on(auth.auth.usercode, function(data) {
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.puPlace, "pu") + '</td>';
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.dePlace, "de") + '</td></tr>';
       $('tbody').prepend(tbodyadd);
+      if (msg.status === "failed") $("#shaqList").find("tr."+row.id+" td:first-child").css("border-left-color","red");
       let lastVisibleCell = $(".lastVisibleChild").first().prop("cellIndex");
       $("." + msg.id + " td").eq(lastVisibleCell).addClass("lastVisibleChild");
       for (let lvc = lastVisibleCell + 1; lvc < $("." + msg.id + " td").length; lvc++) {
