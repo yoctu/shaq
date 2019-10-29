@@ -2,7 +2,7 @@ window.dataLayer = window.dataLayer || [];
 
 var auth = {};
 auth.auth = {};
-auth.webversion = "1.1.2";
+auth.webversion = "1.1.3";
 
 function getCookie(cname) {
   var name = cname + "=";
@@ -30,12 +30,13 @@ if (getCookie("ConnectUser") !== "") {
   auth.auth.lang = ConnectUser.lang;
   auth.auth.userkey = ConnectUser.api_token;
   auth.auth.provider = "connect";
+  auth.auth.authbasic = btoa(auth.auth.email + ":" + auth.auth.userkey)
 }
 if (getCookie("Auth0User") !== "") {
   auth.auth = JSON.parse(getCookie("Auth0User"));
   auth.auth.usercode = window.location.pathname.split("/")[1];;
   auth.auth.provider = "auth0";
+  auth.auth.authbasic = btoa(auth.auth.username + ":" + auth.auth.userkey)
 }
 
-auth.auth.authbasic = btoa(auth.auth.username + ":" + auth.auth.userkey)
 if (!auth.auth.lang || (auth.auth.lang == "(null)")) auth.auth.lang = "en";
