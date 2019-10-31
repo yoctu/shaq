@@ -34,7 +34,6 @@ $(document).ready(function() {
       }
     },
     "success": function(configapi) {
-      $.getScript("/" + auth.auth.usercode + "/js/apiStatus.js");
       $.extend(true, auth, auth, configapi);
       $("#load-navbar").load("/" + auth.auth.usercode + "/html/navbar.html");
       $("#load-footer").load("/" + auth.auth.usercode + "/html/footer.html");
