@@ -1,0 +1,11 @@
+Source: shaq-view
+Section: utils
+Maintainer: Dzove855 <dzove855@yoctu.com>
+Build-Depends: debhelper
+Standards-Version: 0.0.1
+
+Package: shaq-view
+Architecture: all
+Priority: optional
+Depends: apache2
+Description: shaq-view
