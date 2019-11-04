@@ -22,9 +22,10 @@ if (auth.auth.maxbids > 0) $('#bidMaxBidder').text(" / " + auth.auth.maxbids);
 if ((auth.notifications & 1) || (localSettings.chatShow === "Show")) $('#chat-box').removeClass("hide");
 
 $("#dateTimePicker").DateTimePicker({
-  isPopup: true,
-  buttonsToDisplay: ['HeaderCloseButton'],
-  titleContentDateTime: 'shaq.set-datetime-datepicker-title',
+  isPopup: false,
+  buttonsToDisplay: ['HeaderCloseButton', 'SetButton'],
+  setValueInTextboxOnEveryClick: true,
+  animationDuration: 200,
   dateTimeFormat: "yyyy-MM-dd HH:mm",
   dateFormat: "yyyy-MM-dd"
 });
