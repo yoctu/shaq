@@ -17,7 +17,7 @@ tr td:first-child {
 }
 
 .bidpuplace, .biddeplace {
-    background-color: white;
+    background-color: transparent;
     color: var(--main-bg-color);
     border: none;
     padding: 0px;
