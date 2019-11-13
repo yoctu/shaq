@@ -73,7 +73,7 @@
 <script>
 $(document).ready(function() {
   $('#navbar-usercode').html(auth.app.usercodename + '<b class="caret"></b>');
-  $("#shaq-navbar-url").attr("href", auth.auth.usercode);
+  $("#shaq-navbar-url").attr("href", "/" + auth.auth.usercode);
   $("#navbarNewOrder").attr("href", auth.app.orderingurl);
   $("#navbarSettings").attr("href", "/" + auth.auth.usercode + "/settings");
   $("#navbarHelp").attr("href", "/" + auth.auth.usercode + "/help");

@@ -476,7 +476,7 @@ function bidRefresh(bidInfo, bid) {
     if (window.shaq.target[key] === bid.source[0]) {
       bidInfo.find('.bidBidderCode').html(window.shaq.targetName[key]);
       bidInfo.find('.bidBidderId').html(bid.id);
-      if (((bid.source[0]) === auth.auth.usercode) && auth.app.fileUpload) {
+      if ((bid.source.includes(auth.auth.usercode)) && window.shaq.options && window.shaq.options.includes("bidupload")) {
         let fileData = '<input multiple="" class="form-control fileupload" style="display: none !important;" id="file' + bid.id.substring(1, 8) + '" name="file[]" type="file" onchange=\'uploadFile(' + JSON.stringify(bid) + ');\'/><div class="table-responsive fileuploadQueue-handler">';
         fileData += '<a id="href' + bid.id.substring(1, 8) + '" class="btn btn-xs btn-primary upload_add_files" onclick="$(\'#file' + bid.id.substring(1, 8) + '\').trigger(\'click\');">Add files...</a></div>';
         fileData += '<div id="filetoUpload' + bid.id.substring(1, 8) + '"></div>';
@@ -486,7 +486,7 @@ function bidRefresh(bidInfo, bid) {
         bidInfo.find('.bidBidderFile').html(fileData);
       }
     } else {
-      if ((bid.target[0] === auth.auth.usercode) && auth.app.fileUpload) {
+      if (bid.target.includes(auth.auth.usercode) && window.shaq.options && window.shaq.options.includes("bidupload")) {
         let fileData = "";
         for (file in bid.files) {
           fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
@@ -750,7 +750,7 @@ function shaqRefresh() {
     $("#shaq-valid-from-btn").prop("disabled", false);
     $("#shaq-valid-btn").prop("disabled", false);
     $("#shaq-status").prop("disabled", false);
-    if ((new Date().toUTCString()) < (new Date(window.shaq.valid_from).toUTCString())) $("#shaq-files").removeClass("hide");
+    if ((new Date().toUTCString()) < (new Date(window.shaq.valid_from).toUTCString()) && window.shaq.options && window.shaq.options.includes("shaqupload")) $("#shaq-files").removeClass("hide");
   }
   $("#shaq-name").html('<div class="shaqlabel text-left">Order</div><div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
   if (window.shaq.status === "failed") $("#shaq-name").removeClass("btn-primary").addClass("btn-danger");
