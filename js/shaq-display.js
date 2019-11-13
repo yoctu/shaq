@@ -377,7 +377,7 @@ function uploadFile(bid) {
     "complete": function(json) {
       let file = 0;
       if (bid.files) file = bid.files.length;
-      $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
+      $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
       shaqGTAG('Bid', 'BidUploadFile', fileBid[0].name);
     }
   });
@@ -402,8 +402,8 @@ function uploadshaqFile() {
       let file = 0;
       if (shaq.files) file = shaq.files.length;
       for (file in shaq.files) {
-        //$("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
-        $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + shaq.key + '?id=' + shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + shaq.files[file].slice(shaq.files[file].indexOf("_") + 1) + '</a></div>');
+        //$("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
+        $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + shaq.key + '?id=' + shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + shaq.files[file].slice(shaq.files[file].indexOf("_") + 1) + '</a></div>');
       }
       shaqGTAG('Shaq', 'ShaqUploadFile', fileShaq[0].name);
     }
@@ -481,7 +481,7 @@ function bidRefresh(bidInfo, bid) {
         fileData += '<a id="href' + bid.id.substring(1, 8) + '" class="btn btn-xs btn-primary upload_add_files" onclick="$(\'#file' + bid.id.substring(1, 8) + '\').trigger(\'click\');">Add files...</a></div>';
         fileData += '<div id="filetoUpload' + bid.id.substring(1, 8) + '"></div>';
         for (file in bid.files) {
-          fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
+          fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
         }
         bidInfo.find('.bidBidderFile').html(fileData);
       }
@@ -489,7 +489,7 @@ function bidRefresh(bidInfo, bid) {
       if (bid.target.includes(auth.auth.usercode) && window.shaq.options && window.shaq.options.includes("bidupload")) {
         let fileData = "";
         for (file in bid.files) {
-          fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
+          fileData += '<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + bid.files[file].slice(bid.files[file].indexOf("_") + 1) + "</a></div>";
         }
         bidInfo.find('.bidBidderFile').html(fileData);
       }
@@ -920,7 +920,7 @@ function shaqRefresh() {
   }
   $("#filetoUploadShaq").html("");
   for (file in window.shaq.files) {
-    $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.userkey + '@' + window.location.host + '/api/shaq/' + auth.auth.usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
+    $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/shaq/' + auth.auth.usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
   }
   $('#ChatList').find(".btn-room").each(function() {
     $(this).bind("click", function() {
