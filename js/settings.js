@@ -303,8 +303,7 @@ $("#discordTestSettings").on('click', function() {
     "contentType": "application/json",
     "data": JSON.stringify({
       type: "notification",
-      action: "discordTest",
-      user: email
+      action: "discordTest"
     }),
     "success": function() {
       informShow('<div class="text-center" id="settings-configuration-saved">Test Sent !</div>');
