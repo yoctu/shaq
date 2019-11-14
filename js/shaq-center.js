@@ -472,6 +472,7 @@ socket.on(auth.auth.usercode, function(data) {
       $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
       if (searchShaqID(msg.id)) {
         if (msg.bestbidprice) $('.bestbid_' + msg.key).text(parseFloat(msg.bestbidprice).toFixed(2));
+        if (msg.status === "failed") $("#shaqList").find("tr."+msg.id+" td:first-child").css("border-left-color","red");
         if (msg.getitnow && parseFloat(msg.getitnow) > 0) $('.getitnow_' + msg.key).removeClass("hide").text(parseFloat(msg.getitnow).toFixed(2));
         $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').removeClass('label-primary').addClass("label-success");
         $("#shaq-valid-from_" + msg.id).text(msg.valid_from.substring(0, 16).replace('T', ' '));
@@ -533,7 +534,7 @@ socket.on(auth.auth.usercode, function(data) {
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.puPlace, "pu") + '</td>';
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.dePlace, "de") + '</td></tr>';
       $('tbody').prepend(tbodyadd);
-      if (msg.status === "failed") $("#shaqList").find("tr."+row.id+" td:first-child").css("border-left-color","red");
+      if (msg.status === "failed") $("#shaqList").find("tr."+msg.id+" td:first-child").css("border-left-color","red");
       let lastVisibleCell = $(".lastVisibleChild").first().prop("cellIndex");
       $("." + msg.id + " td").eq(lastVisibleCell).addClass("lastVisibleChild");
       for (let lvc = lastVisibleCell + 1; lvc < $("." + msg.id + " td").length; lvc++) {
