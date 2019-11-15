@@ -629,7 +629,7 @@ function bidRefresh(bidInfo, bid) {
       break;
     case "accepted":
       bidInfo.find('.btn-status-bid').removeClass('hide').html('<span class="glyphicon glyphicon-ok"></span> Accepted').addClass('btn-success').attr("disabled", "disabled");
-      bidHideAllBtn(bidInfo);
+      $(".action-container").addClass('hide');
       break;
     case "declined":
       bidInfo.find('.btn-status-bid').removeClass('hide').html('<span class="glyphicon glyphicon-remove"></span> Declined').addClass('btn-danger').attr("disabled", "disabled");
@@ -1523,7 +1523,10 @@ $('#shaq-status').on('click', function() {
 $(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .btn-forward-bid', function() {
   if ($(this).hasClass('btn-decline-bid')) window.bids[$(this).data("btn-bid-id")].status = "declined";
   if ($(this).hasClass('btn-cancel-bid')) window.bids[$(this).data("btn-bid-id")].status = "cancelled";
-  if ($(this).hasClass('btn-accept-bid')) window.bids[$(this).data("btn-bid-id")].status = "accepted";
+  if ($(this).hasClass('btn-accept-bid')) {
+    window.bids[$(this).data("btn-bid-id")].status = "accepted";
+    $(".action-container").addClass('hide');
+  }
   if ($(this).hasClass('btn-forward-bid')) {
     window.bids[$(this).data("btn-bid-id")].status = "forwarded";
     window.bids[$(this).data("btn-bid-id")].forwarder = auth.auth.username;
