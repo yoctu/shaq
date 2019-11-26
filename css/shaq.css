@@ -272,7 +272,14 @@ table.dataTable.no-footer {
 }
 
 #shaq-navbar-url {
-    height: 64px;
+  height: 64px;
+  margin: 15px 0 -15px 15px;
+  content: ' ';
+  display: block;
+  width: 90px;
+  background-size: 90px;
+  background-repeat: no-repeat;
+  background-image: url("https://shaq.yoctu.com/img/shaqlogo.png");
 }
 
 .carousel-control.right {
