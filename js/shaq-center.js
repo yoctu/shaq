@@ -48,7 +48,7 @@ function showmore(showmore) {
     $(showmore).html('<i><h6>show more (' + bidderlst.length + ')<h6></i></a>');
     $(showmore).removeClass("tohide");
     for (let i = 0; i < bidderlst.length; i++) {
-      if (i > 4) $(bidderlst[i]).addClass("hide");
+      if (i > 3) $(bidderlst[i]).addClass("hide");
     }
   } else {
     $(showmore).closest("tr").find(".bidderslist").removeClass("hide");
@@ -134,6 +134,11 @@ function subscribe(button) {
       shaqGTAG('Shaq', 'ShaqSubscribe', JSON.stringify(data));
     }
   });
+}
+
+function addBid(msg) {
+  $('span[data-id=' + msg.key + ']').text(parseInt($('span[data-id=' + msg.key + ']').text()) + 1);
+  $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text(parseInt($('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text()) + 1).addClass(msg.id);
 }
 
 function renderFunc(row, data) {
@@ -293,6 +298,7 @@ $('#shaqList').DataTable({
   "pagingType": "numbers",
   "createdRow": function(createdRow, data, dataIndex) {
     $(createdRow).addClass(data.id);
+    if (data.status === "failed") $(createdRow).find("td:first-child").css("border-left-color","red");
   },
   "initComplete": function(settings, json) {
     getLastVisibleColumn();
@@ -325,29 +331,31 @@ $('#shaqList').DataTable({
         };
         $("#CenterPage").removeClass("hide");
         callback(o);
-        $.ajax({
-          "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
-          "dataType": "json",
-          "json": "json.wrf",
-          "beforeSend": function(xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
-          },
-          "statusCode": {
-            "429": function(xhr) {
-              status429();
+        if (json.numFound > 0) {
+          $.ajax({
+            "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "dataType": "json",
+            "json": "json.wrf",
+            "beforeSend": function(xhr) {
+              xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+            },
+            "statusCode": {
+              "429": function(xhr) {
+                status429();
+              }
+            },
+            "success": function(json) {
+              let key, source;
+              for (let docs in json.docs) {
+                key = json.docs[docs].key;
+                source = json.docs[docs].source[0];
+                $('span[data-id=' + key + ']').text(parseInt($('span[data-id=' + key + ']').first().text()) + 1);
+                $('span[data-bids-number=' + key + '_' + source + ']').text(parseInt($('span[data-bids-number=' + key + '_' + source + ']').first().text()) + 1).addClass(json.docs[docs].id);
+                if (searchShaqWinning(json.docs[docs].id)) $('span[data-bids-number=' + key + '_' + source + ']').removeClass('label-primary').addClass("label-success");
+              }
             }
-          },
-          "success": function(json) {
-            let key, source;
-            for (let docs in json.docs) {
-              key = json.docs[docs].key;
-              source = json.docs[docs].source[0];
-              $('span[data-id=' + key + ']').text(parseInt($('span[data-id=' + key + ']').first().text()) + 1);
-              $('span[data-bids-number=' + key + '_' + source + ']').text(parseInt($('span[data-bids-number=' + key + '_' + source + ']').first().text()) + 1).addClass(json.docs[docs].id);
-              if (searchShaqWinning(json.docs[docs].id)) $('span[data-bids-number=' + key + '_' + source + ']').removeClass('label-primary').addClass("label-success");
-            }
-          }
-        });
+          });
+        } else $("#shaqList").find("tr td:first-child").css("border-left-width","0px");
       }
     });
   }
@@ -443,15 +451,10 @@ socket.on(auth.auth.usercode, function(data) {
     case "bid":
       switch (msg.status) {
         case "created":
-          $('span[data-id=' + msg.key + ']').text(parseInt($('span[data-id=' + msg.key + ']').text()) + 1);
-          $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text(parseInt($('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').text()) + 1).addClass(msg.id);
-          for (shaq in window.shaqs) {
-            if (window.shaqs[shaq].key !== msg.key) continue;
-            $('span[data-bids-number=' + window.shaqs[shaq].key + '_' + window.shaqs[shaq].source[0] + ']').removeClass('label-success').addClass("label-primary");
-            if (window.shaqs[shaq].bestbid) $('.' + window.shaqs[shaq].bestbid).removeClass('label-primary').addClass("label-success");
-          }
+          addBid(msg);
           break;
         case "running":
+          if (Raters.includes(msg.source[0])) addBid(msg);
           break;
         case "cancelled":
           break;
@@ -466,8 +469,10 @@ socket.on(auth.auth.usercode, function(data) {
     case "auction":
       updateShaq(msg);
       $(".dataTables_info").text("Showing 1 to 10 of " + $("#shaqList_length").val() + " entries (filtered from " + window.shaqs.length + " total entries)");
+      $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
       if (searchShaqID(msg.id)) {
         if (msg.bestbidprice) $('.bestbid_' + msg.key).text(parseFloat(msg.bestbidprice).toFixed(2));
+        if (msg.status === "failed") $("#shaqList").find("tr."+msg.id+" td:first-child").css("border-left-color","red");
         if (msg.getitnow && parseFloat(msg.getitnow) > 0) $('.getitnow_' + msg.key).removeClass("hide").text(parseFloat(msg.getitnow).toFixed(2));
         $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').removeClass('label-primary').addClass("label-success");
         $("#shaq-valid-from_" + msg.id).text(msg.valid_from.substring(0, 16).replace('T', ' '));
@@ -499,6 +504,8 @@ socket.on(auth.auth.usercode, function(data) {
               break;
           }
         }
+        $('.' + msg.bestbid).removeClass('label-success').addClass("label-primary");
+        if (msg.bestbid) $('.' + msg.bestbid).removeClass('label-primary').addClass("label-success");
       }
       if ((solrTarget === "-public") && msg.target && msg.target.includes(usercode)) {
         $("." + msg.id).remove();
@@ -527,6 +534,7 @@ socket.on(auth.auth.usercode, function(data) {
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.puPlace, "pu") + '</td>';
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.dePlace, "de") + '</td></tr>';
       $('tbody').prepend(tbodyadd);
+      if (msg.status === "failed") $("#shaqList").find("tr."+msg.id+" td:first-child").css("border-left-color","red");
       let lastVisibleCell = $(".lastVisibleChild").first().prop("cellIndex");
       $("." + msg.id + " td").eq(lastVisibleCell).addClass("lastVisibleChild");
       for (let lvc = lastVisibleCell + 1; lvc < $("." + msg.id + " td").length; lvc++) {

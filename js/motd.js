@@ -1,11 +1,11 @@
-var MOTD = 4;
+var MOTD = 5;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
-  <div class="text-center"><b><font color="#4981F1">Bid comment is out there !</font></b></div><br>\
-  <p><div class="text-center">You can now add comment to your bids.<br>\
-  They can be private (only you can see it) <br>or<br> public (both auctioneer and bidder can see it).<br>\
-  Color is yours !<br></p>\
+  <div class="text-center"><b><font color="#4981F1">New Rater !!!</font></b></div><br>\
+  <p><div class="text-center">Boxtal is now available for rating !<br><br>\
+  You can create your account on <a href="https://www.boxtal.com">https://www.boxtal.com</a><br><br>\
+  Update your settings and test it !<br></p>\
   </div>\
 </div>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\

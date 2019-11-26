@@ -16,6 +16,9 @@
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" />
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" id="theme-css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<script src="/shaq-view/js/apiStatus.js"></script>
+<script src="/shaq-view/js/auth.js"></script>
+<script src="/shaq-view/js/shaq.js"></script>
 <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
 </head>
@@ -25,13 +28,9 @@
 <div id="load-navbar"></div>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283327-2"></script>
-<script>
-  var userCodePath = window.location.pathname.split("/")[1];
-  $.getScript("/" + userCodePath + "/js/shaq.js");
-</script>
 
 <br><br><br><br>
-<div class="row hide" id="settingsScreen">
+<div class="col-sm-12 row hide" id="settingsScreen">
   <div class="container">
     <div class="pull-right"><button class="btn btn-default btn-primary" id="saveSettingsBtn"><span id="shaq-settings-save-btn">Save</span></button></div>
   </div><br>
@@ -269,6 +268,27 @@
             </div>
           </div>
         </div>
+        <div id="settings-boxtal" class="panel panel-default">
+          <div class="panel-heading panel-heading-settings">
+            <a href="https://www.boxtal.com" target="_blank"><b><span id="shaq-settings-rating-boxtal">Boxtal</span></b></a>
+            <span class="glyphicon" id="shaq-settings-rating-boxtal-auto" title="auto launch"></span>
+            <a href="https://www.boxtal.com" target="_blank"><span class="pull-right"><img id="shaq-settings-rating-boxtal-image" src="" width="48" alt="boxtal" /></span></a>
+          </div>
+          <div class="panel-body">
+            <div id="settings-boxtal-body" class="hide">
+              <label><span id="shaq-settings-rating-boxtal-url">Boxtal URL</span> : </label>
+              <input class="form-control" id="boxtalUrlSettings" /><br>
+              <label><span id="shaq-settings-rating-boxtal-login">Boxtal Login</span> : </label>
+              <input class="form-control" id="boxtalLoginSettings" /><br>
+              <label><span id="shaq-settings-rating-boxtal-password">Boxtal Password</span> : </label>
+              <input type="password" class="form-control" id="boxtalPasswordSettings" /><br>
+              <label><span id="shaq-settings-rating-boxtal-key">Boxtal Login</span> : </label>
+              <input class="form-control" id="boxtalKeySettings" /><br>
+              <div class="pull-right"><button class="btn btn-default" id="saveUgoCarriersBtn"><span id="shaq-boxtal-carriers-btn">View</span></button></div>
+              <div class="container hide" id="UgoCarriersDisplay"></div>
+            </div>
+          </div>
+        </div>
         <div id="settings-skyquote" class="panel panel-default">
           <div class="panel-heading panel-heading-settings">
             <a href=""><b><span id="shaq-settings-rating-skyquote">Skyquote</span></b></a>
@@ -408,13 +428,6 @@
 
   </div><br><br>
 </div>
-
-<script type="text/javascript">
-var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq ||
-{widgetcode:"f8e6c56792406da3186145dfec1621da92497006f382a048adfe9da553a3dd8e", values:{},ready:function(){}};
-var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;
-s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");
-</script>
 
 <div id="load-footer"></div>
 

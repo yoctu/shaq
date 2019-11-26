@@ -1,5 +1,7 @@
 <script>
-  $("#shaq-version").text(auth.version);
+$(document).ready(function() {
+  $("#shaq-version").text("s-" + auth.webversion + "-" + auth.apiversion);
+});
 </script>
 <footer class="footer text-center">
   <b>Skoreway</b> 2019 | <a style="color:var(--main-bg-color);" href="https://shaq.yoctu.com" target="_blank">ShaQ</a> | <span id="shaq-version"></span>

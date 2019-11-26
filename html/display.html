@@ -17,22 +17,18 @@
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" id="theme-css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
+<script src="/shaq-view/js/apiStatus.js"></script>
+<script src="/shaq-view/js/auth.js"></script>
+<script src="/shaq-view/js/shaq.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js"></script>
 <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
 </head>
 
 <body>
-
   <div id="load-navbar"></div>
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283327-2"></script>
-  <script>
-    var userCodePath = window.location.pathname.split("/")[1];
-    $.getScript("/" + userCodePath + "/js/shaq.js");
-  </script>
-
-  <div id="DisplayPage" class="text-center hide" style="padding-right:2%; padding-left:2%; magrin-right:2px; margin-left:2px;">
+  <div id="DisplayPage" class="col-sm-12 text-center hide">
     <div class="top-content header-content" style="margin-top: 10px;">
       <br><br><br>
       <div id="order-box" class="col-sm-12 text-left" style="margin-bottom: 20px; page-break-after:always;">
@@ -63,7 +59,7 @@
             <div class="shaqlabel">Validity Time</div>
             <div class="dropdown">
               <button id="shaq-valid-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Shaq Validity timer" disabled>
-                <span class="glyphicon glyphicon-off"></span> <span id="shaq-valid"></span>
+                <span class="glyphicon glyphicon-off"></span> <span id="shaq-valid">00:00</span>
               </button>
               <ul class="dropdown-menu extend-shaq-validity">
                 <li><a href="#" onclick="extendShaqValidity(1);">1 Hr</a></li>
@@ -77,7 +73,7 @@
             <div class="shaqlabel">Decision Time</div>
             <div class="dropdown">
               <button class="btn btn-default dropdown-toggle" id="shaq-valid-from-btn" data-toggle="dropdown" title="time to wait before accept/decline are possible" disabled>
-                <span class="glyphicon glyphicon-time"></span> <span id="shaq-from"></span>
+                <span class="glyphicon glyphicon-time"></span> <span id="shaq-from">00:00</span>
               </button>
               <ul class="dropdown-menu extend-shaq-decision">
                 <li><a href="#" onclick="extendShaqDecision(1);">1 Hr</a></li>
@@ -135,7 +131,7 @@
             <div id="get-it-now" class="col-sm-12 col-md-12 col-lg-12 hide">
               <div class="row">
                 <div class="well text-center">
-                  <button class="btn btn-default btn-danger get-it-now-text btn-bid"></button>
+                  <button class="btn btn-default btn-primary get-it-now-text btn-bid"></button>
                 </div>
               </div>
             </div>
@@ -211,7 +207,7 @@
               <div id="shaq-total-weight" class="segment"></div>
             </div>
             <div class="col-sm-1 col-xs-6 text-center">
-              <span><img src="https://yoctu.github.io/yoctu-website/img/no-ADR.svg" width="64" style="padding-top:15px;"/></span>
+              <span><img src="https://yoctu.github.io/yoctu-website/img/no-ADR.svg" width="64" style="padding-top:15px;" /></span>
             </div>
             <div class="col-sm-2 col-xs-6">
               <button class="btn btn-default pull-right btn-glyphicon showPackage">
@@ -250,7 +246,7 @@
                 <div id="shaq-pkg-notes" class="segment text-center shaq-pkg-notes"></div>
               </div>
               <div class="col-sm-1 col-xs-12 text-center">
-                <span><img src="https://yoctu.github.io/yoctu-website/img/no-ADR.svg" width="64" style="padding-top:15px;"/></span>
+                <span><img src="https://yoctu.github.io/yoctu-website/img/no-ADR.svg" width="64" style="padding-top:15px;" /></span>
               </div>
               <div class="col-sm-1 text-center">
               </div>
@@ -304,35 +300,15 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="form-group">
+                  <span class="form-group">
                     <div class="shaqlabel" for="pickupdate">shaq.pickup-date-time</div>
-                    <input id="pickupdate" type="text" data-field="datetime" class="form-control bidPuDate" readonly>
-                  </div>
+                    <div class="input-group"><span class="input-group-addon bidpuplace glyphicon glyphicon-home"></span><input id="pickupdate" type="text" data-field="datetime" class="form-control bidPuDate" readonly></div>
+                  </span>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <div class="shaqlabel" for="deliverydate">shaq.delivery-date-time</div>
-                    <input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate" readonly>
-                  </div>
-                </div>
-                <div class="col-xs-12 hollowData hide" style="padding-bottom: 10px;">
-                  <div class="col-sm-4 col-xs-4">
-                    <div class="shaqlabel" for="invited">shaq.invited</div>
-                    <div class="round hollow hollowinvited">
-                      <span class="scoreinvitedspan">0</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-xs-4">
-                    <div class="shaqlabel" for="particpation">shaq.avgbid</div>
-                    <div class="round hollow hollowavgbid">
-                      <span class="scoreavgbidspan">0</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-xs-4">
-                    <div class="shaqlabel" for="winning">shaq.winning</div>
-                    <div class="round hollow hollowwinning">
-                      <span class="scorewinningspan">0</span>
-                    </div>
+                    <div class="input-group"><span class="input-group-addon biddeplace glyphicon glyphicon-home"></span><input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate" readonly></div>
                   </div>
                 </div>
               </div>
@@ -435,6 +411,26 @@
                 </label>
                 shaq.co-loaded
               </div>
+              <div class="col-xs-12 hollowData text-center hide" style="padding-bottom: 10px;">
+                <div class="col-sm-4 col-xs-4">
+                  <div class="shaqlabel" for="invited">shaq.invited</div>
+                  <div class="round hollow hollowinvited">
+                    <span class="scoreinvitedspan">0</span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                  <div class="shaqlabel" for="particpation">shaq.avgbid</div>
+                  <div class="round hollow hollowavgbid">
+                    <span class="scoreavgbidspan">0</span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                  <div class="shaqlabel" for="winning">shaq.winning</div>
+                  <div class="round hollow hollowwinning">
+                    <span class="scorewinningspan">0</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -446,18 +442,9 @@
       <div id="bidder-box" class="col-sm-12 text-left" style="page-break-after:always;">
         <div id="bidders-info" class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="pull-left"><b>Bidders Offers</b> <span class="label label-primary"><span id="bidCount">0</span><span id="bidMaxBidder"></span></span></h3>
+            <h3 class="pull-left"><b>Offers</b> <span class="label label-primary"><span id="bidCount">0</span><span id="bidMaxBidder"></span></span></h3>
             <button class="btn btn-default pull-right btn-glyphicon showAllBids"><span class="glyphicon glyphicon-th-list"></span></button>
-            <div class="dropdown pull-right">
-              <button class="btn btn-default dropdown-toggle" id="shaq-from-title-btn" data-toggle="dropdown" title="time to wait before accept/decline are possible" disabled>
-                <span class="glyphicon glyphicon-off"></span> <span id="shaq-from-title"></span>
-              </button>
-              <ul class="dropdown-menu extend-shaq-decision">
-                <li><a href="#" onclick="extendShaqDecision(1);">1 Hr</a></li>
-                <li><a href="#" onclick="extendShaqDecision(2);">2 Hrs</a></li>
-                <li><a href="#" onclick="extendShaqDecision(4);">4 Hrs</a></li>
-              </ul>
-            </div>
+            <span class="pull-right">&nbsp;&nbsp;</span>
             <button class="btn btn-default pull-right btn-glyphicon" id="winningbidcalc"><span class="glyphicon glyphicon-refresh"></span></button>
             <div class="clearfix"></div>
             <hr>
@@ -465,11 +452,18 @@
           <div class="panel-body bid-panel-body">
             <div class="container">
               <div id="UGOLoadingOffer" class="well well-primary hide UGOLoadingOffer" style="border: 6px solid #40598B;">
-                <span><img width="48" id="uggLoadingOfferImg" src="https://yoctu.github.io/yoctu-website/img/logo/UGO.png"></span>
+                <span><img width="48" id="ugoLoadingOfferImg" src="https://yoctu.github.io/yoctu-website/img/logo/UGO.png"></span>
                 <span>
                   <div class="loader" style="float:right;width:40px;height:40px;border-top:8px solid #3498db;"></div>
                 </span>
                 <div id="UGOLoadingOfferText" class="text-center">Searching Offers...</div><br><br>
+              </div>
+              <div id="BOXTALLoadingOffer" class="well well-primary hide BOXTALLoadingOffer" style="border: 6px solid #40598B;">
+                <span><img width="48" id="boxtalLoadingOfferImg" src="https://yoctu.github.io/yoctu-website/img/logo/BOXTAL.png"></span>
+                <span>
+                  <div class="loader" style="float:right;width:40px;height:40px;border-top:8px solid #3498db;"></div>
+                </span>
+                <div id="BOXTALLoadingOfferText" class="text-center">Searching Offers...</div><br><br>
               </div>
               <div id="GOSHIPPOLoadingOffer" class="well well-primary hide GOSHIPPOLoadingOffer" style="border: 6px solid #40598B;">
                 <span><img width="48" id="goshippoLoadingOfferImg" src="https://yoctu.github.io/yoctu-website/img/logo/GOSHIPPO.png"></span>
@@ -497,20 +491,14 @@
                     </button>
                   </span>
                 </div>
-                <div id="decline-all" class="input-group pull-right hide" style="padding: 5px;">
-                  <span class="input-group-btn text-center">
-                    <button type="button" id="decline-all-btn" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline all</button>
-                  </span>
+                <div id="decline-all" class="input-group pull-right text-center hide" style="padding: 5px;">
+                  <button type="button" id="decline-all-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-remove"></span> Decline all</button>
                 </div>
-                <div id="cancel-all" class="input-group pull-right hide" style="padding: 5px;">
-                  <span class="input-group-btn text-center">
-                    <button type="button" id="cancel-all-btn" class="btn btn-default btn-warning"><span class="glyphicon glyphicon-minus"></span> Cancel all</button>
-                  </span>
+                <div id="cancel-all" class="input-group pull-right text-center hide" style="padding: 5px;">
+                  <button type="button" id="cancel-all-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-minus"></span> Cancel all</button>
                 </div>
-                <div id="set-it-now" class="input-group pull-right hide" style="padding: 5px;">
-                  <span class="input-group-btn text-center">
-                    <button type="button" id="set-it-now-btn" class="btn btn-default btn-danger"><span class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
-                  </span>
+                <div id="set-it-now" class="input-group pull-right text-center hide" style="padding: 5px;">
+                  <button type="button" id="set-it-now-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
                 </div>
                 <div id="bid-sorting-field-grp" class="input-group pull-right hide" style="padding: 5px;">
                   <select class="form-control" id="bid-sorting-field">
@@ -529,7 +517,10 @@
                 </div>
               </div>
             </div>
-            <div id="bid-list" class="container"></div>
+            <div class="row bid-list-row">
+              <div id="bid-list" class="container"></div>
+            </div>
+            <div class="row"><br></div>
           </div>
         </div>
       </div>
@@ -570,29 +561,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-1">&nbsp;</div>
-  <br>
-
-  <script type="text/javascript">
-    var $zoho = $zoho || {};
-    $zoho.salesiq = $zoho.salesiq || {
-      widgetcode: "f8e6c56792406da3186145dfec1621da92497006f382a048adfe9da553a3dd8e",
-      values: {},
-      ready: function() {}
-    };
-    var d = document;
-    s = d.createElement("script");
-    s.type = "text/javascript";
-    s.id = "zsiqscript";
-    s.defer = true;
-    s.src = "https://salesiq.zoho.com/widget";
-    t = d.getElementsByTagName("script")[0];
-    t.parentNode.insertBefore(s, t);
-    d.write("<div id='zsiqwidget'></div>");
-  </script>
-
   <div id="load-footer"></div>
-
 </body>
 
 </html>

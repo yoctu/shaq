@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" />
 <link rel="stylesheet" href="https://yoctu.github.io/shaq-view/css/shaq.css" id="theme-css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<script src="/shaq-view/js/auth.js"></script>
+<script src="/shaq-view/js/shaq.js"></script>
 <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
 </head>
@@ -22,10 +24,6 @@
   <div id="load-navbar"></div>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283327-2"></script>
-  <script>
-    var userCodePath = window.location.pathname.split("/")[1];
-    $.getScript("/" + userCodePath + "/js/shaq.js");
-  </script>
 
   <div class="container">
     <div id="bid-authorization" class="panel panel-default" style="margin-top:100px;">
@@ -62,24 +60,6 @@
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    var $zoho = $zoho || {};
-    $zoho.salesiq = $zoho.salesiq || {
-      widgetcode: "f8e6c56792406da3186145dfec1621da92497006f382a048adfe9da553a3dd8e",
-      values: {},
-      ready: function() {}
-    };
-    var d = document;
-    s = d.createElement("script");
-    s.type = "text/javascript";
-    s.id = "zsiqscript";
-    s.defer = true;
-    s.src = "https://salesiq.zoho.com/widget";
-    t = d.getElementsByTagName("script")[0];
-    t.parentNode.insertBefore(s, t);
-    d.write("<div id='zsiqwidget'></div>");
-  </script>
 
   <div id="load-footer"></div>
 

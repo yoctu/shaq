@@ -14,6 +14,7 @@ $('#shaqChatVisibilitySettings').val(localSettings.chatShow);
 $('#shaqShipmentVisibilitySettings').val(localSettings.shipmentShow);
 $('#notifPopup').val(localSettings.autoNotify);
 
+if (auth.auth.usercode) $("#shaq-settings-company-profile").text(auth.auth.usercode);
 if (auth.auth.username) {
   $("#shaq-settings-username").text(auth.auth.username);
   $("#settings-username").removeClass("hide");
@@ -43,6 +44,7 @@ if (auth.auth.provider) {
 }
 if (auth.app.logourl) {
   $("#shaq-settings-rating-ugo-image").attr("src", auth.app.logourl + "UGO.png");
+  $("#shaq-settings-rating-boxtal-image").attr("src", auth.app.logourl + "BOXTAL.png");
   $("#shaq-settings-rating-shipengine-image").attr("src", auth.app.logourl + "SHIPENGINE.png");
   $("#shaq-settings-rating-goshippo-image").attr("src", auth.app.logourl + "GOSHIPPO.png");
   $("#shaq-settings-rating-skyquote-image").attr("src", auth.app.logourl + "SKYQUOTE.png");
@@ -87,6 +89,15 @@ function setConfigValue(data) {
       $("#ugoPasswordSettings").val(data.raters.ugo.password);
       if (data.raters.ugo.auto) $("#shaq-settings-rating-ugo-auto").addClass("glyphicon-remove");
       else $("#shaq-settings-rating-ugo-auto").addClass("glyphicon-ok");
+    }
+    if (data.raters.boxtal) {
+      $("#settings-boxtal-body").removeClass("hide");
+      $("#boxtalUrlSettings").val(data.raters.boxtal.url);
+      $("#boxtalLoginSettings").val(data.raters.boxtal.username);
+      $("#boxtalPasswordSettings").val(data.raters.boxtal.password);
+      $("#boxtalKeySettings").val(data.raters.boxtal.access_key);
+      if (data.raters.boxtal.auto) $("#shaq-settings-rating-boxtal-auto").addClass("glyphicon-remove");
+      else $("#shaq-settings-rating-boxtal-auto").addClass("glyphicon-ok");
     }
     if (data.raters.goshippo) {
       $("#settings-goshippo-body").removeClass("hide");
@@ -181,6 +192,14 @@ function saveSettings() {
     window.config.raters.ugo.password = $("#ugoPasswordSettings").val();
     if ($("#shaq-settings-rating-ugo-auto").hasClass("glyphicon-remove")) window.config.raters.ugo.auto = 1;
     else window.config.raters.ugo.auto = 0;
+  }
+  if ($("#boxtalUrlSettings").val()) {
+    window.config.raters.boxtal.url = $("#boxtalUrlSettings").val();
+    window.config.raters.boxtal.username = $("#boxtalLoginSettings").val();
+    window.config.raters.boxtal.password = $("#boxtalPasswordSettings").val();
+    window.config.raters.boxtal.access_key = $("#boxtalKeySettings").val();
+    if ($("#shaq-settings-rating-boxtal-auto").hasClass("glyphicon-remove")) window.config.raters.boxtal.auto = 1;
+    else window.config.raters.boxtal.auto = 0;
   }
   if ($("#goshippoUrlSettings").val()) {
     window.config.raters.goshippo.url = $("#goshippoUrlSettings").val();
@@ -284,8 +303,7 @@ $("#discordTestSettings").on('click', function() {
     "contentType": "application/json",
     "data": JSON.stringify({
       type: "notification",
-      action: "discordTest",
-      user: email
+      action: "discordTest"
     }),
     "success": function() {
       informShow('<div class="text-center" id="settings-configuration-saved">Test Sent !</div>');
