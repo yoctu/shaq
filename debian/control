@@ -1,8 +1,8 @@
 Source: shaq-view
 Section: utils
-Maintainer: Dzove855 <dzove855@yoctu.com>
+Maintainer: Matthias <nomtropcomplique@redspher.com>
 Build-Depends: debhelper
-Standards-Version: 0.0.1
+Standards-Version: 1.2.0
 
 Package: shaq-view
 Architecture: all

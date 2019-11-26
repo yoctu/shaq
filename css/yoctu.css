@@ -1,0 +1,264 @@
+:root {
+  --main-bg-color: #4993E3;
+}
+
+body {
+  background-color: rgba(73, 147, 227, 1);
+  color: var(--main-bg-color) !important;
+}
+
+.dropdown-menu .divider {
+  background-color: var(--main-bg-color);
+}
+
+.glyphicon {
+  color: #FFFFFF;
+}
+
+.glyphicon-off, .glyphicon-bell {
+  color: var(--main-bg-color);
+}
+
+hr {
+  background-color: var(--main-bg-color);
+}
+
+input::placeholder {
+  color: var(--main-bg-color);
+  opacity: 1;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+th, label {
+  color: var(--main-bg-color) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, #4981F1 0%, #4981F1 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, var(--main-bg-color) 0%, var(--main-bg-color) 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, #4981F1 0%, #4981F1 100%);
+}
+
+.form-control[readonly], .form-control {
+  color: var(--main-bg-color);
+  background-color: #FFFFFF;
+}
+
+#shaq-valid-from-btn {
+  color: var(--main-bg-color);
+  background-color: #fff;
+}
+
+#solrtarget {
+  background-color: #fff;
+  border: 1px solid var(--main-bg-color);
+}
+
+.btn-room>.badge.badge-danger {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.btn-room>.badge {
+  background-color: var(--main-bg-color);
+}
+
+.btn-room {
+  font-weight: bold;
+  border: none;
+  color: var(--main-bg-color);
+}
+
+.btn-default:hover {
+  opacity: 0.3;
+}
+
+.btn-glyphicon {
+  background-color: var(--main-bg-color);
+  opacity: 0.9;
+  color: #FFFFFF;
+}
+
+.well {
+  background-color: #FFFFFF;
+  border: 0px;
+  -webkit-box-shadow: none;
+}
+
+.well-success {
+  background-color: #F5F6F8;
+  opacity: 1;
+  border: 2px solid #5cb85c;
+}
+
+.well-warning {
+  background-color: #F5F6F8;
+  opacity: 0.9;
+  border: 2px solid #eea236;
+}
+
+.well-danger {
+  background-color: #F5F6F8;
+  opacity: 0.6;
+  border: 2px solid #d9534f;
+}
+
+.table>tbody>tr>td {
+  border-top: none;
+  padding: 25px 10px;
+}
+
+.odd a {
+  color: white;
+  font-weight: bold;
+}
+
+table.dataTable tbody tr {
+  border: 1px solid var(--main-bg-color);
+}
+
+table.dataTable tbody tr.odd {
+  color: #FFFFFF;
+  background-color: rgba(73, 147, 227, 1);
+}
+
+a {
+  color: #4981F1;
+  font-weight: bold;
+}
+
+th {
+  color: #ADB4C4;
+}
+
+.panel-default>.panel-heading {
+  color: var(--main-bg-color);
+}
+
+.chat-container.alert {
+  border-radius: 8px;
+  color: var(--main-bg-color);
+}
+
+.chat-container.alert.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.chat-container-notification.alert.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.chat-container.alert.alert-success {
+  border: none;
+  background-color:
+    (105, 121, 248, 0.4);
+}
+
+.chat-container.alert.alert-info {
+  border: none;
+  color: var(--main-bg-color);
+  background-color: #F5F6F8;
+}
+
+.btn-room.btn-danger:focus,
+.btn-room.btn-danger:hover,
+.btn-room.btn-danger {
+  color: var(--main-bg-color);
+  background-color: #F5F6F8;
+}
+
+.btn-primary {
+  background-color: var(--main-bg-color);
+}
+
+.label-primary {
+  background-color: #4981F1;
+}
+
+#navbar-username, #solrReload, #solrRefresh {
+  color: var(--main-bg-color);
+}
+
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+  color: var(--main-bg-color);
+  text-decoration: none;
+}
+
+.dropdown-menu>li>a {
+  color: var(--main-bg-color);
+}
+
+.table>tbody>tr>td:not(.child):first-child {
+  border-top-left-radius: 1px;
+  border-bottom-left-radius: 1px;
+}
+
+.lastVisibleChild {
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+.table>tbody>tr>td:not(.child):last-child {
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+label {
+  color: var(--main-bg-color);
+  font-weight: normal;
+  border-radius: 16px;
+}
+
+input, select {
+  color: var(--main-bg-color);
+  border: 1px solid var(--main-bg-color);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: .375rem .75rem;
+  font-size: 1.5rem;
+  background-color: #fff;
+}
+
+#shaq-navbar-url {
+  background-image: url("https://logos.yoctu.com/images/YOCTU_LOGO.png");
+}
+
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  color: var(--main-bg-color);
+  background-color: none !important;
+}
+
+#shaqList_info {
+  color: var(--main-bg-color);
+}
+
+.btn-bid-extend {
+  color: #fff;
+  background-color: var(--main-bg-color);
+}
+
+.img-ico {
+  color: var(--main-bg-color);
+}
