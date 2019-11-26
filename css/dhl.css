@@ -1,0 +1,278 @@
+:root {
+  --main-bg-color: #413F3F;
+}
+
+body {
+  background-color: #ffffff;
+  color: var(--main-bg-color);
+}
+
+.text-success {
+  color: #E10009;
+}
+
+.glyphicon-play:before {
+  content: "\e072";
+  color: #413F3F;
+}
+
+.glyphicon-triangle-top:before {
+  content: "\e253";
+  color: #413F3F;
+}
+
+.shaqlabel {
+  font-size: 12px;
+  height: 20px;
+}
+
+.glyphicon-bell:before {
+  content: "\e123";
+  color: #E10009;
+}
+
+.glyphicon-print:before {
+  content: "\e045";
+  color: #413F3F;
+}
+
+.dropdown-menu .divider {
+  background-color: var(--main-bg-color);
+}
+
+hr {
+  background-color: var(--main-bg-color);
+}
+
+input::placeholder {
+  color: var(--main-bg-color);
+  opacity: 0.6;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+th, label {
+  color: #E !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, #4981F1 0%, #4981F1 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, var(--main-bg-color) 0%, var(--main-bg-color) 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, #4981F1 0%, #4981F1 100%);
+}
+
+.form-control[readonly], .form-control {
+  color: var(--main-bg-color);
+  background-color: #F5F6F8;
+}
+
+#shaq-valid-from-btn, #shaq-valid-btn {
+  color: #413F3F;
+  background-color: #fff;
+}
+
+#shaq-valid-from-btn, #shaq-valid-btn {
+  color: #413F3F;
+  background-color: #fff;
+}
+
+#solrtarget {
+  background-color: #fff;
+  border: 1px solid #7080A0;
+}
+
+.btn-room>.badge.badge-danger {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.btn-room>.badge {
+  background-color: var(--main-bg-color);
+}
+
+.btn-room {
+  font-weight: bold;
+  border: none;
+  color: var(--main-bg-color);
+}
+
+.btn-glyphicon {
+  background-color: #EAEDF3;
+  color: var(--main-bg-color);
+}
+
+.well {
+  background-color: #FFFACD;
+  border: 1px;
+  border-color: #C8A49D;
+  -webkit-box-shadow: none;
+}
+
+.well-success {
+  background-color: #ffffff;
+  border-color: #C8A49D;
+  opacity: 1;
+  border: 8px solid #4FD844;
+}
+
+.well-warning {
+  background-color: #ffffff;
+  border-color: #C8A49D;
+  opacity: 0.9;
+  border: 6px solid #ffffff;
+}
+
+.well-danger {
+  background-color: #FFFACD;
+  opacity: 0.6;
+  border-color: #C8A49D;
+  border: 6px solid #FF5C16;
+}
+
+.table>tbody>tr>td {
+  border-top: none;
+}
+
+table.dataTable tbody tr.odd {
+  background-color: #ffffff;
+}
+
+a {
+  color: #4981F1;
+  font-weight: bold;
+}
+
+th {
+  color: #E10009;
+}
+
+.panel-default>.panel-heading {
+  color: var(--main-bg-color);
+}
+
+.chat-container.alert {
+  border-radius: 8px;
+  color: var(--main-bg-color);
+}
+
+.glyphicon-off:before {
+  content: "\e017";
+  color: #F9E1DC;
+}
+
+.glyphicon-time:before {
+  content: "\e023";
+  color: #F9E1DC;
+}
+
+.label-danger {
+  background-color: #F9E1DC;
+}
+
+.chat-container-notification.alert.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.chat-container.alert.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.chat-container.alert.alert-success {
+  border: none;
+  background-color: rgba(105, 121, 248, 0.4);
+}
+
+.chat-container.alert.alert-info {
+  border: none;
+  color: var(--main-bg-color);
+  background-color: #F5F6F8;
+}
+
+.btn-room.btn-danger:focus,
+.btn-room.btn-danger:hover,
+.btn-room.btn-danger {
+  color: var(--main-bg-color);
+  background-color: #F5F6F8;
+}
+
+.btn-primary {
+  background-color: #C8A49D;
+  border-color: #C8A49D;
+}
+
+.panel-shipment-background {
+  background-color: #ffffff;
+}
+
+.label-primary {
+  background-color: #F9E1DC;
+}
+
+label {
+  color: var(--main-bg-color);
+  font-weight: normal;
+  border-radius: 16px;
+}
+
+input, select {
+  color: var(--main-bg-color);
+  border: 1px solid #7080A0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: .375rem .75rem;
+  font-size: 1.5rem;
+  background-color: #fff;
+}
+
+#shaq-navbar-url {
+  background-image: url("https://logos.yoctu.com/logo/DHLlogo.png");
+}
+
+#navbar-username, #solrReload, #solrRefresh {
+  color: #E10009;
+}
+
+#shaqList_info {
+  color: var(--main-bg-color);
+}
+
+.btn-bid-extend {
+  color: #fff;
+  background-color: var(--main-bg-color);
+}
+
+.navbar {
+  background-color: #FDCE01
+}
+
+.img-ico {
+  color: var(--main-bg-color);
+}
+
+#bid-add {
+  background-color: #fff;
+}
+
+.dropdown-menu>li>a,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+  color: var(--main-bg-color);
+  text-decoration: none;
+}

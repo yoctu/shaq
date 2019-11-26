@@ -1,0 +1,191 @@
+:root {
+  --main-bg-color: #ffed00;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: var(--main-bg-color);
+  line-height: 30px;
+}
+
+#shaq-navbar-url {
+  background-image: url("https://logos.yoctu.com/logo/82SCHWERDT.png");
+}
+
+.dropdown-menu .divider {
+  background-color: var(--main-bg-color);
+}
+
+hr {
+  background-color: var(--main-bg-color);
+}
+
+input::placeholder {
+  opacity: 0.6;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, var(--main-bg-color) 0%, var(--main-bg-color) 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, var(--main-bg-color) 0%, var(--main-bg-color) 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #ffffff !important;
+  border: none;
+  background: linear-gradient(to bottom, var(--main-bg-color) 0%, var(--main-bg-color) 100%);
+}
+
+#solrtarget {
+  background-color: #fff;
+  border: 1px solid var(--main-bg-color);
+}
+
+.btn-room>.badge.badge-danger {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.btn-room {
+  font-weight: bold;
+  border: none;
+}
+
+.well {
+  background-color: #F5F6F8;
+  border: 0px;
+  -webkit-box-shadow: none;
+}
+
+.well-success {
+  background-color: #F5F6F8;
+  opacity: 1;
+  border: 4px solid #5cb85c;
+}
+
+.well-warning {
+  background-color: #F5F6F8;
+  opacity: 0.9;
+  border: 4px solid #eea236;
+}
+
+.well-danger {
+  background-color: #F5F6F8;
+  opacity: 0.6;
+  border: 4px solid #d9534f;
+}
+
+.table>tbody>tr>td {
+  border-top: none;
+}
+
+table.dataTable tbody tr.odd {
+  background-color: #EDEFF4;
+}
+
+a {
+  color: #4981F1;
+  font-weight: bold;
+}
+
+th {
+  color: #ADB4C4;
+}
+
+.panel-default>.panel-heading {
+  color: var(--main-bg-color);
+}
+
+.chat-container.alert {
+  border-radius: 8px;
+}
+
+.chat-container.alert.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.chat-container-notification.alert.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.chat-container.alert.alert-success {
+  border: none;
+  background-color: rgba(105, 121, 248, 0.4);
+}
+
+.chat-container.alert.alert-info {
+  border: none;
+  background-color: #F5F6F8;
+}
+
+.btn-room.btn-danger:focus,
+.btn-room.btn-danger:hover,
+.btn-room.btn-danger {
+  color: #40598B;
+  background-color: #F5F6F8;
+}
+
+.btn-primary {
+  background-color: #40598B;
+}
+
+.panel-shipment-background {
+  background-color: #EAEDF3;
+}
+
+.label-primary {
+  background-color: #4981F1;
+}
+
+label {
+  font-weight: normal;
+  border-radius: 16px;
+}
+
+input, select {
+  border: 1px solid black;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: .375rem .75rem;
+  font-size: 1.5rem;
+  background-color: #fff;
+}
+
+.btn-bid-extend {
+  color: #fff;
+  background-color: var(--main-bg-color);
+}
+
+.img-ico {
+  color: var(--main-bg-color);
+}
+
+#bid-add {
+  background-color: rgba(223, 92, 42, 0.6);
+}
+
+.dropdown-menu>li>a,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+  text-decoration: none;
+}
+
+.btn-send-message, .btn-send-message:hover,
+#saveSettingsBtn, #saveSettingsBtn:hover {
+  background-color: var(--main-bg-color);
+  border-color: var(--main-bg-color);
+  color: #FFF;
+}
