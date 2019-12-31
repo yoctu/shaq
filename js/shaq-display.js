@@ -1113,7 +1113,7 @@ function updateChat(chat) {
 
 function getChatMsgs() {
   $.ajax({
-    "url": '/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort={"date": "desc"}',
+    "url": '/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort=date%20desc',
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
