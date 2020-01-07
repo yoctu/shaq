@@ -450,6 +450,7 @@ function ShaqCompleted(winbid) {
   $("#closedStatusGlyphiconSymbol").removeClass("glyphicon-remove").addClass();
   $("#closedStatusGlyphicon").removeClass("hide");
   if (winbid) {
+    console.log(winbid);
     $('.bid-info-list').addClass("hide");
     $('#bid-add').addClass("hide");
     $('.bid-info-list').find('.well').removeClass("well-success").removeClass("well-warning").addClass("well-danger");
@@ -463,9 +464,11 @@ function ShaqCompleted(winbid) {
 
 function bidHideAllBtn(bidInfo) {
   bidInfo.find('.btn-accept-bid').addClass('hide');
-  bidInfo.find('.tn-forward-bid').addClass('hide');
+  bidInfo.find('.btn-forward-bid').addClass('hide');
   bidInfo.find('.btn-decline-bid').addClass('hide');
+  bidInfo.find('.btn-create-bid').addClass('hide');
   bidInfo.find('.btn-cancel-bid').addClass('hide');
+  bidInfo.find('.btn-no-solution-bid').addClass('hide');
   bidInfo.find('.btn-bid').addClass('hide');
 }
 
