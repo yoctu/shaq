@@ -450,11 +450,12 @@ function ShaqCompleted(winbid) {
   $("#closedStatusGlyphiconSymbol").removeClass("glyphicon-remove").addClass();
   $("#closedStatusGlyphicon").removeClass("hide");
   if (winbid) {
+    console.log("winbid1: " + winbid);
     $('.bid-info-list').addClass("hide");
     $('#bid-add').addClass("hide");
     $('.bid-info-list').find('.well').removeClass("well-success").removeClass("well-warning").addClass("well-danger");
-    if (window.bidsInfo[winbid]) {
-      console.log("winbid: " + winbid);
+    if (winbid in window.bidsInfo) {
+      console.log("winbid2: " + winbid);
       window.bidsInfo[winbid].removeClass("hide");
       window.bidsInfo[winbid].find('.well').removeClass("well-danger").removeClass("well-warning").addClass("well-success");
     }
