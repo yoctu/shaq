@@ -463,9 +463,11 @@ function ShaqCompleted(winbid) {
 
 function bidHideAllBtn(bidInfo) {
   bidInfo.find('.btn-accept-bid').addClass('hide');
-  bidInfo.find('.tn-forward-bid').addClass('hide');
+  bidInfo.find('.btn-forward-bid').addClass('hide');
   bidInfo.find('.btn-decline-bid').addClass('hide');
+  bidInfo.find('.btn-create-bid').addClass('hide');
   bidInfo.find('.btn-cancel-bid').addClass('hide');
+  bidInfo.find('.btn-no-solution-bid').addClass('hide');
   bidInfo.find('.btn-bid').addClass('hide');
 }
 
