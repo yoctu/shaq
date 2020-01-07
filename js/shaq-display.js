@@ -632,6 +632,7 @@ function bidRefresh(bidInfo, bid) {
       break;
     case "accepted":
       bidInfo.find('.btn-status-bid').removeClass('hide').html('<span class="glyphicon glyphicon-ok"></span> Accepted').addClass('btn-success').attr("disabled", "disabled");
+      bidHideAllBtn(bidInfo);
       $(".action-container").addClass('hide');
       break;
     case "declined":
