@@ -1063,6 +1063,7 @@ function getBids(orderBy = {
     },
     "success": function(bids) {
       BidRender(bids);
+      ShaqCompleted(window.shaq.winningbid);
     }
   });
 }
