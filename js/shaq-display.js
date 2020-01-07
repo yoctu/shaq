@@ -457,7 +457,6 @@ function ShaqCompleted(winbid) {
     if (window.bidsInfo[winbid]) {
       window.bidsInfo[winbid].removeClass("hide");
       window.bidsInfo[winbid].find('.well').removeClass("well-danger").removeClass("well-warning").addClass("well-success");
-      $('#accept-label').text('Accepted');
     }
   }
 }

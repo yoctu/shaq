@@ -467,6 +467,11 @@ socket.on(auth.auth.usercode, function(data) {
       }
       break;
     case "auction":
+      if ((solrTarget === "-public") && (msg.visible !== "public")) break;
+      if ((solrTarget === "-archive") && (["created", "running", "selected", "validated", "failed"].includes(msg.status))) break;
+      if ((solrTarget === "") && (["completed", "cancelled"].includes(msg.status))) break;
+      if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target) break;
+      if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target.includes(auth.auth.usercode)) break;
       updateShaq(msg);
       $(".dataTables_info").text("Showing 1 to 10 of " + $("#shaqList_length").val() + " entries (filtered from " + window.shaqs.length + " total entries)");
       $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
@@ -512,12 +517,6 @@ socket.on(auth.auth.usercode, function(data) {
         break;
       }
       if ($("." + msg.id).length > 0) break;
-      if ((solrTarget === "-public") && (msg.visible !== "public")) break;
-      if ((solrTarget === "-archive") && (["created", "running", "selected", "validated", "failed"].includes(msg.status))) break;
-      if ((solrTarget === "") && (["completed", "cancelled"].includes(msg.status))) break;
-      if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target) break;
-      if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target.includes(auth.auth.usercode)) break;
-
       $('.dataTables_empty').hide();
       labelColor = "danger";
       let btnStatus = "disabled";
