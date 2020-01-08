@@ -2,7 +2,7 @@ window.dataLayer = window.dataLayer || [];
 
 var auth = {};
 auth.auth = {};
-auth.webversion = "1.2.0";
+auth.webversion = "1.2.1";
 
 function getCookie(cname) {
   var name = cname + "=";
