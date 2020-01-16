@@ -142,6 +142,10 @@
               <div id="shaq-puplace" class="segment"></div><br>
               <div class="shaqlabel">Pickup Date</div>
               <span id="shaq-pudate" class="segment" title="Min"></span> <span class="glyphicon glyphicon-info-sign" id="shaq-pudate-cet"></span>
+              <div id="shaq-pudate-range-div" class="segment hide">
+                <div class="shaqlabel">Pickup Date Max</div>
+                <span id="shaq-pudate-range" class="segment" title="Max"></span>
+              </div>
             </div>
             <div id="shaq-well-puContact" class="well hide" style="padding-left: 40px;">
               <div><span class="shaqlabel">Company </span><span id="shaq-puContactCompany" class="segment" style="float:right;"></span></div>
@@ -166,6 +170,10 @@
               <div id="shaq-deplace" class="segment"></div><br>
               <div class="shaqlabel">Delivery Date</div>
               <span id="shaq-dedate" class="segment" title="Min"></span> <span class="glyphicon glyphicon-info-sign" id="shaq-dedate-cet"></span>
+              <div id="shaq-dedate-range-div" class="segment hide">
+                <div class="shaqlabel">Delivery Date Max</div>
+                <span id="shaq-dedate-range" class="segment" title="Max"></span>
+              </div>
             </div>
             <div id="shaq-well-deContact" class="well hide" style="padding-left: 40px;">
               <div><span class="shaqlabel">Company </span><span id="shaq-deContactCompany" class="segment" style="float:right;"></span></div>
@@ -302,13 +310,31 @@
                 <div class="col-sm-6">
                   <span class="form-group">
                     <div class="shaqlabel" for="pickupdate">shaq.pickup-date-time</div>
-                    <div class="input-group"><span class="input-group-addon bidpuplace glyphicon glyphicon-home"></span><input id="pickupdate" type="text" data-field="datetime" class="form-control bidPuDate" readonly></div>
+                    <div class="input-group">
+                      <div class="input-group">
+                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home"></span>
+                        <input id="pickupdate" type="text" data-field="datetime" class="form-control bidPuDate" readonly>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home" style="color: transparent;"></span>
+                        <input type="text" data-field="datetime" class="form-control bidPuDateRange" disabled readonly>
+                      </div>
+                    </div>
                   </span>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <div class="shaqlabel" for="deliverydate">shaq.delivery-date-time</div>
-                    <div class="input-group"><span class="input-group-addon biddeplace glyphicon glyphicon-home"></span><input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate" readonly></div>
+                    <div class="input-group">
+                      <div class="input-group">
+                        <span class="input-group-addon biddeplace glyphicon glyphicon-home"></span>
+                        <input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate" readonly>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home" style="color: transparent;"></span>
+                        <input type="text" data-field="datetime" class="form-control bidDeDateRange" disabled readonly>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
