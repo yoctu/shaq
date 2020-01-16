@@ -559,6 +559,11 @@ function bidRefresh(bidInfo, bid) {
   if (bid.puDate.substring(0, 16) !== window.shaq.puDate.substring(0, 16)) {
     bidInfo.find('.bidPuDate').css("color", "#d9534f");
   }
+
+  bidInfo.find('.bidPuDateRange').val("");
+  bidInfo.find('.bidDeDateRange').val("");
+  if (bid.puDateRange) bidInfo.find('.bidPuDateRange').val(moment(bid.puDateRange).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', '')).removeAttr("data-field");
+  if (bid.deDateRange) bidInfo.find('.bidDeDateRange').val(moment(bid.deDateRange).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', '')).removeAttr("data-field");
   if (bid.puPlace && bid.puPlace[4] !== "") bidInfo.find('.bidpuplace').removeClass("glyphicon-home").addClass("glyphicon-map-marker");
   bidInfo.find('.bidValidDate').val(moment(bid.valid_until).format('YYYY-MM-DD HH:mm').replace(' 00:00', ''));
   bidInfo.find('.bidLang').val(bid.lang);
@@ -775,10 +780,12 @@ function shaqRefresh() {
   $("#shaq-deplace").append(window.shaq.dePlace[1] + ' ' + window.shaq.dePlace[2] + '<br>');
   $("#shaq-deplace").append(window.shaq.dePlace[3] + '   <img width="24px" title="' + window.shaq.puPlace[4] + '" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + window.shaq.dePlace[4].toLowerCase() + '.svg" class="pull-right" /><br>');
   $("#shaq-pudate").text(moment(window.shaq.puDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
+  if (window.shaq.puDateRange) $("#shaq-pudate-range-div").removeClass("hide").text(moment(window.shaq.puDateRange).tz('UTC').format('YYYY-MM-DD HH:mm'));
   let pudateCet = moment.tz(window.shaq.puDate.replace("T", " ").substring(0, 16), tzSettings.countries[window.shaq.puPlace[4]].timezones[0]).tz("UTC");
   let dedateCet = moment.tz(window.shaq.deDate.replace("T", " ").substring(0, 16), tzSettings.countries[window.shaq.dePlace[4]].timezones[0]).tz("UTC");
   $("#shaq-pudate-cet").attr("title", "UTC time : " + pudateCet.format("YYYY-MM-DD HH:mm"));
   $("#shaq-dedate").text(moment(window.shaq.deDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
+  if (window.shaq.deDateRange) $("#shaq-dedate-range-div").removeClass("hide").text(moment(window.shaq.deDateRange).tz('UTC').format('YYYY-MM-DD HH:mm'));
   $("#shaq-dedate-cet").attr("title", "UTC time : " + dedateCet.format("YYYY-MM-DD HH:mm"));
   $("#shaq-transit-time").text(TransitCalc(pudateCet, dedateCet, window.shaq.puPlace[4], window.shaq.dePlace[4]));
   $('#bid-add .bidTransitTime').text(TransitCalc(pudateCet, dedateCet, window.shaq.puPlace[4], window.shaq.dePlace[4]));
@@ -812,6 +819,8 @@ function shaqRefresh() {
   bidderDisplay();
   $('#pickupdate').val(moment(window.shaq.puDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
   $('#deliverydate').val(moment(window.shaq.deDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
+  if (window.shaq.puDateRange) $("#bid-add .bidPuDateRange").val(moment(window.shaq.puDateRange).tz('UTC').format('YYYY-MM-DD HH:mm')).prop("disabled", false);
+  if (window.shaq.deDateRange) $("#bid-add .bidDeDateRange").val(moment(window.shaq.deDateRange).tz('UTC').format('YYYY-MM-DD HH:mm')).prop("disabled", false);
   let validDate = window.shaq.valid_until.substring(0, 16).replace('T', ' ');
   $('#validitydate').val(validDate);
   $("#shaq-valid-date").html(moment(window.shaq.valid_until).format('YYYY-MM-DD HH:mm'));
@@ -1301,6 +1310,8 @@ function sendBid() {
     "currency": $('#currency').val(),
     "driver": driver
   };
+  if ($('#bid-add > .bidPuDateRange').val()) dataSendBid.puDateRange = $('#bid-add > .bidPuDateRange').val().replace(' ', 'T') + ":00.000Z";
+  if ($('#bid-add > .bidDeDateRange').val()) dataSendBid.deDateRange = $('#bid-add > .bidDeDateRange').val().replace(' ', 'T') + ":00.000Z"
   $.ajax({
     "url": "/api/bid/" + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
