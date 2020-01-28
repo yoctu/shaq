@@ -727,7 +727,7 @@ function shaqRefresh() {
       $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating0.png" />');
     }
   }
-  $('#ChatList').html('<p><button id="Notifications-Chat" class="btn btn-default btn-room"><img class="bidder-image" src="https://yoctu.github.io/shaq-view/img/logo-svg/notification.svg" /> Notifications <span id="chatBadge-notification" class="badge"></span></button></p>');
+  $('#ChatList').html('<p><button id="Notifications-Chat" class="btn btn-default btn-room"><img class="bidder-image" src="https://yoctu.github.io/yoctu-website/img/logo-svg/notification.svg" /> Notifications <span id="chatBadge-notification" class="badge"></span></button></p>');
   $('#ChatList').append('<p><button id="' + window.shaq.source[0] + '" class="btn btn-default btn-room"><img class="bidder-image" src="' + auth.app.logourl + window.shaq.source[0] + '.png" />  ' + window.shaq.sourceName[0] + ' <span id="chatBadge-' + window.shaq.source[0] + '" class="badge">0</span></button></p>');
   if (window.shaq.target && window.shaq.target.includes(auth.auth.usercode)) {
     auth.auth.usercodeName = window.shaq.targetName[window.shaq.target.indexOf(auth.auth.usercode)];
