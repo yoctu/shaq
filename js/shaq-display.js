@@ -500,10 +500,10 @@ function bidRefresh(bidInfo, bid) {
   }
   bidInfo.find(".bidBidderRatingScore").html("");
   for (var ratingCpt = 0; ratingCpt < bid.targetRating; ratingCpt++) {
-    bidInfo.find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating1.png" />');
+    bidInfo.find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating1.png" />');
   }
   for (ratingCpt; ratingCpt < 5; ratingCpt++) {
-    bidInfo.find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating0.png" />');
+    bidInfo.find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating0.png" />');
   }
   bidInfo.find('.bidBidderName').html('<label>' + bid.from + '</label>');
   bidInfo.find('.bidCurrency').attr('disabled', 'disabled');
@@ -721,10 +721,10 @@ function shaqRefresh() {
     $("#bid-add").find('.btn-getitnow-bid').removeClass('hide');
     $("#bid-add").find(".bidBidderRatingScore").html("");
     for (var ratingCpt = 1; ratingCpt < auth.rating; ratingCpt++) {
-      $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating1.png" />');
+      $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating1.png" />');
     }
     for (ratingCpt; ratingCpt < 5; ratingCpt++) {
-      $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating0.png" />');
+      $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating0.png" />');
     }
   }
   $('#ChatList').html('<p><button id="Notifications-Chat" class="btn btn-default btn-room"><img class="bidder-image" src="https://yoctu.github.io/yoctu-website/img/logo-svg/notification.svg" /> Notifications <span id="chatBadge-notification" class="badge"></span></button></p>');
