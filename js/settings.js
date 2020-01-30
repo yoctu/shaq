@@ -126,10 +126,10 @@ function setConfigValue(data) {
   if (data.app.rating > 0) {
     $("#bidBidderRatingScore").removeClass("hide");
     for (var ratingCpt = 0; ratingCpt < data.app.rating; ratingCpt++) {
-      $("#bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating1.png" />');
+      $("#bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating1.png" />');
     }
     for (ratingCpt; ratingCpt < 5; ratingCpt++) {
-      $("#bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/yoctu-website/img/logo/rating0.png" />');
+      $("#bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating0.png" />');
     }
   }
   if (data.score && (data.score.invitation + data.score.avgbid + data.score.winning > 0)) {
