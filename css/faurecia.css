@@ -190,6 +190,10 @@ input, select {
 
 #shaq-navbar-url {
   background-image: url("https://yoctu.github.io/shaq-view/img/82FAISHA.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 150px;
 }
 
 #navbar-username, #solrReload, #solrRefresh {
