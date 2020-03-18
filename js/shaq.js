@@ -1,4 +1,5 @@
 const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
+window.config = {};
 
 function gtag() {
   dataLayer.push(arguments);
@@ -34,6 +35,7 @@ $(document).ready(function() {
       }
     },
     "success": function(configapi) {
+      window.config = configapi;
       $.extend(true, auth, auth, configapi);
       $("#load-navbar").load("/" + auth.auth.usercode + "/html/navbar.html");
       $("#load-footer").load("/" + auth.auth.usercode + "/html/footer.html");

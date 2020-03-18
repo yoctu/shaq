@@ -1,5 +1,3 @@
-window.config = {};
-
 if (auth.auth.lang === "en") auth.auth.lang = "gb";
 $('#imgLang').attr('src', 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + auth.auth.lang.toLowerCase() + '.svg');
 $('#unitSettings').val(localSettings.unit);
@@ -50,12 +48,12 @@ if (auth.app.logourl) {
   $("#shaq-settings-rating-skyquote-image").attr("src", auth.app.logourl + "SKYQUOTE.png");
   $("#shaq-settings-rating-skoreway-image").attr("src", auth.app.logourl + "SKOREWAY.png");
   $("#shaq-settings-rating-easy4pro-image").attr("src", auth.app.logourl + "EASY4PRO.png");
-  $("#shaq-settings-company-profile-image").attr("src", auth.app.logourl + auth.auth.usercode + ".png");
+  $("#shaq-settings-company-profile-image").attr("src", auth.app.logourl + window.config.usercode + ".png");
 }
 
 function setConfigValue(data) {
+  if (data.usercode) $("#usercodeSettings").val(data.usercode);
   if (data.app) {
-    $("#usercodeSettings").val(data.app.usercode);
     $("#maxbidsSettings").val(data.app.maxbids);
     $("#archiveSettings").val(data.app.archive);
     $("#usercodenameSettings").val(data.app.usercodename);
@@ -140,30 +138,10 @@ function setConfigValue(data) {
   }
 }
 
-$.ajax({
-  "url": "/api/config/" + auth.auth.usercode,
-  "dataType": "json",
-  "json": "json.wrf",
-  "beforeSend": function(xhr) {
-    xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
-  },
-  "statusCode": {
-    "429": function(xhr) {
-      status429();
-    },
-    "401": function(xhr) {
-      status401();
-    },
-    "403": function(xhr) {
-      status403();
-    },
-  },
-  "success": function(data) {
-    window.config = data;
+if (window.config) {
     setConfigValue(window.config);
     $("#settingsScreen").removeClass("hide");
-  }
-});
+}
 
 function saveSettings() {
   localSettings = {
@@ -231,7 +209,7 @@ function saveSettings() {
     window.config.discord.key = $("#discordTokenSettings").val();
   }
   $.ajax({
-    "url": "/api/config/" + auth.auth.usercode,
+    "url": "/api/config/" + window.config.usercode,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
