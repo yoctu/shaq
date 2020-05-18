@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #808DA7;
+  background-color: #213383;
   color: var(--main-bg-color);
 }
 
@@ -18,10 +18,6 @@ hr {
 input::placeholder {
   color: var(--main-bg-color);
   opacity: 0.6;
-}
-
-tr td:first-child {
-  border-left-color: #4981F1;
 }
 
 .dataTables_wrapper .dataTables_info,
@@ -50,7 +46,7 @@ th, label {
 
 .form-control[readonly], .form-control {
   color: var(--main-bg-color);
-  background-color: #fff;
+  background-color: #F5F6F8;
 }
 
 #shaq-valid-from-btn, #shaq-valid-btn {
@@ -83,44 +79,36 @@ th, label {
   color: var(--main-bg-color);
 }
 
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: var(--main-bg-color);
-}
-
 .well {
   background-color: #F5F6F8;
+  border: 0px;
   -webkit-box-shadow: none;
 }
 
 .well-success {
-  background-color: white;
-  border-color: #F5F6F8;
+  background-color: #F5F6F8;
   opacity: 1;
-  border-left-width: 10px;
-  border-left-color: #4FD844;
-  border-left-style: solid;
+  border: 8px solid #4FD844;
 }
 
 .well-warning {
-  background-color: white;
-  border-color: #F5F6F8;
+  background-color: #F5F6F8;
   opacity: 0.9;
-  border-left-width: 10px;
-  border-left-color: #FFC266;
-  border-left-style: solid;
+  border: 6px solid #FFC266;
 }
 
 .well-danger {
-  background-color: white;
-  border-color: #F5F6F8;
+  background-color: #F5F6F8;
   opacity: 0.6;
-  border-left-width: 10px;
-  border-left-color: #FF5C16;
-  border-left-style: solid;
+  border: 6px solid #FF5C16;
 }
 
 .table>tbody>tr>td {
   border-top: none;
+}
+
+table.dataTable tbody tr.odd {
+  background-color: #EDEFF4;
 }
 
 a {
@@ -168,7 +156,7 @@ th {
 .btn-room.btn-danger:hover,
 .btn-room.btn-danger {
   color: var(--main-bg-color);
-  background-color: #EAEDF3;
+  background-color: #F5F6F8;
 }
 
 .btn-primary {
@@ -204,7 +192,7 @@ input, select {
   background-image: url("https://shaq.yoctu.com/img/shaqlogo.png");
 }
 
-#navbar-usercode, #solrReload, #solrRefresh {
+#navbar-username, #solrReload, #solrRefresh {
   color: var(--main-bg-color);
 }
 
@@ -228,24 +216,6 @@ input, select {
 .dropdown-menu>li>a,
 .dropdown-menu>li>a:focus,
 .dropdown-menu>li>a:hover {
-    color: var(--main-bg-color);
-    text-decoration: none;
-}
-
-.well-package-list {
-  background-color:#40598B;
-  color:white;
-}
-
-.well-package-total {
-  background-color:#444444;
-  color:white;
-}
-
-.modal-title {
-  color: #fff
-}
-
-.modal-header {
-  background-color: var(--main-bg-color);
+  color: var(--main-bg-color);
+  text-decoration: none;
 }
