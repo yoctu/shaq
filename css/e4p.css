@@ -98,9 +98,11 @@ th, label {
 }
 
 .well-danger {
-  background-color: #F5F6F8;
-  opacity: 0.6;
-  border: 6px solid #FF5C16;
+  background-color: white;
+  border-color: #F5F6F8;
+  border-left-width: 10px;
+  border-left-color: #FF5C16;
+  border-left-style: solid;
 }
 
 .table>tbody>tr>td {
