@@ -114,12 +114,6 @@ function setConfigValue(data) {
   }
   if (data.app.notifications & 1) $("#notifChat").val("1");
   if (data.app.notifications & 2) $("#notifMail").val("2");
-  if (data.app.notifications & 4) {
-    $("#notifDiscord").val("4");
-    $("#discordTokenSettings").val(data.discord.key);
-    $("#discordChannelSettings").val(auth.auth.usercode.toLowerCase());
-    $("#discordSettings").removeClass("hide");
-  }
   if (data.app.rating > 0) {
     $("#bidBidderRatingScore").removeClass("hide");
     for (var ratingCpt = 0; ratingCpt < data.app.rating; ratingCpt++) {
@@ -162,7 +156,7 @@ function saveSettings() {
   window.config.app.usercodename = $("#usercodenameSettings").val();
   window.config.app.usercodeemail = $("#usercodeemailSettings").val();
   window.config.app.orderingurl = $("#orderingurlSettings").val();
-  window.config.app.notifications = parseInt($("#notifChat").val()) + parseInt($("#notifMail").val()) + parseInt($("#notifDiscord").val());
+  window.config.app.notifications = parseInt($("#notifChat").val()) + parseInt($("#notifMail").val());
   if ($("#ugoUrlSettings").val()) {
     window.config.raters.ugo.url = $("#ugoUrlSettings").val();
     window.config.raters.ugo.username = $("#ugoLoginSettings").val();
@@ -330,20 +324,9 @@ $('#saveSettingsBtn').on('click', function() {
   });
 });
 
-$('#notifDiscord').on('change', function(e) {
-  if (parseInt($(this).val()) === 0) {
-    $("#discordSettings").addClass("hide");
-  } else {
-    $("#discordSettings").removeClass("hide");
-  }
-});
-
 $('#themeSettings').on('change', function(e) {
-  if ($(this).val() !== "Default") {
-    $('#theme-css').attr('href', css.substr(0, css.lastIndexOf("/")) + '/' + $(this).val() + '.css');
-  } else {
-    $('#theme-css').attr('href', css);
-  }
+  let css = $('#theme-css').attr('href')
+  $('#theme-css').attr('href', css.substr(0, css.lastIndexOf("/")) + '/' + $(this).val() + '.css');
 });
 
 socket.on(auth.auth.usercode, function(data) {
