@@ -18,8 +18,5 @@ The technical Stack is the following :
 ## Storage :
 ![Solr Logo](https://content.nexza.com/stack-items/solr.png)
 
-## Bus&Event :
-![Kafka_Logo](https://www.streamweaver.com/hubfs/Logos/kafka-logo-tile-200.jpg)
-
 # Help
 [Contact Us](https://shaq.yoctu.com/contact.html) if you need assitance and/or want to know more

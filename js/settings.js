@@ -10,7 +10,7 @@ $('#shaqValidTimerSettings').val(localSettings.shaqvalidtimer);
 $('#themeSettings').val(localSettings.themeSettings);
 $('#shaqChatVisibilitySettings').val(localSettings.chatShow);
 $('#shaqShipmentVisibilitySettings').val(localSettings.shipmentShow);
-$('#notifPopup').val(localSettings.autoNotify);
+$('#notifPopup').val(localSettings.autoNotify || 1);
 
 if (auth.auth.usercode) $("#shaq-settings-company-profile").text(auth.auth.usercode);
 if (auth.auth.username) {
@@ -54,8 +54,7 @@ if (auth.app.logourl) {
 function setConfigValue(data) {
   if (data.usercode) $("#usercodeSettings").val(data.usercode);
   if (data.app) {
-    $("#maxbidsSettings").val(data.app.maxbids);
-    $("#archiveSettings").val(data.app.archive);
+    $("#maxbidsSettings").val(data.shaq.maxbids);
     $("#usercodenameSettings").val(data.app.usercodename);
     $("#usercodeemailSettings").val(data.app.usercodeemail);
     $("#orderingurlSettings").val(data.app.orderingurl);
@@ -203,10 +202,6 @@ function saveSettings() {
     window.config.tms.e4p.url = $("#easy4proUrlSettings").val();
     window.config.tms.e4p.username = $("#easy4proLoginSettings").val();
     window.config.tms.e4p.password = $("#easy4proPasswordSettings").val();
-  }
-  window.config.discord.key = "";
-  if (parseInt($("#notifDiscord").val()) !== 0) {
-    window.config.discord.key = $("#discordTokenSettings").val();
   }
   $.ajax({
     "url": "/api/config/" + window.config.usercode,
