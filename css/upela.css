@@ -14,6 +14,8 @@ body {
 
 #shaq-navbar-url {
   background-image: url("https://logos.yoctu.com/logo/upela-64.png");
+  background-size: 64px 64px;
+  margin: 0px 0px 0px 0px;
 }
 
 .dropdown-menu .divider {
