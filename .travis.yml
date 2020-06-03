@@ -1,6 +1,6 @@
 os: linux
 dist: xenial
-language: html
+language: nodejs
 
 if: branch IN (master,develop)
 
