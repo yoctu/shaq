@@ -1,6 +1,6 @@
 os: linux
 dist: xenial
-language: minimal
+language: generic
 
 if: branch IN (master,develop)
 
