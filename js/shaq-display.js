@@ -1,4 +1,4 @@
-var ShaqID = window.location.pathname.split("/")[3];
+var ShaqID = new URLSearchParams(location.search).has('key') ? new URLSearchParams(location.search).get('key') : "";
 var timerFrom = 0;
 var shaqValiditytimer = 0;
 var showAllbids = 0;
@@ -37,7 +37,7 @@ $('input[data-field="datetime"], input[data-field="date"], input[data-field="tim
 function deleteShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Deleting Shaq</span>');
   $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/delete/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/delete/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -56,7 +56,7 @@ function deleteShaq() {
 function archiveShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Archiving Shaq</span>');
   $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/archive/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/archive/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -72,7 +72,7 @@ function archiveShaq() {
 function closeShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Closing Shaq</span>');
   $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/cancel/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -120,7 +120,7 @@ function sendMessage(data) {
   data.type = "message";
   data.status = "sent";
   $.ajax({
-    "url": "/api/chat/" + auth.auth.usercode + "/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/chat/' + auth.auth.usercode + "/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -143,7 +143,7 @@ function rate(rater) {
   $("#" + rater + "_RefreshBtn").addClass("hide");
   if (window.shaq.visible === "public") service = "shaq-public";
   $.ajax({
-    "url": '/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
@@ -168,7 +168,7 @@ function readdallbidders() {
     action: "readdall"
   };
   $.ajax({
-    "url": '/api/shaq/' + auth.auth.usercode + '/readdall/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/readdall/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -198,7 +198,7 @@ function removeallbidders() {
     action: "removeall"
   };
   $.ajax({
-    "url": '/api/shaq/' + auth.auth.usercode + '/removeall/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/removeall/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -232,7 +232,7 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": '/api/shaq/' + auth.auth.usercode + '/' + action + '/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/' + action + '/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -275,7 +275,7 @@ function extendShaqDecision(xHour) {
     action: "extenddecision"
   }
   $.ajax({
-    "url": '/api/shaq/' + auth.auth.usercode + '/extenddecision/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/extenddecision/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -305,7 +305,7 @@ function extendShaqValidity(xHour) {
     action: "extendvalidity"
   }
   $.ajax({
-    "url": '/api/shaq/' + auth.auth.usercode + '/extendvalidity/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/extendvalidity/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -366,7 +366,7 @@ function uploadFile(bid) {
   let formData = new FormData();
   formData.append('file', fileBid[0], fileBid[0].name);
   $.ajax({
-    "url": '/api/bid/' + auth.auth.usercode + '/uploadbidfile/' + window.shaq.key + "?id=" + bid.id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + '/uploadbidfile/' + window.shaq.key + "?id=" + bid.id,
     "method": "POST",
     "processData": false,
     "contentType": false,
@@ -389,7 +389,7 @@ function uploadshaqFile() {
   let formData = new FormData();
   formData.append('file', fileShaq[0], fileShaq[0].name);
   $.ajax({
-    "url": '/api/shaq/' + auth.auth.usercode + '/uploadshaqfile/' + window.shaq.key + "?id=" + shaq.id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/uploadshaqfile/' + window.shaq.key + "?id=" + shaq.id,
     "method": "POST",
     "processData": false,
     "contentType": false,
@@ -987,7 +987,7 @@ function shaqRefresh() {
 }
 
 $.ajax({
-  "url": "/api/shaq" + solrTarget + "/" + auth.auth.usercode + "/" + ShaqID + "?rows=1",
+  "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + "/" + auth.auth.usercode + "/" + ShaqID + "?rows=1",
   "dataType": "json",
   "json": "json.wrf",
   "beforeSend": function(xhr) {
@@ -1056,11 +1056,9 @@ function getBids(orderBy = {
   const sort = {
     "status": "desc"
   };
-
   Object.keys(orderBy).forEach(key => sort[key] = orderBy[key]);
-
   $.ajax({
-    "url": '/api/bid' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort=' + JSON.stringify(sort),
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort=' + JSON.stringify(sort),
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
@@ -1127,7 +1125,7 @@ function updateChat(chat) {
 
 function getChatMsgs() {
   $.ajax({
-    "url": '/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort=date%20desc',
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort=date%20desc',
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
@@ -1153,7 +1151,7 @@ function getChatMsgs() {
 
 function getNotifMsgs() {
   $.ajax({
-    "url": '/api/notif' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort={"date": "desc"}',
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/notif' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort={"date": "desc"}',
     "dataType": "json",
     "json": "json.wrf",
     "beforeSend": function(xhr) {
@@ -1225,7 +1223,7 @@ socket.on(auth.auth.usercode, function(data) {
 
 function updateBid(bidData) {
   $.ajax({
-    "url": "/api/bid/" + auth.auth.usercode + "/" + ShaqID,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -1262,7 +1260,7 @@ function sendMessageAll() {
     "flags": ""
   };
   $.ajax({
-    "url": "/api/notif/" + auth.auth.usercode + "/" + ShaqID,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/notif/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -1313,7 +1311,7 @@ function sendBid() {
   if ($('#bid-add > .bidPuDateRange').val()) dataSendBid.puDateRange = $('#bid-add > .bidPuDateRange').val().replace(' ', 'T') + ":00.000Z";
   if ($('#bid-add > .bidDeDateRange').val()) dataSendBid.deDateRange = $('#bid-add > .bidDeDateRange').val().replace(' ', 'T') + ":00.000Z"
   $.ajax({
-    "url": "/api/bid/" + auth.auth.usercode + "/" + ShaqID,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -1368,7 +1366,7 @@ function invitesearch() {
   $('#InviteModalInviteBtn').prop('disabled', true);
   if ($('#InviteModalSearchInput').val() !== "") {
     $.ajax({
-      "url": '/public/' + $('#InviteModalSearchInput').val() + "/",
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/public/' + $('#InviteModalSearchInput').val() + "/",
       "method": "GET",
       "dataType": "json",
       "contentType": "application/json",
@@ -1396,7 +1394,7 @@ function SetItNow() {
   let NewSetItNow = parseFloat($('#newsetitnow').val()).toFixed(2);
   if (NewSetItNow < window.shaq.bestbidprice) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/setitnow/' + window.shaq.key,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/setitnow/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
@@ -1422,7 +1420,7 @@ function invite() {
   if (!window.shaq.target.includes($('#InviteModalCode').text().toUpperCase()) &&
     !window.shaq.source.includes($('#InviteModalCode').text().toUpperCase())) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + '/' + window.shaq.key,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + '/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
@@ -1489,7 +1487,7 @@ $('#winningbidcalc').on('click', function() {
   getBids();
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Calculating Offers...</span>', true);
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/winningbidcalc/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/winningbidcalc/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -1559,7 +1557,7 @@ $(document).on('click', '.btn-no-solution-bid', function() {
     action: "giveup"
   };
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/giveup/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/giveup/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -1719,7 +1717,7 @@ $("#cancel-all-btn").on('click', function(event) {
 
 $("#shaq-name").on('click', function(event) {
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + "/auditstatus/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + "/auditstatus/" + window.shaq.key,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
@@ -1783,7 +1781,7 @@ function bidsFlag(bf) {
               <input id="FlagColor" type="color" value="#ff0000" class="pull-right" style="padding: 0 0;"></input></div>');
   $("#QuestionModalYesBtn").on("click", function() {
     $.ajax({
-      "url": '/api/bid/' + auth.auth.usercode + '/comment/' + bf.data("id"),
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + '/comment/' + bf.data("id"),
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",

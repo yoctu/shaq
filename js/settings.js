@@ -198,7 +198,7 @@ function saveSettings() {
     window.config.tms.e4p.password = $("#easy4proPasswordSettings").val();
   }
   $.ajax({
-    "url": "/api/config/" + window.config.usercode,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/config/' + window.config.usercode,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -304,7 +304,7 @@ $('#bidvaluemaxmodif').on('click', function() {
 
 $('#refresh-score').on('click', function() {
   $.ajax({
-    "url": "api/shaq/" + auth.auth.usercode + "/score/now",
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/score/now",
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",

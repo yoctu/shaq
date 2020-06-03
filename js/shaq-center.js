@@ -59,7 +59,7 @@ function showmore(showmore) {
 
 function closeShaq(shaq) {
   $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/cancel/" + shaq,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + shaq,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -90,7 +90,7 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -122,7 +122,7 @@ function subscribe(button) {
     action: "subscribe"
   };
   $.ajax({
-    "url": '/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -217,7 +217,7 @@ function renderFuncId(row, data) {
   let IdData = JSON.stringify(data).replace(/\"|\[|\]/g, '');
   let IdDataRender = "";
   if ((solrTarget !== "-archive") && (auth.auth.usercode === row.source[0])) IdDataRender += ' <a onclick="closeShaq(\'' + row.key + '\');" class="close-shaq"><span class="glyphicon glyphicon-trash"> </span></a>';
-  IdDataRender += '&nbsp;<a href="/' + auth.auth.usercode + '/display/' + row.key + '?type=' + solrTarget + '" target="_blank">' + IdData + '</a>&nbsp;<span class="label label-primary" data-id="' + row.key + '">0</span>&nbsp;';
+  IdDataRender += '&nbsp;<a href="/display.html?key=' + row.key + '&type=' + solrTarget + '&' + window.location.search.substr(1) + '" target="_blank">' + IdData + '</a>&nbsp;<span class="label label-primary" data-id="' + row.key + '">0</span>&nbsp;';
   let bestbidprice = 0;
   if (row.bestbidprice) bestbidprice = row.bestbidprice;
   IdDataRender += '<span data-toggle="tooltip" title="best Bid" class="label label-success pull-right bestbid_' + row.key + '" style="padding: 4px 4px;">' + bestbidprice + '</span></span><span class="pull-right">&nbsp;</span>';
@@ -305,7 +305,7 @@ $('#shaqList').DataTable({
   },
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
       "dataType": "json",
       "json": "json.wrf",
       "beforeSend": function(xhr) {
@@ -333,7 +333,7 @@ $('#shaqList').DataTable({
         callback(o);
         if (json.numFound > 0) {
           $.ajax({
-            "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
             "dataType": "json",
             "json": "json.wrf",
             "beforeSend": function(xhr) {

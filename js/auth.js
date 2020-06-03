@@ -31,6 +31,18 @@ if (getCookie("ConnectUser") !== "") {
   auth.auth.lang = ConnectUser.lang;
   auth.auth.userkey = ConnectUser.api_token;
   auth.auth.provider = "connect";
+  auth.auth.env = "eu";
+  auth.auth.authbasic = btoa(auth.auth.email + ":" + auth.auth.userkey)
+}
+
+if (!auth.auth.usercode) {
+  const qs = new URLSearchParams(window.location.search)
+  if (qs.has('usercode')) auth.auth.usercode = qs.get('usercode') 
+  if (qs.has('email')) auth.auth.email = qs.get('email') 
+  if (qs.has('apikey')) auth.auth.userkey = qs.get('apikey') 
+  if (qs.has('env')) auth.auth.env = qs.get('env') 
+  if (!auth.auth.env) auth.auth.env = ""
+  auth.auth.provider = "url"
   auth.auth.authbasic = btoa(auth.auth.email + ":" + auth.auth.userkey)
 }
 
