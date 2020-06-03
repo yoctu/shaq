@@ -5,6 +5,8 @@ It is not a TMS but a plugin to TMS to add bidding offers.
 
 You can get a full technical documentation on the following [link](https://shaq.yoctu.com/docs.html)
 
+This project is example of frontend to use shaq backend. You can write your own and modify this one freely.
+
 The technical Stack is the following :
 
 ## Frontend :
