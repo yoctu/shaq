@@ -1002,8 +1002,9 @@ $.ajax({
   "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + "/" + auth.auth.usercode + "/" + ShaqID + "?rows=1",
   "dataType": "json",
   "json": "json.wrf",
-  "beforeSend": function(xhr) {
-    xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+  "headers": {
+    "redspher-auth": "yes",
+    "Authorization": "Basic " + auth.auth.authbasic
   },
   "statusCode": {
     "200": function(xhr) {
@@ -1388,8 +1389,9 @@ function invitesearch() {
       "method": "GET",
       "dataType": "json",
       "contentType": "application/json",
-      "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      "headers": {
+        "redspher-auth": "yes",
+        "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
         "200": function(xhr) {
@@ -1419,8 +1421,9 @@ function SetItNow() {
       "data": JSON.stringify({
         setitnow: NewSetItNow
       }),
-      "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      "headers": {
+        "redspher-auth": "yes",
+        "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
         "500": function(xhr) {
@@ -1446,8 +1449,9 @@ function invite() {
         usercode: $('#InviteModalCode').text(),
         usercodename: $('#InviteModalName').text()
       }),
-      "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      "headers": {
+        "redspher-auth": "yes",
+        "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
         "403": function(xhr) {
@@ -1809,8 +1813,9 @@ function bidsFlag(bf) {
       "data": JSON.stringify({
         comment: [$("#FlagColor").val(), $("#FlagComment").val(), $("#FlagType").val(), new Date().toISOString()]
       }),
-      "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      "headers": {
+        "redspher-auth": "yes",
+        "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
         "429": function(xhr) {
