@@ -21,9 +21,11 @@ function getCookie(cname) {
   return "";
 }
 
+if (window.location.pathname.split("/").length) > 2 window.location.replace(window.location.origin + '?usercode=' + window.location.pathname.split("/")[1])
+
 if (getCookie("ConnectUser") !== "") {
   let ConnectUser = JSON.parse(getCookie("ConnectUser"));
-  auth.auth.usercode = auth.auth.usercode = qs.get('usercode');
+  auth.auth.usercode = qs.get('usercode');
   auth.auth.username = ConnectUser.user_name;
   auth.auth.firstname = ConnectUser.first_name;
   auth.auth.lastname = ConnectUser.last_name;
@@ -42,7 +44,7 @@ if (!auth.auth.email) {
   auth.auth.authbasic = btoa(auth.auth.email + ":" + auth.auth.userkey)
 }
 
-if (auth.auth.usercode === null) window.location.replace("error403.html")
+if ([null,undefined].includes(auth.auth.usercode)) window.location.replace("error403.html")
 
 auth.auth.env = ".eu";
 if (qs.has('env')) auth.auth.env = qs.get('env')
