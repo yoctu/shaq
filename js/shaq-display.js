@@ -37,12 +37,13 @@ $('input[data-field="datetime"], input[data-field="date"], input[data-field="tim
 function deleteShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Deleting Shaq</span>');
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/delete/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/delete/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqDeleted', window.shaq.key);
@@ -56,12 +57,13 @@ function deleteShaq() {
 function archiveShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Archiving Shaq</span>');
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/archive/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/archive/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqArchived', window.shaq.key);
@@ -72,12 +74,13 @@ function archiveShaq() {
 function closeShaq() {
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Closing Shaq</span>');
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqCancelled', window.shaq.key);
@@ -120,14 +123,15 @@ function sendMessage(data) {
   data.type = "message";
   data.status = "sent";
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/chat/' + auth.auth.usercode + "/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/chat/' + auth.auth.usercode + "/" + window.shaq.key,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify([data]),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
       shaqGTAG('Chat', 'ChatSend', JSON.stringify(data));
@@ -143,12 +147,13 @@ function rate(rater) {
   $("#" + rater + "_RefreshBtn").addClass("hide");
   if (window.shaq.visible === "public") service = "shaq-public";
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       sendMessage({
@@ -168,13 +173,14 @@ function readdallbidders() {
     action: "readdall"
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/readdall/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/readdall/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       for (let t in window.shaq.target) {
@@ -198,13 +204,14 @@ function removeallbidders() {
     action: "removeall"
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/removeall/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/removeall/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       for (let t in window.shaq.target) {
@@ -232,13 +239,14 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/' + action + '/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/' + action + '/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       let actionText = target + " has been enabled!";
@@ -275,13 +283,14 @@ function extendShaqDecision(xHour) {
     action: "extenddecision"
   }
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/extenddecision/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/extenddecision/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
       shaqGTAG('Shaq', 'ShaqExtendDecision', JSON.stringify(data));
@@ -305,13 +314,14 @@ function extendShaqValidity(xHour) {
     action: "extendvalidity"
   }
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/extendvalidity/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/extendvalidity/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       let colorClass = "text-success";
@@ -366,13 +376,14 @@ function uploadFile(bid) {
   let formData = new FormData();
   formData.append('file', fileBid[0], fileBid[0].name);
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + '/uploadbidfile/' + window.shaq.key + "?id=" + bid.id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid/' + auth.auth.usercode + '/uploadbidfile/' + window.shaq.key + "?id=" + bid.id,
     "method": "POST",
     "processData": false,
     "contentType": false,
     "data": formData,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       let file = 0;
@@ -389,13 +400,14 @@ function uploadshaqFile() {
   let formData = new FormData();
   formData.append('file', fileShaq[0], fileShaq[0].name);
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/uploadshaqfile/' + window.shaq.key + "?id=" + shaq.id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/uploadshaqfile/' + window.shaq.key + "?id=" + shaq.id,
     "method": "POST",
     "processData": false,
     "contentType": false,
     "data": formData,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
       $("#filetoUploadShaq").html("");
@@ -987,7 +999,7 @@ function shaqRefresh() {
 }
 
 $.ajax({
-  "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + "/" + auth.auth.usercode + "/" + ShaqID + "?rows=1",
+  "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + "/" + auth.auth.usercode + "/" + ShaqID + "?rows=1",
   "dataType": "json",
   "json": "json.wrf",
   "beforeSend": function(xhr) {
@@ -1058,11 +1070,12 @@ function getBids(orderBy = {
   };
   Object.keys(orderBy).forEach(key => sort[key] = orderBy[key]);
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort=' + JSON.stringify(sort),
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort=' + JSON.stringify(sort),
     "dataType": "json",
     "json": "json.wrf",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1125,11 +1138,12 @@ function updateChat(chat) {
 
 function getChatMsgs() {
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort=date%20desc',
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/chat' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=' + localSettings.chathistory + '&sort=date%20desc',
     "dataType": "json",
     "json": "json.wrf",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1151,11 +1165,12 @@ function getChatMsgs() {
 
 function getNotifMsgs() {
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/notif' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort={"date": "desc"}',
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/notif' + solrTarget + '/' + auth.auth.usercode + '/' + ShaqID + '?rows=100&sort={"date": "desc"}',
     "dataType": "json",
     "json": "json.wrf",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1223,14 +1238,15 @@ socket.on(auth.auth.usercode, function(data) {
 
 function updateBid(bidData) {
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": bidData,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1260,14 +1276,15 @@ function sendMessageAll() {
     "flags": ""
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/notif/' + auth.auth.usercode + "/" + ShaqID,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/notif/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify([dataSendMessageAll]),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
@@ -1311,14 +1328,15 @@ function sendBid() {
   if ($('#bid-add > .bidPuDateRange').val()) dataSendBid.puDateRange = $('#bid-add > .bidPuDateRange').val().replace(' ', 'T') + ":00.000Z";
   if ($('#bid-add > .bidDeDateRange').val()) dataSendBid.deDateRange = $('#bid-add > .bidDeDateRange').val().replace(' ', 'T') + ":00.000Z"
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify([dataSendBid]),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       429: function(xhr) {
@@ -1366,7 +1384,7 @@ function invitesearch() {
   $('#InviteModalInviteBtn').prop('disabled', true);
   if ($('#InviteModalSearchInput').val() !== "") {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/public/' + $('#InviteModalSearchInput').val() + "/",
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/public/' + $('#InviteModalSearchInput').val() + "/",
       "method": "GET",
       "dataType": "json",
       "contentType": "application/json",
@@ -1394,7 +1412,7 @@ function SetItNow() {
   let NewSetItNow = parseFloat($('#newsetitnow').val()).toFixed(2);
   if (NewSetItNow < window.shaq.bestbidprice) {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/setitnow/' + window.shaq.key,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/setitnow/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
@@ -1420,7 +1438,7 @@ function invite() {
   if (!window.shaq.target.includes($('#InviteModalCode').text().toUpperCase()) &&
     !window.shaq.source.includes($('#InviteModalCode').text().toUpperCase())) {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + '/' + window.shaq.key,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + '/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
@@ -1487,12 +1505,13 @@ $('#winningbidcalc').on('click', function() {
   getBids();
   informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Calculating Offers...</span>', true);
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/winningbidcalc/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/winningbidcalc/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
       if (json.scoremin && json.scoremax) {
@@ -1557,13 +1576,14 @@ $(document).on('click', '.btn-no-solution-bid', function() {
     action: "giveup"
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/giveup/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/giveup/' + window.shaq.key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(error) {
@@ -1717,12 +1737,13 @@ $("#cancel-all-btn").on('click', function(event) {
 
 $("#shaq-name").on('click', function(event) {
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + "/auditstatus/" + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + "/auditstatus/" + window.shaq.key,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "200": function(auditStatus) {
@@ -1781,7 +1802,7 @@ function bidsFlag(bf) {
               <input id="FlagColor" type="color" value="#ff0000" class="pull-right" style="padding: 0 0;"></input></div>');
   $("#QuestionModalYesBtn").on("click", function() {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid/' + auth.auth.usercode + '/comment/' + bf.data("id"),
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid/' + auth.auth.usercode + '/comment/' + bf.data("id"),
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",

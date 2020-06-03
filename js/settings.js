@@ -132,8 +132,8 @@ function setConfigValue(data) {
 }
 
 if (window.config) {
-    setConfigValue(window.config);
-    $("#settingsScreen").removeClass("hide");
+  setConfigValue(window.config);
+  $("#settingsScreen").removeClass("hide");
 }
 
 function saveSettings() {
@@ -198,14 +198,15 @@ function saveSettings() {
     window.config.tms.e4p.password = $("#easy4proPasswordSettings").val();
   }
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/config/' + window.config.usercode,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/config/' + window.config.usercode,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify(window.config),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       201: function(data) {
@@ -304,7 +305,7 @@ $('#bidvaluemaxmodif').on('click', function() {
 
 $('#refresh-score').on('click', function() {
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/score/now",
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/score/now",
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",

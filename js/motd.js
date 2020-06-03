@@ -1,11 +1,11 @@
-var MOTD = 5;
+var MOTD = 6;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
-  <div class="text-center"><b><font color="#4981F1">New Rater !!!</font></b></div><br>\
-  <p><div class="text-center">Boxtal is now available for rating !<br><br>\
-  You can create your account on <a href="https://www.boxtal.com">https://www.boxtal.com</a><br><br>\
-  Update your settings and test it !<br></p>\
+  <div class="text-center"><b><font color="#4981F1">Bug fixing</font></b></div><br>\
+  <p><div class="text-center">Few minor issues has been fixed<br><br>\
+  new Features will be added shortly.<br>\
+  Stay tuned.<br></p>\
   </div>\
 </div>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
