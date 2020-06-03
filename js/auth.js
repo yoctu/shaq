@@ -21,8 +21,6 @@ function getCookie(cname) {
   return "";
 }
 
-if (window.location.pathname.split("/").length > 2) window.location.replace(window.location.origin + '?usercode=' + window.location.pathname.split("/")[1])
-
 if (getCookie("ConnectUser") !== "") {
   let ConnectUser = JSON.parse(getCookie("ConnectUser"));
   auth.auth.usercode = qs.get('usercode');
