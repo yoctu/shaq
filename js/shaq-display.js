@@ -732,7 +732,7 @@ function shaqRefresh() {
     $("#bid-add").find('.btn-no-solution-bid').removeClass('hide');
     $("#bid-add").find('.btn-getitnow-bid').removeClass('hide');
     $("#bid-add").find(".bidBidderRatingScore").html("");
-    for (var ratingCpt = 1; ratingCpt < auth.rating; ratingCpt++) {
+    for (var ratingCpt = 0; ratingCpt < auth.rating; ratingCpt++) {
       $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="/img/rating1.png" />');
     }
     for (ratingCpt; ratingCpt < 5; ratingCpt++) {
