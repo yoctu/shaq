@@ -18,8 +18,9 @@ $(document).ready(function() {
   $.ajax({
     "url": url,
     "dataType": "json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
