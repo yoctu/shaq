@@ -63,8 +63,9 @@ function closeShaq(shaq) {
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
       shaqGTAG('Shaq', 'ShaqCancelled', JSON.stringify(data));
@@ -95,8 +96,9 @@ function removebidder(remove) {
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "200": function(xhr) {
@@ -127,8 +129,9 @@ function subscribe(button) {
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
       shaqGTAG('Shaq', 'ShaqSubscribe', JSON.stringify(data));
@@ -308,8 +311,9 @@ $('#shaqList').DataTable({
       "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
       "dataType": "json",
       "json": "json.wrf",
-      "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      "headers": {
+        "redspher-auth": "yes",
+        "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
         "429": function(xhr) {
@@ -336,8 +340,9 @@ $('#shaqList').DataTable({
             "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
             "dataType": "json",
             "json": "json.wrf",
-            "beforeSend": function(xhr) {
-              xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+            "headers": {
+              "redspher-auth": "yes",
+              "Authorization": "Basic " + auth.auth.authbasic
             },
             "statusCode": {
               "429": function(xhr) {
