@@ -9,12 +9,12 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: openode deploy -t $OPENODE_API_KEY -s shaq-view-test
+    script: openode ci-conf $OPENODE_API_KEY shaq-view-test && openode deploy
     on:
       branch: develop
       type: push
   - provider: script
-    script: openode deploy -t $OPENODE_API_KEY -s shaq-view-prod
+    script: openode ci-conf $OPENODE_API_KEY shaq-view-prod && openode deploy
     on:
       branch: master
       type: push
