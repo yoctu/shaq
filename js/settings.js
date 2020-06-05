@@ -150,7 +150,6 @@ function saveSettings() {
     autoNotify: parseInt($('#notifPopup').val()),
     shipmentShow: $('#shaqShipmentVisibilitySettings').val()
   };
-  shaqGTAG('Settings', 'SettingsSave', JSON.stringify(localSettings));
 
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
   window.config.app.usercodename = $("#usercodenameSettings").val();

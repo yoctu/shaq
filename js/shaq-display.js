@@ -46,7 +46,6 @@ function deleteShaq() {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqDeleted', window.shaq.key);
       $('.header-content').hide();
       $('#not-found-message-text').html('<a href="/' + auth.auth.usercode + '">Shaq ' + window.shaq.key + ' has been deleted</a><br><br>');
       $('#not-found-message').removeClass('hide');
@@ -66,7 +65,6 @@ function archiveShaq() {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqArchived', window.shaq.key);
     }
   });
 }
@@ -83,7 +81,6 @@ function closeShaq() {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqCancelled', window.shaq.key);
     }
   });
 }
@@ -134,7 +131,6 @@ function sendMessage(data) {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
-      shaqGTAG('Chat', 'ChatSend', JSON.stringify(data));
     }
   });
 }
@@ -192,7 +188,6 @@ function readdallbidders() {
           "target": [window.shaq.target[t]]
         });
       }
-      shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
     }
   });
 }
@@ -223,7 +218,6 @@ function removeallbidders() {
           "target": [window.shaq.target[t]]
         });
       }
-      shaqGTAG('Shaq', 'ShaqRemoveAll', JSON.stringify(data));
     }
   });
 }
@@ -267,7 +261,6 @@ function removebidder(remove) {
           "target": [target]
         });
       }
-      shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
     }
   });
 }
@@ -293,7 +286,6 @@ function extendShaqDecision(xHour) {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
-      shaqGTAG('Shaq', 'ShaqExtendDecision', JSON.stringify(data));
       if (json.status === 404) return;
       let colorClass = "text-success";
       if (json.status === 405) colorClass = "text-danger";
@@ -330,7 +322,6 @@ function extendShaqValidity(xHour) {
       setTimeout(function() {
         $("#shaq-valid").removeClass(colorClass);
       }, 3000);
-      shaqGTAG('Shaq', 'ShaqExtendValidity', JSON.stringify(data));
     }
   });
 }
@@ -389,7 +380,6 @@ function uploadFile(bid) {
       let file = 0;
       if (bid.files) file = bid.files.length;
       $("#filetoUpload" + bid.id.substring(1, 8)).html('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/bid/' + auth.auth.usercode + '/downloadbidfile/' + bid.key + '?id=' + bid.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + fileBid[0].name.slice(fileBid[0].name.indexOf("_") + 1) + '</a></div>');
-      shaqGTAG('Bid', 'BidUploadFile', fileBid[0].name);
     }
   });
 }
@@ -417,7 +407,6 @@ function uploadshaqFile() {
         //$("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + window.shaq.key + '?id=' + window.shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + window.shaq.files[file].slice(window.shaq.files[file].indexOf("_") + 1) + '</a></div>');
         $("#filetoUploadShaq").append('<div><a href="' + window.location.protocol + '//' + auth.auth.username + ':' + auth.auth.userkey + '@' + window.location.host + '/api/shaq/' + usercode + '/downloadshaqfile/' + shaq.key + '?id=' + shaq.id + '&pos=' + file + '"><span class="glyphicon glyphicon-cloud-upload text-success"></span>  ' + shaq.files[file].slice(shaq.files[file].indexOf("_") + 1) + '</a></div>');
       }
-      shaqGTAG('Shaq', 'ShaqUploadFile', fileShaq[0].name);
     }
   });
 }
@@ -1008,7 +997,6 @@ $.ajax({
   },
   "statusCode": {
     "200": function(xhr) {
-      shaqGTAG('Shaq', 'ShaqDisplayFetch', JSON.stringify(shaq));
     },
     "429": function(xhr) {
       status429();
@@ -1255,7 +1243,6 @@ function updateBid(bidData) {
       }
     },
     "success": function(msgs) {
-      shaqGTAG('Bid', 'BidUpdate', JSON.stringify(shaq));
     }
   });
 }
@@ -1293,7 +1280,6 @@ function sendMessageAll() {
       }
     },
     "success": function(msg) {
-      shaqGTAG('Notification', 'NotificationSend', JSON.stringify(shaq));
     }
   });
 }
@@ -1347,7 +1333,6 @@ function sendBid() {
         informShow('   <span>Max bid reached !!!</span>');
       },
       201: function(msgs) {
-        shaqGTAG('Bid', 'BidCreate', JSON.stringify(shaq));
         $("#amount").attr("disabled", false);
       }
     }
@@ -1601,7 +1586,6 @@ $(document).on('click', '.btn-no-solution-bid', function() {
           "source": [auth.auth.usercode],
           "target": [window.shaq.source[0]]
         });
-        shaqGTAG('Bid', 'BidGiveUp', JSON.stringify(shaq));
       }
     }
   });
@@ -1852,7 +1836,6 @@ function bidsFlag(bf) {
         }
       },
       "success": function(json) {
-        shaqGTAG('Bid', 'BidComment', JSON.stringify(bid));
       }
     });
   });

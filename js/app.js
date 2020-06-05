@@ -28,14 +28,6 @@ function uuidv4() {
   });
 }
 
-function shaqGTAG(type, category, value) {
-  gtag('event', type, {
-    'event_category': category,
-    'event_label': window.location.pathname.split("/")[1],
-    'value': JSON.stringify(value)
-  });
-}
-
 function notificationInit() {
   window.notificationCenterId = [];
   window.notificationCenterTitle = [];

@@ -68,7 +68,6 @@ function closeShaq(shaq) {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqCancelled', JSON.stringify(data));
     }
   });
 }
@@ -105,7 +104,6 @@ function removebidder(remove) {
         setTimeout(function() {
           $("#InformationModal").modal('hide');
         }, 1000);
-        shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
       },
       "429": function(xhr) {
         $("#InformationModal").modal('hide');
@@ -134,7 +132,6 @@ function subscribe(button) {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
-      shaqGTAG('Shaq', 'ShaqSubscribe', JSON.stringify(data));
     }
   });
 }
