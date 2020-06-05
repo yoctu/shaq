@@ -1752,8 +1752,32 @@ $("#shaq-name").on('click', function(event) {
     "statusCode": {
       "200": function(auditStatus) {
         let audits = '<div class="row">';
-        for (a in auditStatus[0]) {
-          if (auditStatus[0][a].status) audits += '<div class="col-sm-6 text-center">' + auditStatus[0][a].status + '</div><div><div class="col-sm-6 text-center">' + auditStatus[0][a].date.substring(0, 19).replace("T", " ") + '</div>';
+        for (a in auditStatus.docs) {
+          if (auditStatus.docs[a].status) audits += '<div class="col-sm-6 text-center">' + auditStatus.docs[a].status + '</div><div><div class="col-sm-6 text-center">' + auditStatus.docs[a].reported_at.substring(0, 19).replace("T", " ") + '</div>';
+        }
+        audits += '</div>';
+        informShow(audits, false);
+      }
+    }
+  });
+});
+
+$("#bidAuditstatus").on('click', function(event) {
+  $.ajax({
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrTarget + '/' + auth.auth.usercode + "/auditstatus/" + window.shaq.key,
+    "method": "GET",
+    "dataType": "json",
+    "contentType": "application/json",
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
+    },
+    "statusCode": {
+      "200": function(auditStatus) {
+        let audits = '<div class="row">';
+        console.log(auditStatus)
+        for (a in auditStatus.docs) {
+          if (auditStatus.docs[a].status) audits += '<div class="col-sm-3 text-center">' + auditStatus.docs[a].source + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].status + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].id + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].reported_at.substring(0, 19).replace("T", " ") + '</div>';
         }
         audits += '</div>';
         informShow(audits, false);
