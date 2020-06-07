@@ -9,6 +9,7 @@ var solrTarget = "";
 var solrBidTarget = "";
 
 window.shaqs = [];
+window.bids = [];
 
 localStorage.setItem(auth.auth.usercode + "-shaqCenterID", window.id)
 window.addEventListener('storage', storageChanged);
@@ -332,6 +333,8 @@ $('#shaqList').DataTable({
         };
         $("#CenterPage").removeClass("hide");
         callback(o);
+        $("#well_center_shaqs").html(window.shaqs.length);
+        $("#well_center_bids").html(window.bids.length);
         if (json.numFound > 0) {
           $.ajax({
             "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
@@ -347,6 +350,7 @@ $('#shaqList').DataTable({
               }
             },
             "success": function(json) {
+              window.bids = json.docs;
               let key, source;
               for (let docs in json.docs) {
                 key = json.docs[docs].key;
@@ -476,6 +480,7 @@ socket.on(auth.auth.usercode, function(data) {
       if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target.includes(auth.auth.usercode)) break;
       updateShaq(msg);
       $(".dataTables_info").text("Showing 1 to 10 of " + $("#shaqList_length").val() + " entries (filtered from " + window.shaqs.length + " total entries)");
+      $("#well_center_shaqs").html(window.shaqs.length);
       $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
       if (searchShaqID(msg.id)) {
         if (msg.bestbidprice) $('.bestbid_' + msg.key).text(parseFloat(msg.bestbidprice).toFixed(2));

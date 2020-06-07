@@ -40,6 +40,7 @@ $(document).ready(function() {
       window.config = configapi;
       $.extend(true, auth, auth, configapi);
       auth.app.logourl = '/img/'
+      auth.app.css = '/css/'
       $("#load-navbar").load("/html/navbar.html");
       $("#load-footer").load("/html/footer.html");
       socket = io('https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/shaq', {

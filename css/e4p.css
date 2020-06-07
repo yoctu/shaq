@@ -85,6 +85,18 @@ th, label {
   -webkit-box-shadow: none;
 }
 
+.well-info {
+  background-color: #F5F6F8;
+  opacity: 1;
+  border: 8px solid #5bc0de;
+}
+
+.well-primary {
+  background-color: #F5F6F8;
+  opacity: 1;
+  border: 8px solid #0275d8;
+}
+
 .well-success {
   background-color: #F5F6F8;
   opacity: 1;
