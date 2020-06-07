@@ -333,9 +333,13 @@ $('#shaqList').DataTable({
         };
         $("#CenterPage").removeClass("hide");
         callback(o);
-        $("#well_center_shaqs").html(window.shaqs.length);
-        $("#well_center_bids").html(window.bids.length);
         if (json.numFound > 0) {
+          $("#well_center_shaqs").html(window.shaqs.length);
+          let cost = 0;
+          for (const s in window.shaqs) {
+            if (window.shaqs[s].bestbidprice) cost += window.shaqs[s].bestbidprice
+          }
+          $("#well_center_cost").html(window.shaqs.length);
           $.ajax({
             "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
             "dataType": "json",
@@ -351,14 +355,18 @@ $('#shaqList').DataTable({
             },
             "success": function(json) {
               window.bids = json.docs;
+              $("#well_center_bids").html(window.bids.length);
               let key, source;
+              let revenue = 0;
               for (let docs in json.docs) {
                 key = json.docs[docs].key;
                 source = json.docs[docs].source[0];
+                if (source === auth.auth.usercode) revenue += json.docs[docs].price;
                 $('span[data-id=' + key + ']').text(parseInt($('span[data-id=' + key + ']').first().text()) + 1);
                 $('span[data-bids-number=' + key + '_' + source + ']').text(parseInt($('span[data-bids-number=' + key + '_' + source + ']').first().text()) + 1).addClass(json.docs[docs].id);
                 if (searchShaqWinning(json.docs[docs].id)) $('span[data-bids-number=' + key + '_' + source + ']').removeClass('label-primary').addClass("label-success");
               }
+              $("#well_center_revenue").html(revenue);
             }
           });
         } else $("#shaqList").find("tr td:first-child").css("border-left-width","0px");
