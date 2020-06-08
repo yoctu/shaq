@@ -334,7 +334,7 @@ $('#shaqList').DataTable({
         $("#CenterPage").removeClass("hide");
         callback(o);
         if (json.numFound > 0) {
-          $("#center_shaqs").html(window.shaqs.length);
+          $("#well_center_shaqs").html(window.shaqs.length);
           let cost = 0;
           for (const s in window.shaqs) {
             if (window.shaqs[s].bestbidprice && window.shaqs[s].includes(auth.auth.usercode)) cost += window.shaqs[s].bestbidprice
@@ -356,7 +356,7 @@ $('#shaqList').DataTable({
             },
             "success": function(json) {
               window.bids = json.docs;
-              $("#center_bids").html(window.bids.length);
+              $("#well_center_shaqs").html(window.bids.length);
               let key, source;
               let revenue = 0;
               for (let docs in json.docs) {
