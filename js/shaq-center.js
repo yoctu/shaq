@@ -356,7 +356,7 @@ $('#shaqList').DataTable({
             },
             "success": function(json) {
               window.bids = json.docs;
-              $("#well_center_shaqs").html(window.bids.length);
+              $("#well_center_bids").html(window.bids.length);
               let key, source;
               let revenue = 0;
               for (let docs in json.docs) {
