@@ -6,9 +6,16 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 300;
+  color: #555;
+  background-color: #d9534f;
+}
+
+#navbar-usercode {
   color: var(--main-bg-color);
-  background-color: #d71818;
-  line-height: 30px;
+}
+
+#navbarNewOrder, #navbarSettings, #navbarHelp, #navbarLogout, #navbarUsercodename {
+  color: black;
 }
 
 #shaq-navbar-url {
@@ -16,23 +23,18 @@ body {
   background-size: 48px 48px;
 }
 
-.dropdown-menu .divider {
-  background-color: var(--main-bg-color);
-}
-
 hr {
   background-color: var(--main-bg-color);
 }
 
 input::placeholder {
-  color: var(--main-bg-color);
+  color: #555;
   opacity: 0.6;
 }
 
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_paginate .paginate_button,
 th, label {
-  color: var(--main-bg-color) !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
@@ -54,7 +56,6 @@ th, label {
 }
 
 .form-control[readonly], .form-control {
-  color: var(--main-bg-color);
   background-color: #F5F6F8;
 }
 
@@ -64,8 +65,7 @@ th, label {
 }
 
 #solrtarget {
-  background-color: #fff;
-  border: 1px solid var(--main-bg-color);
+  border: 1px solid black;
 }
 
 .btn-room>.badge.badge-danger {
@@ -80,7 +80,7 @@ th, label {
 .btn-room {
   font-weight: bold;
   border: none;
-  color: var(--main-bg-color);
+  color: #555;
 }
 
 .btn-glyphicon {
@@ -94,20 +94,32 @@ th, label {
   -webkit-box-shadow: none;
 }
 
+.well-info {
+  background-color: white;
+  opacity: 1;
+  border: 4px solid #5bc0de;
+}
+
+.well-primary {
+  background-color: white;
+  opacity: 1;
+  border: 4px solid #0275d8;
+}
+
 .well-success {
-  background-color: #F5F6F8;
+  background-color: white;
   opacity: 1;
   border: 4px solid #5cb85c;
 }
 
 .well-warning {
-  background-color: #F5F6F8;
+  background-color: white;
   opacity: 1;
   border: 4px solid #eea236;
 }
 
 .well-danger {
-  background-color: #F5F6F8;
+  background-color: white;
   border: 4px solid #d9534f;
 }
 
@@ -124,12 +136,8 @@ a {
   font-weight: bold;
 }
 
-th {
-  color: #ADB4C4;
-}
-
 .panel-default>.panel-heading {
-  color: var(--main-bg-color);
+  color: #555;
 }
 
 .chat-container.alert {
@@ -163,7 +171,7 @@ th {
 .btn-room.btn-danger:focus,
 .btn-room.btn-danger:hover,
 .btn-room.btn-danger {
-  color: #40598B;
+  color: var(--main-bg-color);
   background-color: #F5F6F8;
 }
 
@@ -180,28 +188,19 @@ th {
 }
 
 label {
-  color: var(--main-bg-color);
   font-weight: normal;
   border-radius: 16px;
+  color: black;
 }
 
 input, select {
-  color: var(--main-bg-color);
-  border: 1px solid var(--main-bg-color);
+  border: 1px solid #333;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 6px;
   padding: .375rem .75rem;
   font-size: 1.5rem;
   background-color: #fff;
-}
-
-#navbar-username, #solrReload, #solrRefresh {
-  color: var(--main-bg-color);
-}
-
-#shaqList_info {
-  color: var(--main-bg-color);
 }
 
 .btn-bid-extend {
@@ -211,10 +210,6 @@ input, select {
 
 .img-ico {
   color: var(--main-bg-color);
-}
-
-#bid-add {
-  background-color: rgba(223, 92, 42, 0.6);
 }
 
 .dropdown-menu>li>a,

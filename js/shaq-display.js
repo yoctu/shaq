@@ -563,8 +563,14 @@ function bidRefresh(bidInfo, bid) {
 
   bidInfo.find('.bidPuDateRange').val("");
   bidInfo.find('.bidDeDateRange').val("");
-  if (bid.puDateRange) bidInfo.find('.bidPuDateRange').val(moment(bid.puDateRange).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', '')).removeAttr("data-field");
-  if (bid.deDateRange) bidInfo.find('.bidDeDateRange').val(moment(bid.deDateRange).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', '')).removeAttr("data-field");
+  if (bid.puDateRange) {
+    $('#bidPuDateRange').removeClass('hide');
+    bidInfo.find('.bidPuDateRange').val(moment(bid.puDateRange).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', '')).removeAttr("data-field");
+  }
+  if (bid.deDateRange) {
+    $('#bidDeDateRange').removeClass('hide');
+    bidInfo.find('.bidDeDateRange').val(moment(bid.deDateRange).tz('UTC').format('YYYY-MM-DD HH:mm').replace(' 00:00', '')).removeAttr("data-field");
+  }
   if (bid.puPlace && bid.puPlace[4] !== "") bidInfo.find('.bidpuplace').removeClass("glyphicon-home").addClass("glyphicon-map-marker");
   bidInfo.find('.bidValidDate').val(moment(bid.valid_until).format('YYYY-MM-DD HH:mm').replace(' 00:00', ''));
   bidInfo.find('.bidLang').val(bid.lang);

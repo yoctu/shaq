@@ -1,19 +1,13 @@
 const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
 window.config = {};
 
-function gtag() {
-  dataLayer.push(arguments);
-}
-gtag('js', new Date());
-gtag('config', 'UA-135283327-2');
-
 var localSettings = localStorage.getItem('shaqSettings');
 var socket;
-$.ajaxSetup({
-  cache: true
-});
 
 $(document).ready(function() {
+  $.ajaxSetup({
+    cache: auth.auth.ajaxcache || true
+  });
   url = 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/config/' + auth.auth.usercode
   $.ajax({
     "url": url,
