@@ -11,7 +11,7 @@ var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
 <div class="col-sm-12 text-right"><br><br>\
   <a href="https://shaq.yoctu.com" target="_blank">\
-  <img style="width:64px;" src="https://shaq.yoctu.com/img/shaqlogo.png" /></a>\
+  <img style="width:64px;" src="/img/shaqlogo.png" /></a>\
 </div>';
 
 var NotifyTemplate = '<div data-notify="container" class="col-xs-11 col-sm-6 alert alert-{0}" style="background-color: white;" role="alert">' +

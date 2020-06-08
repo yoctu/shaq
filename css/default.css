@@ -217,7 +217,7 @@ input, select {
 }
 
 #shaq-navbar-url {
-  background-image: url("https://shaq.yoctu.com/img/shaqlogo.png");
+  background-image: url("/img/shaqlogo.png");
 }
 
 #navbar-usercode, #solrReload, #solrRefresh {
