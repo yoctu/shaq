@@ -9,7 +9,7 @@ if (!localSettings) {
     weight: 'Kgs',
     chathistory: 100,
     shaqvalidtimer: "Enable",
-    themeSettings: "Default",
+    themeSettings: auth.auth.theme ? auth.auth.theme : "Default",
     chatShow: "Show",
     shipmentShow: "Show",
     pageLenght: 10,
@@ -18,6 +18,8 @@ if (!localSettings) {
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
 } else {
   localSettings = JSON.parse(localSettings);
+  console.log(localSettings)
+  if (auth.auth.theme) localSettings.themeSettings = auth.auth.theme
 }
 
 function uuidv4() {
