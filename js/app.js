@@ -9,7 +9,7 @@ if (!localSettings) {
     weight: 'Kgs',
     chathistory: 100,
     shaqvalidtimer: "Enable",
-    themeSettings: "Default",
+    themeSettings: auth.auth.theme ? auth.auth.theme : "Default",
     chatShow: "Show",
     shipmentShow: "Show",
     pageLenght: 10,
@@ -18,6 +18,8 @@ if (!localSettings) {
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
 } else {
   localSettings = JSON.parse(localSettings);
+  console.log(localSettings)
+  if (auth.auth.theme) localSettings.themeSettings = auth.auth.theme
 }
 
 function uuidv4() {
@@ -25,14 +27,6 @@ function uuidv4() {
     var r = Math.random() * 16 | 0,
       v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
-  });
-}
-
-function shaqGTAG(type, category, value) {
-  gtag('event', type, {
-    'event_category': category,
-    'event_label': window.location.pathname.split("/")[1],
-    'value': JSON.stringify(value)
   });
 }
 
@@ -105,7 +99,7 @@ notificationInit();
 if (localSettings.themeSettings !== "Default") {
   $('#theme-css').attr('href', auth.app.css.substr(0, auth.app.css.lastIndexOf("/")) + '/' + localSettings.themeSettings + '.css');
 } else {
-  $('#theme-css').attr('href', auth.app.css);
+  $('#theme-css').attr('href', auth.app.css + 'default.css');
 }
 
 $('#alert-target').on('click', function() {

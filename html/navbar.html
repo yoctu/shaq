@@ -73,10 +73,10 @@
 <script>
 $(document).ready(function() {
   $('#navbar-usercode').html(auth.app.usercodename + '<b class="caret"></b>');
-  $("#shaq-navbar-url").attr("href", "/" + auth.auth.usercode);
+  $("#shaq-navbar-url").attr("href", "/center.html" + window.location.search);
   $("#navbarNewOrder").attr("href", auth.app.orderingurl);
-  $("#navbarSettings").attr("href", "/" + auth.auth.usercode + "/settings");
-  $("#navbarHelp").attr("href", "/" + auth.auth.usercode + "/help");
+  $("#navbarSettings").attr("href", "/settings.html" + window.location.search);
+  $("#navbarHelp").attr("href", "/help.html" + window.location.search);
   $("#navbarLogout").attr("href", "/endpoint/logout?ReturnTo=/" + auth.auth.usercode + "/logout");
   $('#navbarLogout').on("click", function() {
     localSettings = JSON.parse(localStorage.getItem('shaqSettings'));

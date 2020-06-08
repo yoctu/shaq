@@ -14,11 +14,13 @@ $.ajaxSetup({
 });
 
 $(document).ready(function() {
+  url = 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/config/' + auth.auth.usercode
   $.ajax({
-    "url": window.location.protocol + "//" + window.location.host + "/api/config/" + auth.auth.usercode,
+    "url": url,
     "dataType": "json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "429": function(xhr) {
@@ -37,42 +39,40 @@ $(document).ready(function() {
     "success": function(configapi) {
       window.config = configapi;
       $.extend(true, auth, auth, configapi);
-      $("#load-navbar").load("/" + auth.auth.usercode + "/html/navbar.html");
-      $("#load-footer").load("/" + auth.auth.usercode + "/html/footer.html");
-      socket = io('/shaq', {
-        transportOptions: {
-          polling: {
-            extraHeaders: {
-              'Authorization': 'Basic ' + auth.auth.authbasic
-            }
-          }
-        },
-        path: '/' + auth.auth.usercode + '/socket.io'
+      auth.app.logourl = '/img/'
+      auth.app.css = '/css/'
+      $("#load-navbar").load("/html/navbar.html");
+      $("#load-footer").load("/html/footer.html");
+      socket = io('https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/shaq', {
+        query: {
+          email: auth.auth.email,
+          key: auth.auth.userkey
+        }
       });
-      $.getScript("/" + auth.auth.usercode + "/js/translate.js");
-      $.getScript("/" + auth.auth.usercode + "/js/motd.js");
-      $.getScript("/" + auth.auth.usercode + "/js/app.js");
-      switch (window.location.pathname.split("/")[2]) {
-        case "settings":
-          $.getScript("/" + auth.auth.usercode + "/js/settings.js");
+      $.getScript("/js/translate.js");
+      $.getScript("/js/motd.js");
+      $.getScript("/js/app.js");
+      switch (window.location.pathname.split("/")[1]) {
+        case "settings.html":
+          $.getScript("/js/settings.js");
           break;
-        case "display":
+        case "display.html":
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
-          $.getScript("/" + auth.auth.usercode + "/js/shaq-display-functions.js");
-          $.getScript("/" + auth.auth.usercode + "/js/shaq-display.js");
-          $.getScript("/" + auth.auth.usercode + "/js/swiper.js");
+          $.getScript("/js/shaq-display-functions.js");
+          $.getScript("/js/shaq-display.js");
+          $.getScript("/js/swiper.js");
           break;
-        case "maxbidauthorizations":
-          $.getScript("/" + auth.auth.usercode + "/js/mba.js");
+        case "maxbidauthorizations.html":
+          $.getScript("/js/mba.js");
           break;
-        case "bidauthorizations":
-          $.getScript("/" + auth.auth.usercode + "/js/ba.js");
+        case "bidauthorizations.html":
+          $.getScript("/js/ba.js");
           break;
-        case "help":
-          $.getScript("/" + auth.auth.usercode + "/js/help.js");
+        case "help.html":
+          $.getScript("/js/help.js");
           break;
         default:
-          $.getScript("/" + auth.auth.usercode + "/js/shaq-center.js");
+          $.getScript("/js/shaq-center.js");
           break;
       }
     }

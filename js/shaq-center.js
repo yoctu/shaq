@@ -9,6 +9,7 @@ var solrTarget = "";
 var solrBidTarget = "";
 
 window.shaqs = [];
+window.bids = [];
 
 localStorage.setItem(auth.auth.usercode + "-shaqCenterID", window.id)
 window.addEventListener('storage', storageChanged);
@@ -59,15 +60,15 @@ function showmore(showmore) {
 
 function closeShaq(shaq) {
   $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/cancel/" + shaq,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + shaq,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
-      shaqGTAG('Shaq', 'ShaqCancelled', JSON.stringify(data));
     }
   });
 }
@@ -90,20 +91,20 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       "200": function(xhr) {
         setTimeout(function() {
           $("#InformationModal").modal('hide');
         }, 1000);
-        shaqGTAG('Shaq', 'ShaqRemove', JSON.stringify(data));
       },
       "429": function(xhr) {
         $("#InformationModal").modal('hide');
@@ -122,16 +123,16 @@ function subscribe(button) {
     action: "subscribe"
   };
   $.ajax({
-    "url": '/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "data": JSON.stringify(data),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
-      shaqGTAG('Shaq', 'ShaqSubscribe', JSON.stringify(data));
     }
   });
 }
@@ -217,7 +218,7 @@ function renderFuncId(row, data) {
   let IdData = JSON.stringify(data).replace(/\"|\[|\]/g, '');
   let IdDataRender = "";
   if ((solrTarget !== "-archive") && (auth.auth.usercode === row.source[0])) IdDataRender += ' <a onclick="closeShaq(\'' + row.key + '\');" class="close-shaq"><span class="glyphicon glyphicon-trash"> </span></a>';
-  IdDataRender += '&nbsp;<a href="/' + auth.auth.usercode + '/display/' + row.key + '?type=' + solrTarget + '" target="_blank">' + IdData + '</a>&nbsp;<span class="label label-primary" data-id="' + row.key + '">0</span>&nbsp;';
+  IdDataRender += '&nbsp;<a href="/display.html?key=' + row.key + '&type=' + solrTarget + '&' + window.location.search.substr(1) + '" target="_blank">' + IdData + '</a>&nbsp;<span class="label label-primary" data-id="' + row.key + '">0</span>&nbsp;';
   let bestbidprice = 0;
   if (row.bestbidprice) bestbidprice = row.bestbidprice;
   IdDataRender += '<span data-toggle="tooltip" title="best Bid" class="label label-success pull-right bestbid_' + row.key + '" style="padding: 4px 4px;">' + bestbidprice + '</span></span><span class="pull-right">&nbsp;</span>';
@@ -305,11 +306,12 @@ $('#shaqList').DataTable({
   },
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": '/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
       "dataType": "json",
       "json": "json.wrf",
-      "beforeSend": function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+      "headers": {
+        "redspher-auth": "yes",
+        "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
         "429": function(xhr) {
@@ -332,12 +334,20 @@ $('#shaqList').DataTable({
         $("#CenterPage").removeClass("hide");
         callback(o);
         if (json.numFound > 0) {
+          $("#center_shaqs").html(window.shaqs.length);
+          let cost = 0;
+          for (const s in window.shaqs) {
+            if (window.shaqs[s].bestbidprice && window.shaqs[s].includes(auth.auth.usercode)) cost += window.shaqs[s].bestbidprice
+          }
+          $("#center_cost").html(window.shaqs.length);
+          if (cost > 0) $("#well_center_cost").removeClass('hide')
           $.ajax({
-            "url": '/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
             "dataType": "json",
             "json": "json.wrf",
-            "beforeSend": function(xhr) {
-              xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+            "headers": {
+              "redspher-auth": "yes",
+              "Authorization": "Basic " + auth.auth.authbasic
             },
             "statusCode": {
               "429": function(xhr) {
@@ -345,14 +355,20 @@ $('#shaqList').DataTable({
               }
             },
             "success": function(json) {
+              window.bids = json.docs;
+              $("#center_bids").html(window.bids.length);
               let key, source;
+              let revenue = 0;
               for (let docs in json.docs) {
                 key = json.docs[docs].key;
                 source = json.docs[docs].source[0];
+                if (source === auth.auth.usercode) revenue += json.docs[docs].price;
                 $('span[data-id=' + key + ']').text(parseInt($('span[data-id=' + key + ']').first().text()) + 1);
                 $('span[data-bids-number=' + key + '_' + source + ']').text(parseInt($('span[data-bids-number=' + key + '_' + source + ']').first().text()) + 1).addClass(json.docs[docs].id);
                 if (searchShaqWinning(json.docs[docs].id)) $('span[data-bids-number=' + key + '_' + source + ']').removeClass('label-primary').addClass("label-success");
               }
+              $("#center_revenue").html(revenue);
+              if (cost > 0) $("#well_center_revenue").removeClass('hide')
             }
           });
         } else $("#shaqList").find("tr td:first-child").css("border-left-width","0px");
@@ -474,6 +490,7 @@ socket.on(auth.auth.usercode, function(data) {
       if (!msg.source.includes(auth.auth.usercode) && (solrTarget !== "-public") && !msg.target.includes(auth.auth.usercode)) break;
       updateShaq(msg);
       $(".dataTables_info").text("Showing 1 to 10 of " + $("#shaqList_length").val() + " entries (filtered from " + window.shaqs.length + " total entries)");
+      $("#center_shaqs").html(window.shaqs.length);
       $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
       if (searchShaqID(msg.id)) {
         if (msg.bestbidprice) $('.bestbid_' + msg.key).text(parseFloat(msg.bestbidprice).toFixed(2));

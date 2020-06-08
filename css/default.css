@@ -92,6 +92,22 @@ th, label {
   -webkit-box-shadow: none;
 }
 
+.well-info {
+  background-color: white;
+  opacity: 1;
+  border-left-width: 10px;
+  border-left-color: #5bc0de;
+  border-left-style: solid;
+}
+
+.well-primary {
+  background-color: white;
+  opacity: 1;
+  border-left-width: 10px;
+  border-left-color: #0275d8;
+  border-left-style: solid;
+}
+
 .well-success {
   background-color: white;
   border-color: #F5F6F8;

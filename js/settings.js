@@ -117,10 +117,10 @@ function setConfigValue(data) {
   if (data.app.rating > 0) {
     $("#bidBidderRatingScore").removeClass("hide");
     for (var ratingCpt = 0; ratingCpt < data.app.rating; ratingCpt++) {
-      $("#bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating1.png" />');
+      $("#bidBidderRatingScore").append('<img width="32" src="/img/rating1.png" />');
     }
     for (ratingCpt; ratingCpt < 5; ratingCpt++) {
-      $("#bidBidderRatingScore").append('<img width="32" src="https://yoctu.github.io/shaq-view/img/rating0.png" />');
+      $("#bidBidderRatingScore").append('<img width="32" src="/img/rating0.png" />');
     }
   }
   if (data.score && (data.score.invitation + data.score.avgbid + data.score.winning > 0)) {
@@ -132,8 +132,8 @@ function setConfigValue(data) {
 }
 
 if (window.config) {
-    setConfigValue(window.config);
-    $("#settingsScreen").removeClass("hide");
+  setConfigValue(window.config);
+  $("#settingsScreen").removeClass("hide");
 }
 
 function saveSettings() {
@@ -150,7 +150,6 @@ function saveSettings() {
     autoNotify: parseInt($('#notifPopup').val()),
     shipmentShow: $('#shaqShipmentVisibilitySettings').val()
   };
-  shaqGTAG('Settings', 'SettingsSave', JSON.stringify(localSettings));
 
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
   window.config.app.usercodename = $("#usercodenameSettings").val();
@@ -198,14 +197,15 @@ function saveSettings() {
     window.config.tms.e4p.password = $("#easy4proPasswordSettings").val();
   }
   $.ajax({
-    "url": "/api/config/" + window.config.usercode,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/config/' + window.config.usercode,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
     "json": "json.wrf",
     "data": JSON.stringify(window.config),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + auth.auth.authbasic);
+    "headers": {
+      "redspher-auth": "yes",
+      "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
       201: function(data) {
@@ -304,7 +304,7 @@ $('#bidvaluemaxmodif').on('click', function() {
 
 $('#refresh-score').on('click', function() {
   $.ajax({
-    "url": "api/shaq/" + auth.auth.usercode + "/score/now",
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/score/now",
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",

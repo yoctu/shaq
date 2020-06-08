@@ -1,9 +1,9 @@
 window.dataLayer = window.dataLayer || [];
-
+const qs = new URLSearchParams(window.location.search)
 var auth = {};
 auth.auth = {};
 
-auth.webversion = "1.4.0";
+auth.webversion = "1.4.2";
 
 function getCookie(cname) {
   var name = cname + "=";
@@ -23,7 +23,7 @@ function getCookie(cname) {
 
 if (getCookie("ConnectUser") !== "") {
   let ConnectUser = JSON.parse(getCookie("ConnectUser"));
-  auth.auth.usercode = window.location.pathname.split("/")[1];
+  auth.auth.usercode = qs.get('usercode');
   auth.auth.username = ConnectUser.user_name;
   auth.auth.firstname = ConnectUser.first_name;
   auth.auth.lastname = ConnectUser.last_name;
@@ -34,4 +34,17 @@ if (getCookie("ConnectUser") !== "") {
   auth.auth.authbasic = btoa(auth.auth.email + ":" + auth.auth.userkey)
 }
 
+if (!auth.auth.email) {
+  if (qs.has('usercode')) auth.auth.usercode = qs.get('usercode')
+  if (qs.has('email')) auth.auth.email = qs.get('email')
+  if (qs.has('apikey')) auth.auth.userkey = qs.get('apikey')
+  auth.auth.provider = "local"
+  auth.auth.authbasic = btoa(auth.auth.email + ":" + auth.auth.userkey)
+}
+
+if ([null,undefined].includes(auth.auth.usercode)) window.location.replace("error403.html")
+
+auth.auth.env = ".eu";
+if (qs.has('env')) auth.auth.env = qs.get('env')
+if (qs.has('theme')) auth.auth.theme = qs.get('theme')
 if (!auth.auth.lang || (auth.auth.lang == "(null)")) auth.auth.lang = "en";

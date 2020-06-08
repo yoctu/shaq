@@ -25,7 +25,6 @@ $('#contactHelpBtn').on('click', function() {
       setTimeout(function() {
         $("#infoEmail").html("");
       }, 3000);
-      shaqGTAG('Shaq', 'ShaqHelpMail', JSON.stringify(data));
     }
   });
 });
