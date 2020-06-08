@@ -60,7 +60,6 @@ $(document).ready(function() {
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
           $.getScript("/js/shaq-display-functions.js");
           $.getScript("/js/shaq-display.js");
-          $.getScript("/js/swiper.js");
           break;
         case "maxbidauthorizations.html":
           $.getScript("/js/mba.js");
