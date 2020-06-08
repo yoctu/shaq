@@ -97,7 +97,7 @@ notificationInit();
 if (localSettings.themeSettings !== "Default") {
   $('#theme-css').attr('href', auth.app.css.substr(0, auth.app.css.lastIndexOf("/")) + '/' + localSettings.themeSettings + '.css');
 } else {
-  $('#theme-css').attr('href', auth.app.css);
+  $('#theme-css').attr('href', auth.app.css + 'default.css');
 }
 
 $('#alert-target').on('click', function() {
