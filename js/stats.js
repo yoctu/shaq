@@ -102,7 +102,7 @@ $(document).ready(function() {
     })
   }
   shaqCompletedChart = new Chart(shaqCompleted, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
       labels: ['Renault', 'Peugeot', 'Audi', 'Volvo', 'Porsche', 'Faurecia'],
       datasets: [{
