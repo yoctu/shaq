@@ -8,8 +8,8 @@ var dateto = new Date().toISOString().substring(0, 10)
 $(document).ready(function() {
   $("#datefrom").val(datefrom)
   $("#dateto").val(dateto)
-  const shaqStatus = document.getElementById('shaqStatus').getContext('2d');
-  const bidStatus = document.getElementById('bidStatus').getContext('2d');
+  const shaqStatus = document.getElementById('shaqStatStatus').getContext('2d');
+  const bidStatus = document.getElementById('bidStatStatus').getContext('2d');
   const shaqCompleted = document.getElementById('shaqCompleted').getContext('2d');
   var shaqStatusChart, bidStatusChart, shaqCompletedChart;
   if (shaqStatusChart instanceof Chart) shaqStatusChart.destroy()

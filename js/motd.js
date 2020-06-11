@@ -1,11 +1,11 @@
-var MOTD = 6;
+var MOTD = 7;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
-  <div class="text-center"><b><font color="#4981F1">Bug fixing</font></b></div><br>\
-  <p><div class="text-center">Few minor issues has been fixed<br><br>\
-  new Features will be added shortly.<br>\
-  Stay tuned.<br></p>\
+  <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
+  <p><div class="text-center">Statistics Example<br><br>\
+  We will soon add statistic information.<br>\
+  You can fin an example on the stats page.<br></p>\
   </div>\
 </div>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
