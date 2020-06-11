@@ -21,6 +21,8 @@
             <li class="divider"></li>
             <li><a href="/" target="_blank" id="navbarNewOrder"><span class="glyphicon glyphicon-plus-sign"></span> <span id="navbar-neworder">New Order</span></a></li>
             <li class="divider"></li>
+            <li><a href="/" target="_blank" id="navbarStats"><span class="glyphicon glyphicon-stats"></span> <span id="navbar-stats">Statistics</span></a></li>
+            <li class="divider"></li>
             <li><a href="/" target="_blank" id="navbarSettings"><span class="glyphicon glyphicon-wrench"></span> <span id="navbar-settings">Settings</span></a></li>
             <li class="divider"></li>
             <li><a href="/" target="_blank" id="navbarHelp"><span class="glyphicon glyphicon-envelope"></span> <span id="navbar-help">Help</span></a></li>
@@ -75,6 +77,7 @@ $(document).ready(function() {
   $('#navbar-usercode').html(auth.app.usercodename + '<b class="caret"></b>');
   $("#shaq-navbar-url").attr("href", "/center.html" + window.location.search);
   $("#navbarNewOrder").attr("href", auth.app.orderingurl);
+  $("#navbarStats").attr("href", "/stats.html" + window.location.search);
   $("#navbarSettings").attr("href", "/settings.html" + window.location.search);
   $("#navbarHelp").attr("href", "/help.html" + window.location.search);
   $("#navbarLogout").attr("href", "/endpoint/logout?ReturnTo=/" + auth.auth.usercode + "/logout");

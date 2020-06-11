@@ -58,6 +58,11 @@ th, label {
   background-color: #fff;
 }
 
+#shaqstatus {
+  background-color: #fff;
+  border: 1px solid #7080A0;
+}
+
 #solrtarget {
   background-color: #fff;
   border: 1px solid #7080A0;

@@ -8,7 +8,7 @@ $(document).ready(function() {
   $.ajaxSetup({
     cache: auth.auth.ajaxcache || true
   });
-  url = 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/config/' + auth.auth.usercode
+  url = 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/config/' + auth.auth.usercode
   $.ajax({
     "url": url,
     "dataType": "json",
@@ -37,7 +37,7 @@ $(document).ready(function() {
       auth.app.css = '/css/'
       $("#load-navbar").load("/html/navbar.html");
       $("#load-footer").load("/html/footer.html");
-      socket = io('https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/shaq', {
+      socket = io('https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/shaq', {
         query: {
           email: auth.auth.email,
           key: auth.auth.userkey
@@ -63,6 +63,9 @@ $(document).ready(function() {
           break;
         case "help.html":
           $.getScript("/js/help.js");
+          break;
+        case "stats.html":
+          $.getScript("/js/stats.js");
           break;
         default:
           $.getScript("/js/shaq-center.js");
