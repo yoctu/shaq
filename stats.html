@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <link rel="stylesheet" href="/css/shaq.css" />
@@ -34,7 +34,8 @@
         <div class="well well-success">Completed<br><span id="well_stats_completed">0</span></div>
       </div>
       <div class="col-sm-3">
-        <input class="form-control" type="date" id="date" />
+        <input class="form-control" type="datefrom" id="datefrom" style="margin-bottom:5px;"/>
+        <input class="form-control" type="dateto" id="dateto" />
       </div>
     </div>
     <div class="row">
@@ -48,6 +49,7 @@
         <div class="well well-success" id="well_stats_revenue_div">Revenue<br><span id="well_stats_revenue">0</span></div>
       </div>
       <div class="col-sm-3">
+        <button class="btn btn-primary">Refresh</button>
       </div>
     </div>
     <div class="row">
