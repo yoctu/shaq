@@ -401,7 +401,7 @@ $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right"><select i
   '<option value="open">Open</option><option value="public">Public</option><option value="close">Close</option>' +
   '</select></div>');
   $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" style="margin-left:10px;"><select id="shaqstatus" class="form-control">' +
-    '<option value="all">All</option><option value="completed">Completed</option><option value="expired">Expired</option><option value="cancelled">Cancelled</option><option value="failed">Failed</option>' +
+    '<option value="all">All</option><option value="completed">Completed</option><option value="running">running</option><option value="expired">Expired</option><option value="cancelled">Cancelled</option><option value="failed">Failed</option>' +
     '</select></div>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="refresh"><span style="padding-left:20px;"></span><span id="solrRefresh" class="glyphicon glyphicon-refresh"></span>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="clear filters"><span style="padding-left:20px;"></span><span id="solrReload" class="glyphicon glyphicon-repeat"></span>');
