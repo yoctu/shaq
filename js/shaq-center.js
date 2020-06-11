@@ -400,6 +400,9 @@ $('#shaqList_length').css("width", "50%");
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right"><select id="solrtarget" class="form-control">' +
   '<option value="open">Open</option><option value="public">Public</option><option value="close">Close</option>' +
   '</select></div>');
+  $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" style="margin-left:10px;"><select id="shaqstatus" class="form-control">' +
+    '<option value="all">All</option><option value="completed">Completed</option><option value="expired">Expired</option><option value="cancelled">Cancelled</option><option value="failed">Failed</option>' +
+    '</select></div>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="refresh"><span style="padding-left:20px;"></span><span id="solrRefresh" class="glyphicon glyphicon-refresh"></span>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="clear filters"><span style="padding-left:20px;"></span><span id="solrReload" class="glyphicon glyphicon-repeat"></span>');
 
@@ -409,9 +412,17 @@ $("#solrRefresh").on("click", function() {
 
 $("#solrReload").on("click", function() {
   $(".dtInputFilter").val("");
+  $("#shaqstatus").val('all')
   query = ["*", "*"];
   $('#shaqList').DataTable().draw();
 });
+
+$("#shaqstatus").change(function() {
+  solrStatus = $("#shaqstatus").val();
+  if (solrStatus === 'all') query = ["*", "*"]
+  else query = ['status', solrStatus]
+  $('#shaqList').DataTable().draw();
+})
 
 $("#solrtarget").change(function() {
   for (var p in window.cols) {
