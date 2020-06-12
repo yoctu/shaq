@@ -121,7 +121,7 @@ $(document).ready(function() {
   $("#statRefresh").on('click', function() {
     let df = new Date($("#datefrom").val())
     let dt = new Date($("#dateto").val())
-    if (df < dt) {
+    if (df <= dt) {
       datefrom = $("#datefrom").val();
       dateto = $("#dateto").val();
       init();
