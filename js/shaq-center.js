@@ -306,7 +306,7 @@ $('#shaqList').DataTable({
   },
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={ "field": "' + query[0] + '", "value": "' + query[1] + '" }',
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={"' + query[0] + '":"' + query[1] + '"}',
       "dataType": "json",
       "json": "json.wrf",
       "headers": {
