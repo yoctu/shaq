@@ -18,7 +18,6 @@ if (!localSettings) {
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
 } else {
   localSettings = JSON.parse(localSettings);
-  console.log(localSettings)
   if (auth.auth.theme) localSettings.themeSettings = auth.auth.theme
 }
 
