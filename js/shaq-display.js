@@ -9,6 +9,7 @@ window.bids = [];
 window.chats = [];
 window.bidsInfo = [];
 window.chatsInfo = [];
+window.vehicle_type = ["LAMBDA","BREAK","FRG1","FRG2","FRG3","FRG4","PL5","PL9","SEMI","FRGR","PKW","DI","FRG4+HAYON","LOADED_KM","FRG4H","PL"];
 
 localStorage.setItem(auth.auth.usercode + "-" + ShaqID, window.id);
 window.addEventListener('storage', storageChanged);
@@ -706,7 +707,11 @@ function shaqRefresh() {
   } else {
     $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
   }
-
+  if (window.shaq.vehicle_type && (window.shaq.vehicle_type.lenght > 0)) window.vehicle_type = window.shaq.vehicle_type
+  $("#vehicle_type").empty();
+  for (const vt in window.vehicle_type) {
+    $("#vehicle_type").append('<option value="' + window.vehicle_type[vt] + '">' + window.vehicle_type[vt] + '</option>')
+  }
   $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
   auth.auth.usercodeName = window.shaq.sourceName[0];
   if (window.shaq.target && window.shaq.target.includes(auth.auth.usercode)) {
