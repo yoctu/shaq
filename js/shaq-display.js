@@ -707,7 +707,7 @@ function shaqRefresh() {
   } else {
     $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
   }
-  if (window.shaq.vehicle_type && (window.shaq.vehicle_type.lenght > 0)) window.vehicle_type = window.shaq.vehicle_type
+  if (window.shaq.vehicles && (window.shaq.vehicles.length > 0)) window.vehicle_type = window.shaq.vehicles
   $("#vehicle_type").empty();
   for (const vt in window.vehicle_type) {
     $("#vehicle_type").append('<option value="' + window.vehicle_type[vt] + '">' + window.vehicle_type[vt] + '</option>')
