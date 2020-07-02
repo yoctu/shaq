@@ -9,6 +9,7 @@ window.bids = [];
 window.chats = [];
 window.bidsInfo = [];
 window.chatsInfo = [];
+window.vehicle_type = ["LAMBDA","BREAK","FRG1","FRG2","FRG3","FRG4","PL5","PL9","SEMI","FRGR","PKW","DI","FRG4+HAYON","LOADED_KM","FRG4H","PL"];
 
 localStorage.setItem(auth.auth.usercode + "-" + ShaqID, window.id);
 window.addEventListener('storage', storageChanged);
@@ -706,7 +707,11 @@ function shaqRefresh() {
   } else {
     $('#shaq-status').html('<span class="glyphicon glyphicon-trash"></span>');
   }
-
+  if (window.shaq.vehicles && (window.shaq.vehicles.length > 0)) window.vehicle_type = window.shaq.vehicles
+  $("#vehicle_type").empty();
+  for (const vt in window.vehicle_type) {
+    $("#vehicle_type").append('<option value="' + window.vehicle_type[vt] + '">' + window.vehicle_type[vt] + '</option>')
+  }
   $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
   auth.auth.usercodeName = window.shaq.sourceName[0];
   if (window.shaq.target && window.shaq.target.includes(auth.auth.usercode)) {
@@ -727,7 +732,7 @@ function shaqRefresh() {
     $("#bid-add").find('.btn-no-solution-bid').removeClass('hide');
     $("#bid-add").find('.btn-getitnow-bid').removeClass('hide');
     $("#bid-add").find(".bidBidderRatingScore").html("");
-    for (var ratingCpt = 0; ratingCpt < auth.rating; ratingCpt++) {
+    for (var ratingCpt = 0; ratingCpt < auth.shaq.rating; ratingCpt++) {
       $("#bid-add").find(".bidBidderRatingScore").append('<img width="32" src="/img/rating1.png" />');
     }
     for (ratingCpt; ratingCpt < 5; ratingCpt++) {
