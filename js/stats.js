@@ -11,7 +11,9 @@ $(document).ready(function() {
   const shaqStatus = document.getElementById('shaqStatStatus').getContext('2d');
   const bidStatus = document.getElementById('bidStatStatus').getContext('2d');
   const shaqCompleted = document.getElementById('shaqCompleted').getContext('2d');
-  var shaqStatusChart, bidStatusChart, shaqCompletedChart;
+  const shaqCompleted2 = document.getElementById('shaqCompleted2').getContext('2d');
+
+  var shaqStatusChart, bidStatusChart, shaqCompletedChart, shaqCompletedChart2;
 
   $("#well_stats_created").html(0)
   $("#well_stats_completed").html(0)
@@ -37,17 +39,78 @@ $(document).ready(function() {
         }
       },
       "success": function(shaqs) {
-        let result = []
-        result['expired'] = result['completed'] = result['failed'] = result['cancelled'] = 0;
-        let created = invited = revenue = spent = 0;
+        let result = [];
+        result['expired'] = 0;
+        result['completed'] = 0;
+        result['failed'] = 0;
+        result['cancelled'] = 0;
+        result['mysources'] = [];
+        result['mytargets'] = [];
+        let created = 0;
+        let invited = 0;
+        let revenue = 0;
+        let spent = 0;
+        let won = 0;
         for (const j in shaqs.docs) {
           result[shaqs.docs[j].status]++;
-          if (shaqs.docs[j].source.includes(auth.auth.usercode)) created++;
+          if (shaqs.docs[j].source[0] in result['mysources']) result['mysources'][shaqs.docs[j].source[0]]++;
+          else result['mysources'][shaqs.docs[j].source[0]] = 1;
+          if (shaqs.docs[j].source.includes(auth.auth.usercode)) {
+            created++;
+            for (const t in shaqs.docs[j].target) {
+              if (shaqs.docs[j].target[t] in result['mytargets']) result['mytargets'][shaqs.docs[j].target[t]]++;
+              else result['mytargets'][shaqs.docs[j].target[t]] = 1;
+            }
+          }
           if (shaqs.docs[j].target.includes(auth.auth.usercode)) invited++;
         }
         $("#well_stats_created").html(created)
         $("#well_stats_invited").html(invited)
         $("#well_stats_completed").html(result['completed'])
+        let labels = []
+        let data = []
+        for (const l in result['mysources']) {
+          labels.push(l)
+          data.push(result['mysources'][l])
+        }
+        shaqCompletedChart = new Chart(shaqCompleted, {
+          type: 'horizontalBar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Auctions Completed by auctioneer',
+              backgroundColor: randomColorGenerator,
+              data: data
+            }]
+          },
+          options: {
+            legend: {
+              display: false
+            }
+          }
+        });
+        labels = []
+        data = []
+        for (const l in result['mytargets']) {
+          labels.push(l)
+          data.push(result['mytargets'][l])
+        }
+        shaqCompletedChart2 = new Chart(shaqCompleted2, {
+          type: 'horizontalBar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Auctions Completed by bidder',
+              backgroundColor: randomColorGenerator,
+              data: data
+            }]
+          },
+          options: {
+            legend: {
+              display: false
+            }
+          }
+        });
         $.ajax({
           "url": encodeURI('https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid-archive/' + auth.auth.usercode + '?q=status:accepted AND archived_at:[' + datefrom + 'T00:00:00Z TO ' + dateto + 'T23:59:50Z]&rows=1000&fl=status,key,source,target,reported_at,archived_at,price'),
           "dataType": "json",
@@ -63,12 +126,15 @@ $(document).ready(function() {
           },
           "success": function(bids) {
             for (const j in bids.docs) {
-              if (bids.docs[j].source.includes(auth.auth.usercode)) revenue += parseInt(bids.docs[j].price);
+              if (bids.docs[j].source.includes(auth.auth.usercode)) {
+                revenue += parseInt(bids.docs[j].price);
+                won++;
+              }
               if (bids.docs[j].target.includes(auth.auth.usercode)) spent += parseInt(bids.docs[j].price);
             }
             $("#well_stats_spent").html(spent + localSettings.currency.substring(0, 1).replace('E', '€').replace('D', '$'))
             $("#well_stats_revenue").html(revenue + localSettings.currency.substring(0, 1).replace('E', '€').replace('D', '$'))
-            $("#well_stats_won").html(bids.numFound)
+            $("#well_stats_won").html(won)
             shaqStatusChart = new Chart(shaqStatus, {
               type: 'pie',
               data: {
@@ -101,22 +167,6 @@ $(document).ready(function() {
       }
     })
   }
-  shaqCompletedChart = new Chart(shaqCompleted, {
-    type: 'horizontalBar',
-    data: {
-      labels: ['Renault', 'Peugeot', 'Audi', 'Volvo', 'Porsche', 'Faurecia'],
-      datasets: [{
-        label: 'Shaq Completed',
-        backgroundColor: randomColorGenerator,
-        data: [1, 2, 3, 4, 3, 2]
-      }]
-    },
-    options: {
-      legend: {
-        display: false
-      }
-    }
-  });
 
   $("#statRefresh").on('click', function() {
     let df = new Date($("#datefrom").val())
