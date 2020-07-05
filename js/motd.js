@@ -1,10 +1,10 @@
-var MOTD = 7;
+var MOTD = 8;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
   <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
   <p><div class="text-center">Statistics Example<br><br>\
-  We will soon add statistic information.<br>\
+  New Statistics Added.<br>\
   You can fin an example on the stats page.<br></p>\
   </div>\
 </div>\
