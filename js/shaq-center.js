@@ -16,7 +16,7 @@ localStorage.setItem(auth.auth.usercode + "-shaqCenterID", window.id)
 window.addEventListener('storage', storageChanged);
 
 function storageChanged(event) {
-  if (window.id !== localStorage.getItem(auth.auth.usercode + "-shaqCenterID")) window.location.href = "https://shaq.yoctu.com/shaqcenter.html";
+  if (window.id !== localStorage.getItem(auth.auth.usercode + "-shaqCenterID")) window.location.href = "/close.html";
 }
 
 function searchShaqID(shaqId) {
