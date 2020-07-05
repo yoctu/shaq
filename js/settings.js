@@ -162,6 +162,7 @@ function saveSettings() {
   window.config.app.orderingurl = $("#orderingurlSettings").val();
   window.config.app.notifications = parseInt($("#notifChat").val()) + parseInt($("#notifMail").val());
   if ($("#ugoUrlSettings").val()) {
+    window.config.raters.ugo.name = $("#ugoNameSettings").val();
     window.config.raters.ugo.url = $("#ugoUrlSettings").val();
     window.config.raters.ugo.username = $("#ugoLoginSettings").val();
     window.config.raters.ugo.password = $("#ugoPasswordSettings").val();
@@ -169,6 +170,7 @@ function saveSettings() {
     else window.config.raters.ugo.auto = 0;
   }
   if ($("#boxtalUrlSettings").val()) {
+    window.config.raters.boxtal.name = $("#boxtalNameSettings").val();
     window.config.raters.boxtal.url = $("#boxtalUrlSettings").val();
     window.config.raters.boxtal.username = $("#boxtalLoginSettings").val();
     window.config.raters.boxtal.password = $("#boxtalPasswordSettings").val();
@@ -177,12 +179,14 @@ function saveSettings() {
     else window.config.raters.boxtal.auto = 0;
   }
   if ($("#goshippoUrlSettings").val()) {
+    window.config.raters.goshippo.name = $("#goshippoNameSettings").val();
     window.config.raters.goshippo.url = $("#goshippoUrlSettings").val();
     window.config.raters.goshippo.token = $("#goshippoTokenSettings").val();
     if ($("#shaq-settings-rating-goshippo-auto").hasClass("glyphicon-remove")) window.config.raters.goshippo.auto = 1;
     else window.config.raters.goshippo.auto = 0;
   }
   if ($("#shipengineUrlSettings").val()) {
+    window.config.raters.shipengine.name = $("#shipengineNameSettings").val();
     window.config.raters.shipengine.url = $("#shipengineUrlSettings").val();
     window.config.raters.shipengine.token = $("#shipengineTokenSettings").val();
     window.config.raters.shipengine.carrier_ids = JSON.parse($("#shipengineCarrierIdsSettings").val());
@@ -190,6 +194,7 @@ function saveSettings() {
     else window.config.raters.shipengine.auto = 0;
   }
   if ($("#skyquoteUrlSettings").val()) {
+    window.config.raters.skyquote.name = $("#skyquoteNameSettings").val();
     if ($("#shaq-settings-rating-skyquote-auto").hasClass("glyphicon-remove")) window.config.raters.skyquote.auto = 1;
     else window.config.raters.skyquote.auto = 0;
   }
