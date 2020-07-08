@@ -54,7 +54,7 @@ if (auth.app.logourl) {
 function setConfigValue(data) {
   if (data.usercode) $("#usercodeSettings").val(data.usercode);
   if (data.app) {
-    $("#maxbidsSettings").val(data.shaq.maxbids);
+    $("#maxbidsSettings").val(data.shaq.maxbids || 3);
     $("#usercodenameSettings").val(data.app.usercodename);
     $("#usercodeemailSettings").val(data.app.usercodeemail);
     $("#orderingurlSettings").val(data.app.orderingurl);
@@ -76,11 +76,13 @@ function setConfigValue(data) {
   if (data.raters) {
     if (data.raters.skyquote) {
       $("#settings-skyquote-body").removeClass("hide");
+      $("#skyquoteNameSettings").val(data.raters.skyquote.name || 'SkyQuote');
       if (data.raters.skyquote.auto) $("#shaq-settings-rating-skyquote-auto").addClass("glyphicon-remove");
       else $("#shaq-settings-rating-skyquote-auto").addClass("glyphicon-ok");
     }
     if (data.raters.ugo) {
       $("#settings-ugo-body").removeClass("hide");
+      $("#ugoNameSettings").val(data.raters.ugo.name || 'Ugo');
       $("#ugoUrlSettings").val(data.raters.ugo.url);
       $("#ugoLoginSettings").val(data.raters.ugo.username);
       $("#ugoPasswordSettings").val(data.raters.ugo.password);
@@ -90,6 +92,7 @@ function setConfigValue(data) {
     if (data.raters.boxtal) {
       $("#settings-boxtal-body").removeClass("hide");
       $("#boxtalUrlSettings").val(data.raters.boxtal.url);
+      $("#boxtalNameSettings").val(data.raters.boxtal.name || 'Boxtal');
       $("#boxtalLoginSettings").val(data.raters.boxtal.username);
       $("#boxtalPasswordSettings").val(data.raters.boxtal.password);
       $("#boxtalKeySettings").val(data.raters.boxtal.access_key);
@@ -98,6 +101,7 @@ function setConfigValue(data) {
     }
     if (data.raters.goshippo) {
       $("#settings-goshippo-body").removeClass("hide");
+      $("#goshippoNameSettings").val(data.raters.goshippo.name || 'GoShippo');
       $("#goshippoUrlSettings").val(data.raters.goshippo.url);
       $("#goshippoTokenSettings").val(data.raters.goshippo.token);
       if (data.raters.goshippo.auto) $("#shaq-settings-rating-goshippo-auto").addClass("glyphicon-remove");
@@ -105,6 +109,7 @@ function setConfigValue(data) {
     }
     if (data.raters.shipengine) {
       $("#settings-shipengine-body").removeClass("hide");
+      $("#shipengineNameSettings").val(data.raters.shipengine.name || 'ShipEngine');
       $("#shipengineUrlSettings").val(data.raters.shipengine.url);
       $("#shipengineCarrierIdsSettings").val(JSON.stringify(data.raters.shipengine.carrier_ids));
       $("#shipengineTokenSettings").val(data.raters.shipengine.token);
@@ -157,6 +162,7 @@ function saveSettings() {
   window.config.app.orderingurl = $("#orderingurlSettings").val();
   window.config.app.notifications = parseInt($("#notifChat").val()) + parseInt($("#notifMail").val());
   if ($("#ugoUrlSettings").val()) {
+    window.config.raters.ugo.name = $("#ugoNameSettings").val();
     window.config.raters.ugo.url = $("#ugoUrlSettings").val();
     window.config.raters.ugo.username = $("#ugoLoginSettings").val();
     window.config.raters.ugo.password = $("#ugoPasswordSettings").val();
@@ -164,6 +170,7 @@ function saveSettings() {
     else window.config.raters.ugo.auto = 0;
   }
   if ($("#boxtalUrlSettings").val()) {
+    window.config.raters.boxtal.name = $("#boxtalNameSettings").val();
     window.config.raters.boxtal.url = $("#boxtalUrlSettings").val();
     window.config.raters.boxtal.username = $("#boxtalLoginSettings").val();
     window.config.raters.boxtal.password = $("#boxtalPasswordSettings").val();
@@ -172,12 +179,14 @@ function saveSettings() {
     else window.config.raters.boxtal.auto = 0;
   }
   if ($("#goshippoUrlSettings").val()) {
+    window.config.raters.goshippo.name = $("#goshippoNameSettings").val();
     window.config.raters.goshippo.url = $("#goshippoUrlSettings").val();
     window.config.raters.goshippo.token = $("#goshippoTokenSettings").val();
     if ($("#shaq-settings-rating-goshippo-auto").hasClass("glyphicon-remove")) window.config.raters.goshippo.auto = 1;
     else window.config.raters.goshippo.auto = 0;
   }
   if ($("#shipengineUrlSettings").val()) {
+    window.config.raters.shipengine.name = $("#shipengineNameSettings").val();
     window.config.raters.shipengine.url = $("#shipengineUrlSettings").val();
     window.config.raters.shipengine.token = $("#shipengineTokenSettings").val();
     window.config.raters.shipengine.carrier_ids = JSON.parse($("#shipengineCarrierIdsSettings").val());
@@ -185,6 +194,7 @@ function saveSettings() {
     else window.config.raters.shipengine.auto = 0;
   }
   if ($("#skyquoteUrlSettings").val()) {
+    window.config.raters.skyquote.name = $("#skyquoteNameSettings").val();
     if ($("#shaq-settings-rating-skyquote-auto").hasClass("glyphicon-remove")) window.config.raters.skyquote.auto = 1;
     else window.config.raters.skyquote.auto = 0;
   }
@@ -226,10 +236,11 @@ $("#shaq-ugo-carriers-btn").on('click', function() {
       "url": $("#ugoUrlSettings").val() + "/api/login_check",
       "method": "POST",
       "dataType": "json",
-      "data": {
+      "contentType": "application/json",
+      "data": JSON.stringify({
         username: $("#ugoLoginSettings").val(),
         password: $("#ugoPasswordSettings").val()
-      },
+      }),
       "success": function(login) {
         $.ajax({
           "url": $("#ugoUrlSettings").val() + "/api/dictionary/list/service/logo",

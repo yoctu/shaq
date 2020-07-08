@@ -14,6 +14,10 @@ function status403() {
   window.location.replace("/error403.html");
 }
 
+function status404() {
+  window.location.replace("/error404.html");
+}
+
 function status406() {
   informShow("Oops... Something Wrong happen !", false);
 }

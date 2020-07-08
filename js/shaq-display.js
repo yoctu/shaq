@@ -823,7 +823,9 @@ function shaqRefresh() {
     $("#shaq-deContactEmail").html(window.shaq.deContact[2]);
     $("#shaq-well-deContact").removeClass("hide");
   }
-  $("#shaq-vehicle").text(window.shaq.transport);
+  $("#shaq-vehicle").text(window.shaq.vehicles || 'N/A');
+  $("#shaq-incoterm").text(window.shaq.incoterm || 'N/A');
+  $("#shaq-transportmode").text(window.shaq.transport || 'N/A');
   $("#shaq-stackable").text(window.shaq.stackable);
   $(".shaq-pkg-notes").text(window.shaq.notes);
   $("#shaq-notes").text(window.shaq.notes);

@@ -36,6 +36,9 @@ $(document).ready(function() {
         status500();
       }
     },
+    "error": function() {
+      status404();
+    },
     "success": function(configapi) {
       window.config = configapi;
       $.extend(true, auth, auth, configapi);
