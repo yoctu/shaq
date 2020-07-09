@@ -203,7 +203,7 @@ input, select {
 }
 
 #shaq-navbar-url {
-  background-image: url("/img/shaqlogo.png");
+  background-image: url("https://yoctu.github.io/shaq-view/img/skoreway.jpg");
 }
 
 #navbar-username, #solrReload, #solrRefresh {
