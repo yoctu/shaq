@@ -1109,6 +1109,10 @@ function updateChat(chat) {
     alertclass = "alert-warning";
     pos = "center";
   }
+  if (["error"].indexOf(chat.channel) >= 0) {
+    alertclass = "alert-danger";
+    pos = "center";
+  }
   if (["biddingscore"].indexOf(chat.channel) >= 0) {
     alertclass = "alert-success";
     pos = "center";
