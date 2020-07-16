@@ -45,7 +45,6 @@ function updateShaq(newshaq) {
 
 function showmore(showmore) {
   if ($(showmore).hasClass("tohide")) {
-    let showcpt = 0;
     let bidderlst = $(showmore).closest("tr").find("div.bidderslist");
     $(showmore).html('<i><h6>show more (' + bidderlst.length + ')<h6></i></a>');
     $(showmore).removeClass("tohide");
@@ -334,8 +333,9 @@ $('#shaqList').DataTable({
         };
         $("#CenterPage").removeClass("hide");
         callback(o);
+        $("#well_center_shaqs").html(json.numFound);
+        $("#well_center_bids").html(0);
         if (json.numFound > 0) {
-          $("#well_center_shaqs").html(o.recordsTotal);
           let cost = 0;
           for (const s in window.shaqs) {
             if (window.shaqs[s].bestbidprice && window.shaqs[s].source.includes(auth.auth.usercode)) cost += window.shaqs[s].bestbidprice

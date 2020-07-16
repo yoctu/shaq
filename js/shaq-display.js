@@ -718,7 +718,7 @@ function shaqRefresh() {
     if (window.shaq.targetStatus[window.shaq.target.indexOf(auth.auth.usercode)] === "Removed") {
       window.shaq = {};
       $('.header-content').hide();
-      $('#not-found-message-text').html('<a href="#">You have been Removed</a><br><br>try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.');
+      $('#not-found-message-text').html('<a href="#">You have been Removed</a><br><br>try <a href="' + window.location.href.replace("#", "").replace("&type=&", "&type=-archive&") + '">archived</a> may be.');
       $('#not-found-message').removeClass('hide');
       return;
     } else {
@@ -1020,7 +1020,7 @@ $.ajax({
     if ((shaq.numFound) === 0) {
       $('.header-content').hide();
       let msg = '<a href="/' + auth.auth.usercode + '">Shaq not found</a><br><br>';
-      if (solrTarget !== "-archive") msg += 'try <a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">archived</a> may be.';
+      if (solrTarget !== "-archive") msg += 'try <a href="' + window.location.href.replace("#", "").replace("&type=&", "&type=-archive&") + '">archived</a> may be.';
       $('#not-found-message-text').html(msg);
       $('#not-found-message').removeClass('hide');
       return;
@@ -1107,6 +1107,10 @@ function updateChat(chat) {
   }
   if (["giveup", "remove", "readd", "readdall", "removeall"].indexOf(chat.channel) >= 0) {
     alertclass = "alert-warning";
+    pos = "center";
+  }
+  if (["error"].indexOf(chat.channel) >= 0) {
+    alertclass = "alert-danger";
     pos = "center";
   }
   if (["biddingscore"].indexOf(chat.channel) >= 0) {
@@ -1223,7 +1227,7 @@ socket.on(auth.auth.usercode, function(data) {
       if (msg.action === "archive") {
         setTimeout(function() {
           $('.header-content').hide();
-          $('#not-found-message-text').html('<a href="' + window.location.href.replace("#", "").replace("?type=", "") + '?type=-archive">Shaq has been closed</a>');
+          $('#not-found-message-text').html('<a href="' + window.location.href.replace("#", "").replace("&type=&", "&type=-archive&") + '">Shaq has been closed</a>');
           $('#not-found-message').removeClass('hide');
           $("#InformationModal").modal('hide');
         }, 1000);
