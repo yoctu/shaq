@@ -144,7 +144,7 @@ function rate(rater) {
   $("#" + rater + "_RefreshBtn").addClass("hide");
   if (window.shaq.visible === "public") service = "shaq-public";
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + window.shaq.key + '?rater=' + rater,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
