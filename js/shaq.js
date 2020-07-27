@@ -92,7 +92,7 @@ $(document).ready(function () {
       $.extend(true, auth, auth, configapi);
       auth.app.logourl = '/img/'
       auth.app.css = '/css/'
-      auth.app.orderingurl === "" ? auth.app.orderingurl = 'quote.html?' + window.location.search : auth.app.orderingurl
+      auth.app.orderingurl === "" ? auth.app.orderingurl = 'quote.html' + window.location.search : auth.app.orderingurl
       $("#load-navbar").load("/html/navbar.html");
       $("#load-footer").load("/html/footer.html");
       socket = io('https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/shaq', {
