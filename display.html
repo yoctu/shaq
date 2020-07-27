@@ -1,28 +1,33 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="/img/favicon.png" type="image/png" />
-<link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
-<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-<title>ShaQ</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/js/countries-tz.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.25/moment-timezone-with-data.min.js"></script>
-<link rel="stylesheet" href="/css/shaq.css" />
-<link rel="stylesheet" href="/css/default.css" id="theme-css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
-<script src="/js/apiStatus.js"></script>
-<script src="/js/auth.js"></script>
-<script src="/js/shaq.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js"></script>
-<script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <title>ShaQ</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/yoctu/shaq@master/js/countries-tz.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.25/moment-timezone-with-data.min.js"></script>
+  <link rel="stylesheet" href="/css/shaq.css" />
+  <link rel="stylesheet" href="/css/default.css" id="theme-css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
+  <script src="/js/apiStatus.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/shaq.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js">
+  </script>
+  <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
 </head>
 
 <body>
@@ -37,9 +42,12 @@
               <button class="btn btn-default btn-primary" id="shaq-name"></button>
             </div>
             <div class="col-xs-6">
-              <div style="font-size: 8px;"><span id="shaq-created-on">created on<span>: <span id="shaq-date"></span></div>
-              <div style="font-size: 8px;"><span id="shaq-valid-from">valid from<span>: <span id="shaq-decision-date"></span></div>
-              <div style="font-size: 8px;"><span id="shaq-valid-till">valid till<span>: <span id="shaq-valid-date"></span></div>
+              <div style="font-size: 8px;"><span id="shaq-created-on">created on<span>: <span id="shaq-date"></span>
+              </div>
+              <div style="font-size: 8px;"><span id="shaq-valid-from">valid from<span>: <span
+                      id="shaq-decision-date"></span></div>
+              <div style="font-size: 8px;"><span id="shaq-valid-till">valid till<span>: <span
+                      id="shaq-valid-date"></span></div>
             </div>
             <div class="col-xs-6">
               <h1 id="closedStatusGlyphicon" class="hide" style="margin-top: 10px;"></h1>
@@ -57,7 +65,8 @@
           <div class="col-sm-3 col-xs-12">
             <div class="shaqlabel">Validity Time</div>
             <div class="dropdown">
-              <button id="shaq-valid-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Shaq Validity timer" disabled>
+              <button id="shaq-valid-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                title="Shaq Validity timer" disabled>
                 <span class="glyphicon glyphicon-off"></span> <span id="shaq-valid">00:00</span>
               </button>
               <ul class="dropdown-menu extend-shaq-validity">
@@ -71,7 +80,8 @@
             </div>
             <div class="shaqlabel">Decision Time</div>
             <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" id="shaq-valid-from-btn" data-toggle="dropdown" title="time to wait before accept/decline are possible" disabled>
+              <button class="btn btn-default dropdown-toggle" id="shaq-valid-from-btn" data-toggle="dropdown"
+                title="time to wait before accept/decline are possible" disabled>
                 <span class="glyphicon glyphicon-time"></span> <span id="shaq-from">00:00</span>
               </button>
               <ul class="dropdown-menu extend-shaq-decision">
@@ -82,14 +92,19 @@
             </div>
           </div>
           <div class="col-sm-3 col-xs-12 pull-right">
-            <button class="btn btn-default btn-glyphicon" id="shaq-status" disabled><span class="glyphicon glyphicon-play"></span></button>
-            <button class="btn btn-default btn-glyphicon hideShipment" id="hideShipment"><span class="glyphicon glyphicon-triangle-top btn-shipment-extend-glyphicon"></span></button>
-            <button class="btn btn-default btn-glyphicon" id="shaq-print"><span class="glyphicon glyphicon-print"></span></button>
+            <button class="btn btn-default btn-glyphicon" id="shaq-status" disabled><span
+                class="glyphicon glyphicon-play"></span></button>
+            <button class="btn btn-default btn-glyphicon hideShipment" id="hideShipment"><span
+                class="glyphicon glyphicon-triangle-top btn-shipment-extend-glyphicon"></span></button>
+            <button class="btn btn-default btn-glyphicon" id="shaq-print"><span
+                class="glyphicon glyphicon-print"></span></button>
             <div class="pull-right"><img width="32px;" id="tmslogo" src="/" /></div>
             <div id="shaq-files" class="hide" style="padding-top: 10px;">
               <div id="ShaqFile" class="pull-right">
-                <input multiple="" class="form-control fileupload" style="display: none !important;" id="fileshaq" name="file[]" type="file" onchange="uploadshaqFile()" />
-                <div class="table-responsive"><a id="hrefshaq" class="btn btn-xs btn-primary upload_add_shaq_files">Add files...</a></div>
+                <input multiple="" class="form-control fileupload" style="display: none !important;" id="fileshaq"
+                  name="file[]" type="file" onchange="uploadshaqFile()" />
+                <div class="table-responsive"><a id="hrefshaq" class="btn btn-xs btn-primary upload_add_shaq_files">Add
+                    files...</a></div>
               </div>
             </div>
           </div>
@@ -120,7 +135,7 @@
                   destination: end,
                   travelMode: 'DRIVING'
                 };
-                directionsService.route(request, function(result, status) {
+                directionsService.route(request, function (result, status) {
                   if (status == 'OK') {
                     directionsDisplay.setDirections(result);
                   }
@@ -140,17 +155,22 @@
               <div class="shaqlabel">Pickup</div>
               <div id="shaq-puplace" class="segment"></div><br>
               <div class="shaqlabel">Pickup Date</div>
-              <span id="shaq-pudate" class="segment" title="Min"></span> <span class="glyphicon glyphicon-info-sign" id="shaq-pudate-cet"></span>
+              <span id="shaq-pudate" class="segment" title="Min"></span> <span class="glyphicon glyphicon-info-sign"
+                id="shaq-pudate-cet"></span>
               <div id="shaq-pudate-range-div" class="segment hide">
                 <div class="shaqlabel">Pickup Date Max</div>
                 <span id="shaq-pudate-range" class="segment" title="Max"></span>
               </div>
             </div>
             <div id="shaq-well-puContact" class="well hide" style="padding-left: 40px;">
-              <div><span class="shaqlabel">Company </span><span id="shaq-puContactCompany" class="segment" style="float:right;"></span></div>
-              <div><span class="shaqlabel">Name </span><span id="shaq-puContactName" class="segment" style="float:right;"></span></div>
-              <div><span class="shaqlabel">Phone </span><span id="shaq-puContactPhone" class="segment" style="float:right;"></span></div>
-              <div><span class="shaqlabel">Email </span><span id="shaq-puContactEmail" class="segment" style="float:right;"></span></div>
+              <div><span class="shaqlabel">Company </span><span id="shaq-puContactCompany" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="shaqlabel">Name </span><span id="shaq-puContactName" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="shaqlabel">Phone </span><span id="shaq-puContactPhone" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="shaqlabel">Email </span><span id="shaq-puContactEmail" class="segment"
+                  style="float:right;"></span></div>
             </div>
             <div id="shaq-well-transport-extra" class="well">
               <div style="padding-left: 40px;">
@@ -168,17 +188,22 @@
               <div class="shaqlabel">Delivery</div>
               <div id="shaq-deplace" class="segment"></div><br>
               <div class="shaqlabel">Delivery Date</div>
-              <span id="shaq-dedate" class="segment" title="Min"></span> <span class="glyphicon glyphicon-info-sign" id="shaq-dedate-cet"></span>
+              <span id="shaq-dedate" class="segment" title="Min"></span> <span class="glyphicon glyphicon-info-sign"
+                id="shaq-dedate-cet"></span>
               <div id="shaq-dedate-range-div" class="segment hide">
                 <div class="shaqlabel">Delivery Date Max</div>
                 <span id="shaq-dedate-range" class="segment" title="Max"></span>
               </div>
             </div>
             <div id="shaq-well-deContact" class="well hide" style="padding-left: 40px;">
-              <div><span class="shaqlabel">Company </span><span id="shaq-deContactCompany" class="segment" style="float:right;"></span></div>
-              <div><span class="shaqlabel">Name </span><span id="shaq-deContactName" class="segment" style="float:right;"></span></div>
-              <div><span class="shaqlabel">Phone </span><span id="shaq-deContactPhone" class="segment" style="float:right;"></span></div>
-              <div><span class="shaqlabel">Email </span><span id="shaq-deContactEmail" class="segment" style="float:right;"></span></div>
+              <div><span class="shaqlabel">Company </span><span id="shaq-deContactCompany" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="shaqlabel">Name </span><span id="shaq-deContactName" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="shaqlabel">Phone </span><span id="shaq-deContactPhone" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="shaqlabel">Email </span><span id="shaq-deContactEmail" class="segment"
+                  style="float:right;"></span></div>
             </div>
             <div id="shaq-well-transport-info" class="well">
               <div class="row">
@@ -212,7 +237,8 @@
               <div class="col-sm-6 col-xs-6">
                 <div class="well well-package-total" style="padding-top:15px;">
                   <div class="shaqlabel">Total Q</div>
-                  <div id="shaq-total-package" class="segment text-center" style="padding-top:15px;padding-bottom:15px;"></div>
+                  <div id="shaq-total-package" class="segment text-center"
+                    style="padding-top:15px;padding-bottom:15px;"></div>
                 </div>
               </div>
               <div class="col-sm-6 col-xs-6">
@@ -293,9 +319,12 @@
               <div class="col-sm-4 col-xs-12" style="padding-left:5px; padding-right:5px;">
                 <div class="input-group">
                   <span class="input-group-btn">
-                    <button class="btn btn-sm btn-bid-extend hide"><span class="glyphicon glyphicon-triangle-bottom btn-bid-extend-glyphicon"></span></button><br>
-                    <p><br><img width="48" class="img-bidder-logo" src="https://yoctu.github.io/yoctu-website/img/logo-svg/shaq.svg" /></p>
-                    <p><br><img width="48" class="img-rating-logo hide" src="https://yoctu.github.io/yoctu-website/img/logo-svg/shaq.svg" /></p>
+                    <button class="btn btn-sm btn-bid-extend hide"><span
+                        class="glyphicon glyphicon-triangle-bottom btn-bid-extend-glyphicon"></span></button><br>
+                    <p><br><img width="48" class="img-bidder-logo"
+                        src="https://yoctu.github.io/yoctu-website/img/logo-svg/shaq.svg" /></p>
+                    <p><br><img width="48" class="img-rating-logo hide"
+                        src="https://yoctu.github.io/yoctu-website/img/logo-svg/shaq.svg" /></p>
                   </span>
                   <div class="bidBidderCode"></div>
                   <div class="bidBidderName"></div>
@@ -317,7 +346,8 @@
                 <div class="col-sm-6">
                   <div id="amount-form-group" class="form-group">
                     <div class="shaqlabel" for="amount">offer</div>
-                    <input id="amount" name="amount" type="number" class="form-control bidPrice" placeholder="0,00" step="0.01" min=0 oninput="validity.valid||(value='');" require />
+                    <input id="amount" name="amount" type="number" class="form-control bidPrice" placeholder="0,00"
+                      step="0.01" min=0 oninput="validity.valid||(value='');" require />
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -326,10 +356,12 @@
                     <div class="input-group">
                       <div class="input-group">
                         <span class="input-group-addon bidpuplace glyphicon glyphicon-home"></span>
-                        <input id="pickupdate" type="text" data-field="datetime" class="form-control bidPuDate" readonly>
+                        <input id="pickupdate" type="text" data-field="datetime" class="form-control bidPuDate"
+                          readonly>
                       </div>
                       <div id="bidPuDateRangeDiv" class="input-group hide">
-                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home" style="color: transparent;"></span>
+                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home"
+                          style="color: transparent;"></span>
                         <input type="text" data-field="datetime" class="form-control bidPuDateRange" disabled readonly>
                       </div>
                     </div>
@@ -341,10 +373,12 @@
                     <div class="input-group">
                       <div class="input-group">
                         <span class="input-group-addon biddeplace glyphicon glyphicon-home"></span>
-                        <input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate" readonly>
+                        <input id="deliverydate" type="text" data-field="datetime" class="form-control bidDeDate"
+                          readonly>
                       </div>
                       <div id="bidDeDateRangeDiv" class="input-group hide">
-                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home" style="color: transparent;"></span>
+                        <span class="input-group-addon bidpuplace glyphicon glyphicon-home"
+                          style="color: transparent;"></span>
                         <input type="text" data-field="datetime" class="form-control bidDeDateRange" disabled readonly>
                       </div>
                     </div>
@@ -354,15 +388,22 @@
               <div class="col-xs-12 col-sm-2 form-group action-container">
                 <button class="btn btn-default btn-status-bid hide">shaq.bid.status</button>
                 <div class="form-group btn-bidder hide">
-                  <button class="btn btn-default btn-success btn-create-bid btn-bid hide"><span class="glyphicon glyphicon-plus"></span> Create</button><br><br>
-                  <button class="btn btn-default btn-danger btn-getitnow-bid btn-bid hide"><span class="glyphicon glyphicon-screenshot"></span> Get it Now</button><br><br>
-                  <button class="btn btn-default btn-primary btn-no-solution-bid btn-bid hide"><span class="glyphicon glyphicon-asterisk"></span> No Solution</button><br><br>
-                  <button class="btn btn-default btn-warning btn-cancel-bid btn-bid hide"><span class="glyphicon glyphicon-minus"></span> Cancel</button>
+                  <button class="btn btn-default btn-success btn-create-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-plus"></span> Create</button><br><br>
+                  <button class="btn btn-default btn-danger btn-getitnow-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-screenshot"></span> Get it Now</button><br><br>
+                  <button class="btn btn-default btn-primary btn-no-solution-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-asterisk"></span> No Solution</button><br><br>
+                  <button class="btn btn-default btn-warning btn-cancel-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-minus"></span> Cancel</button>
                 </div>
                 <div class="form-group btn-auctioneer text-center hide">
-                  <button class="btn btn-default btn-success btn-accept-bid btn-bid hide"><span class="glyphicon glyphicon-ok"></span> Accept</button><br><br>
-                  <button class="btn btn-default btn-primary btn-forward-bid btn-bid hide"><span class="glyphicon glyphicon-share"></span> Forward</button><br><br>
-                  <button class="btn btn-default btn-danger btn-decline-bid btn-bid hide"><span class="glyphicon glyphicon-remove"></span> Decline</button>
+                  <button class="btn btn-default btn-success btn-accept-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-ok"></span> Accept</button><br><br>
+                  <button class="btn btn-default btn-primary btn-forward-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-share"></span> Forward</button><br><br>
+                  <button class="btn btn-default btn-danger btn-decline-bid btn-bid hide"><span
+                      class="glyphicon glyphicon-remove"></span> Decline</button>
                 </div>
               </div>
             </div>
@@ -464,39 +505,47 @@
       <div id="bidder-box" class="col-sm-12 text-left" style="page-break-after:always;">
         <div id="bidders-info" class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="pull-left"><b>Offers</b> <span class="label label-primary"><span id="bidCount">0</span><span id="bidMaxBidder"></span></span></h3>
-            <button class="btn btn-default pull-right btn-glyphicon showAllBids"><span class="glyphicon glyphicon-th-list"></span></button>
+            <h3 class="pull-left"><b>Offers</b> <span class="label label-primary"><span id="bidCount">0</span><span
+                  id="bidMaxBidder"></span></span></h3>
+            <button class="btn btn-default pull-right btn-glyphicon showAllBids"><span
+                class="glyphicon glyphicon-th-list"></span></button>
             <span class="pull-right">&nbsp;&nbsp;</span>
-            <button class="btn btn-default pull-right btn-glyphicon" id="winningbidcalc"><span class="glyphicon glyphicon-refresh"></span></button>
+            <button class="btn btn-default pull-right btn-glyphicon" id="winningbidcalc"><span
+                class="glyphicon glyphicon-refresh"></span></button>
             <span class="pull-right">&nbsp;&nbsp;</span>
-            <button class="btn btn-default pull-right btn-glyphicon" id="bidAuditstatus"><span class="glyphicon glyphicon-console"></span></button>
+            <button class="btn btn-default pull-right btn-glyphicon" id="bidAuditstatus"><span
+                class="glyphicon glyphicon-console"></span></button>
             <div class="clearfix"></div>
             <hr>
           </div>
           <div class="panel-body bid-panel-body">
             <div class="container">
-              <div id="UGOLoadingOffer" class="well well-primary hide UGOLoadingOffer" style="border: 6px solid #40598B;">
+              <div id="UGOLoadingOffer" class="well well-primary hide UGOLoadingOffer"
+                style="border: 6px solid #40598B;">
                 <span><img width="48" id="ugoLoadingOfferImg" src="/img/UGO.png"></span>
                 <span>
                   <div class="loader" style="float:right;width:40px;height:40px;border-top:8px solid #3498db;"></div>
                 </span>
                 <div id="UGOLoadingOfferText" class="text-center">Searching Offers...</div><br><br>
               </div>
-              <div id="BOXTALLoadingOffer" class="well well-primary hide BOXTALLoadingOffer" style="border: 6px solid #40598B;">
+              <div id="BOXTALLoadingOffer" class="well well-primary hide BOXTALLoadingOffer"
+                style="border: 6px solid #40598B;">
                 <span><img width="48" id="boxtalLoadingOfferImg" src="/img/BOXTAL.png"></span>
                 <span>
                   <div class="loader" style="float:right;width:40px;height:40px;border-top:8px solid #3498db;"></div>
                 </span>
                 <div id="BOXTALLoadingOfferText" class="text-center">Searching Offers...</div><br><br>
               </div>
-              <div id="GOSHIPPOLoadingOffer" class="well well-primary hide GOSHIPPOLoadingOffer" style="border: 6px solid #40598B;">
+              <div id="GOSHIPPOLoadingOffer" class="well well-primary hide GOSHIPPOLoadingOffer"
+                style="border: 6px solid #40598B;">
                 <span><img width="48" id="goshippoLoadingOfferImg" src="/img/GOSHIPPO.png"></span>
                 <span>
                   <div class="loader" style="float:right;width:40px;height:40px;border-top:8px solid #3498db;"></div>
                 </span>
                 <div id="GOSHIPPOLoadingOfferText" class="text-center">Searching Offers...</div><br><br>
               </div>
-              <div id="SHIPENGINELoadingOffer" class="well well-primary hide SHIPENGINELoadingOffer" style="border: 6px solid #40598B;">
+              <div id="SHIPENGINELoadingOffer" class="well well-primary hide SHIPENGINELoadingOffer"
+                style="border: 6px solid #40598B;">
                 <span><img width="48" id="shipengineLoadingOfferImg" src="/img/SHIPENGINE.png"></span>
                 <span>
                   <div class="loader" style="float:right;width:40px;height:40px;border-top:8px solid #3498db;"></div>
@@ -516,13 +565,16 @@
                   </span>
                 </div>
                 <div id="decline-all" class="input-group pull-right text-center hide" style="padding: 5px;">
-                  <button type="button" id="decline-all-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-remove"></span> Decline all</button>
+                  <button type="button" id="decline-all-btn" class="btn btn-default btn-primary"><span
+                      class="glyphicon glyphicon-remove"></span> Decline all</button>
                 </div>
                 <div id="cancel-all" class="input-group pull-right text-center hide" style="padding: 5px;">
-                  <button type="button" id="cancel-all-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-minus"></span> Cancel all</button>
+                  <button type="button" id="cancel-all-btn" class="btn btn-default btn-primary"><span
+                      class="glyphicon glyphicon-minus"></span> Cancel all</button>
                 </div>
                 <div id="set-it-now" class="input-group pull-right text-center hide" style="padding: 5px;">
-                  <button type="button" id="set-it-now-btn" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
+                  <button type="button" id="set-it-now-btn" class="btn btn-default btn-primary"><span
+                      class="glyphicon glyphicon-screenshot"></span> Set It Now</button>
                 </div>
                 <div id="bid-sorting-field-grp" class="input-group pull-right hide" style="padding: 5px;">
                   <select class="form-control" id="bid-sorting-field">
@@ -552,10 +604,13 @@
       <div id="chat-box" class="col-sm-12 text-left hide" style="page-break-after:always;">
         <div id="chat-msg" class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="pull-left"><b>Message</b> <span class="label label-primary" id="chatCount">0</span> <span class="label label-danger" id="notifCount">0</span></h3>
-            <button class="btn btn-default pull-right btn-glyphicon notifyAllBidders" disabled><span class="glyphicon glyphicon-envelope"></span></button>
+            <h3 class="pull-left"><b>Message</b> <span class="label label-primary" id="chatCount">0</span> <span
+                class="label label-danger" id="notifCount">0</span></h3>
+            <button class="btn btn-default pull-right btn-glyphicon notifyAllBidders" disabled><span
+                class="glyphicon glyphicon-envelope"></span></button>
             <span class="pull-right">&nbsp;&nbsp;</span>
-            <button class="btn btn-default pull-right btn-glyphicon hideMessage"><span class="glyphicon glyphicon-triangle-top btn-message-extend-glyphicon"></span></button>
+            <button class="btn btn-default pull-right btn-glyphicon hideMessage"><span
+                class="glyphicon glyphicon-triangle-top btn-message-extend-glyphicon"></span></button>
             <div class="clearfix"></div>
             <hr>
           </div>
