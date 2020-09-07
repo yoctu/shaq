@@ -143,7 +143,7 @@ function displayTransport() {
     map: map,
     title: Position.info,
     icon: {
-      url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+      url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
     }
   });
   marker.setMap(map);
