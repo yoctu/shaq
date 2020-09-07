@@ -4,14 +4,14 @@ window.config = {};
 var localSettings = localStorage.getItem('shaqSettings');
 var socket;
 
-$(document).ready(function () {
+$(document).ready(function() {
   $.ajaxSetup({
     cache: auth.auth.ajaxcache || true
   });
 
-  (function (e, r, n, t, s) {
+  (function(e, r, n, t, s) {
     var a = [];
-    e[s] = function () {
+    e[s] = function() {
       a.push(arguments)
     };
     e[s].queue = a;
@@ -20,8 +20,8 @@ $(document).ready(function () {
     var c = true;
     var p = void 0;
     if (window.PerformanceObserver && window.PerformanceObserver.supportedEntryTypes && (PerformanceObserver.supportedEntryTypes.indexOf("longtask") >= 0 || PerformanceObserver.supportedEntryTypes.indexOf("element") >= 0)) {
-      p = new PerformanceObserver(function (e) {
-        e.getEntries().forEach(function (e) {
+      p = new PerformanceObserver(function(e) {
+        e.getEntries().forEach(function(e) {
           switch (e.entryType) {
             case "element":
               i.push(e);
@@ -71,23 +71,23 @@ $(document).ready(function () {
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
-      "429": function (xhr) {
+      "429": function(xhr) {
         status429();
       },
-      "401": function (xhr) {
+      "401": function(xhr) {
         status401();
       },
-      "403": function (xhr) {
+      "403": function(xhr) {
         status403();
       },
-      "500": function (xhr) {
+      "500": function(xhr) {
         status500();
       }
     },
-    "error": function () {
+    "error": function() {
       status404();
     },
-    "success": function (configapi) {
+    "success": function(configapi) {
       window.config = configapi;
       $.extend(true, auth, auth, configapi);
       auth.app.logourl = '/img/'
@@ -131,6 +131,13 @@ $(document).ready(function () {
           break;
         case "stats.html":
           $.getScript("/js/stats.js");
+          break;
+        case "track.html":
+          $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
+          $.getScript("/js/track.js");
+          break;
+        case "dispatch.html":
+          $.getScript("/js/sfu-center.js");
           break;
         default:
           $.getScript("/js/shaq-center.js");

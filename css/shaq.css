@@ -47,7 +47,7 @@ tr td:first-child {
   margin-top: 80px;
 }
 
-.shaqlabel {
+.shaqlabel, .sfulabel {
   font-size: 8px;
   height: 20px;
 }
@@ -150,7 +150,7 @@ tr td:first-child {
   overflow-x: hidden;
 }
 
-#shaq-name, #shaq-valid-from-btn, #shaq-valid-btn, #shaq-from-title-btn {
+#shaq-name, #sfu-name, #shaq-valid-from-btn, #shaq-valid-btn, #shaq-from-title-btn {
   min-width: 200px;
 }
 
@@ -162,7 +162,7 @@ tr td:first-child {
   width: 90%;
 }
 
-#shaqContainer {
+#shaqContainer, #sfuContainer {
   width: 100%;
   margin: auto;
 }
@@ -217,10 +217,11 @@ table.dataTable.no-footer {
   border-bottom-right-radius: 3px;
 }
 
-#shaqContainer {
+#shaqContainer, #sfuContainer {
   margin-bottom: 50px;
 }
 
+#sfuCol.col-12, #sfuCol.col-sm-12, #sfuCol.col-md-12,
 #shaqCol.col-12, #shaqCol.col-sm-12, #shaqCol.col-md-12,
 #bidder-box.col-12, #bidder-box.col-sm-12, #bidder-box.col-md-12,
 #chat-box.col-12, #chat-box.col-sm-12, #chat-box.col-md-12,
@@ -366,4 +367,12 @@ table.dataTable.no-footer {
   padding-bottom: 5px;
   margin-bottom: 0px;
   border-radius: 8px;
+}
+
+.btn-event-sfu {
+  width: 80%;
+}
+
+.div-event-sfu {
+  margin: 20px;
 }
