@@ -34,10 +34,10 @@ function initMap() {
                 $("#form-from").val(result.results[1].formatted_address);
             });
           }, function() {
-                console.log("error");
+                console.error("error");
           });
         } else {
-          console.log("error");
+          console.error("error");
         }
 
     autocompleteTo.addListener('place_changed', function () {
@@ -102,4 +102,3 @@ var parseGoogleAdresse = function (googleAdresse, target) {
         }
     }
 };
-

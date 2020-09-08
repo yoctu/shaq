@@ -374,7 +374,6 @@ socket.on(auth.auth.usercode, function(data) {
   let statusMessage = "Unkown";
   switch (msg.type) {
     case "transports":
-      console.log(msg)
       break;
   }
 });

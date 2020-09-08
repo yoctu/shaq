@@ -452,12 +452,10 @@ function ShaqCompleted(winbid) {
   $("#closedStatusGlyphiconSymbol").removeClass("glyphicon-remove").addClass();
   $("#closedStatusGlyphicon").removeClass("hide");
   if (winbid) {
-    console.log("winbid1: " + winbid);
     $('.bid-info-list').addClass("hide");
     $('#bid-add').addClass("hide");
     $('.bid-info-list').find('.well').removeClass("well-success").removeClass("well-warning").addClass("well-danger");
     if (winbid in window.bidsInfo) {
-      console.log("winbid2: " + winbid);
       window.bidsInfo[winbid].removeClass("hide");
       window.bidsInfo[winbid].find('.well').removeClass("well-danger").removeClass("well-warning").addClass("well-success");
     }
@@ -1776,7 +1774,6 @@ $("#bidAuditstatus").on('click', function(event) {
     "statusCode": {
       "200": function(auditStatus) {
         let audits = '<div class="row">';
-        console.log(auditStatus)
         for (a in auditStatus.docs) {
           if (auditStatus.docs[a].status) audits += '<div class="col-sm-3 text-center">' + auditStatus.docs[a].source + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].status + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].id + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].reported_at.substring(0, 19).replace("T", " ") + '</div>';
         }

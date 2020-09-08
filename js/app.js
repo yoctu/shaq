@@ -142,7 +142,6 @@ socket.on('connect_error', function() {
 socket.on(auth.usercode, function(data) {
   let msg = JSON.parse(data.value);
   let statusMessage = "";
-  console.log(msg);
   switch (msg.type) {
     case "config":
       notificationCreate(msg.action, "New config loaded", 'Config: ', 'warning');
