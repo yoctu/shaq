@@ -281,6 +281,10 @@ $(document).ready(function() {
     })
   })
 
+  $('#showAuction').on('click', function() {
+    window.open('/display.html' + window.location.search + '&type=-archive', '_blank');
+  })
+
   $('.hideShipment').on('click', function() {
     $(this).find('.btn-shipment-extend-glyphicon').toggleClass('glyphicon-triangle-bottom').toggleClass('glyphicon-triangle-top');
     $('.panel-shipment-background').toggleClass('hide');
