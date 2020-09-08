@@ -1,7 +1,10 @@
 const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
 window.config = {};
 
-var localSettings = localStorage.getItem('shaqSettings');
+var localSettings = {}
+
+if (window.localStorage !== null)
+  localSettings = localStorage.getItem('shaqSettings');
 var socket;
 
 $(document).ready(function() {
