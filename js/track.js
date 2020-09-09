@@ -282,7 +282,10 @@ $(document).ready(function() {
   })
 
   $('#showAuction').on('click', function() {
-    window.open('/display.html' + window.location.search + '&type=-archive', '_blank');
+    if (new URLSearchParams(location.search).has('type')) {
+      const re = new RegExp("([?|&])type=.*?(&|$)","i")
+      window.open('/display.html' + window.location.search.replace(re,'$1type=-archive$2'), '_blank')
+    } else window.open('/display.html' + window.location.search + '&type=-archive', '_blank');
   })
 
   $('.hideShipment').on('click', function() {
