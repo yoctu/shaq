@@ -1,6 +1,6 @@
 body {
   line-height: 20px;
-  font-family: Montserrat;
+  font-family: inherit;
 }
 
 input, select {
