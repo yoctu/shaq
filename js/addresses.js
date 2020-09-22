@@ -31,7 +31,7 @@ function initMap() {
                 url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&key=AIzaSyABQ8h9v6a5SaqoEo7VbzTZaWtvo5J0Hi8',
                 dataType: 'json'
             }).done(function (result) {
-                $("#form-from").val(result.results[1].formatted_address);
+              if (result && result.length > 0) $("#form-from").val(result.results[1].formatted_address);
             });
           }, function() {
                 console.error("error");

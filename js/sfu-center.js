@@ -143,12 +143,12 @@ $('#sfuCarrierList').DataTable({
         }
       },
       "success": function(json) {
-        for (const t in json.transports) {
+        window.transports = []
+        for (const t in json.docs) {
           if (VehiclePlace !== '') {
-              if (VehiclePlace.toUpperCase() === json.transports[t].vehicle.toUpperCase()) window.transports.push(json.transports[t])
-          } else window.transports.push(json.transports[t])
+              if (VehiclePlace.toUpperCase() === json.docs[t].vehicle.toUpperCase()) window.transports.push(json.docs[t])
+          } else window.transports.push(json.docs[t])
         }
-        //window.transports = json.transports;
         o = {
           recordsTotal: json.numFound,
           recordsFiltered: rows,
@@ -195,7 +195,7 @@ $('#sfuShipperList').DataTable({
         }
       },
       "success": function(json) {
-        window.transports = json.transports;
+        window.transports = json.docs;
         o = {
           recordsTotal: json.numFound,
           recordsFiltered: rows,

@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
             parent_fieldset.fadeOut(400, function() {
                 $("#step_4").fadeIn();
             });
-            $("li").addClass("active");
+            $("li.step_top").addClass("active");
             for (let i = 1; i <= 4; i++) {
                 $("#step_" + i + "_li").addClass("active");
             }
@@ -89,7 +89,7 @@ jQuery(document).ready(function() {
 	    parent_fieldset.fadeOut(400, function() {
 		$(this).next().fadeIn();
 	    });
-            $("li").removeClass("active");
+            $("li.step_top ").removeClass("active");
             let id = parseInt(parent_fieldset.attr('id').split('_')[1])+1;
             for (let i = 1; i <= id; i++) {
                 $("#step_" + i + "_li").addClass("active");
@@ -111,7 +111,7 @@ jQuery(document).ready(function() {
             $("#form-contact-to-email").val($("#email").val());
         }
 
-        $("li").removeClass("active");
+        $("li.step_top ").removeClass("active");
         let id = parseInt(parent_fieldset.attr('id').split('_')[1]-1);
         for (let i = id; i > 0; i--) {
             $("#step_" + i + "_li").addClass("active");

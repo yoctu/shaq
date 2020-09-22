@@ -162,7 +162,7 @@ $(document).ready(function() {
     "statusCode": {
       "200": function(transport) {
         if (transport.numFound === 1) {
-          Transport = transport.transports[0]
+          Transport = transport.docs[0]
           displayEventBtn()
           displayTransport()
           displayPackage()
