@@ -58,7 +58,7 @@ th, label {
   background-color: #fff;
 }
 
-#shaqstatus {
+#shaqstatus, #sfustatus {
   background-color: #fff;
   border: 1px solid #7080A0;
 }
@@ -229,7 +229,7 @@ input, select {
   color: var(--main-bg-color);
 }
 
-#shaqList_info {
+#shaqList_info, #sfuList_info {
   color: var(--main-bg-color);
 }
 

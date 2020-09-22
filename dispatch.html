@@ -35,32 +35,34 @@
   <br><br><br><br>
   <div id="CenterPage" class="text-center hide"
     style="padding-right:2%; padding-left:2%; magrin-right:2px; margin-left:2px;">
-    <div class="container text-center">
-      <div class="col-sm-3">
-        <div class="well well-info">Auctions<br><span id="well_center_shaqs">0</span></div>
-      </div>
-      <div class="col-sm-3">
-        <div class="well well-warning" style="opacity: 1;">Bids<br><span id="well_center_bids">0</span></div>
-      </div>
-      <div class="col-sm-3">
-        <div class="well well-success hide" id="well_center_revenue">Est. Rev.<br><span id="center_revenue">0</span>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="well well-danger hide" id="well_center_cost" style="opacity: 1;">Est. Cost<br><span
-            id="center_cost">0</span></div>
-      </div>
-    </div>
-    <div id="shaqCol" class="col-sm-12 col-md-12 text-left">
-      <div id="shaqContainer" class="well">
-        <table class='table' id="shaqList">
+    <div id="sfuCol" class="col-sm-12 col-md-12 text-left">
+      <div id="sfuContainer" class="well">
+        <table class='table' id="sfuShipperList">
           <thead>
             <tr>
-              <th data-col="order">Id</th>
-              <th data-col="customer"><span id="shaq-auctioneer">Customer</span></th>
-              <th data-col="supplier"><span id="shaq-bidder">Supplier</span></th>
-              <th data-col="from"><span id="shaq-pickup">PickUp</span></th>
-              <th data-col="to"><span id="shaq-delivery">Delivery</span></th>
+              <th data-col="order">Key</th>
+              <th data-col="state"><span id="sfu-state">Status</span></th>
+              <th data-col="customer"><span id="sfu-shipper">Shipper</span></th>
+              <th data-col="supplier"><span id="sfu-carrier">Carrier</span></th>
+              <th data-col="from"><span id="sfu-pickup">PickUp</span></th>
+              <th data-col="to"><span id="sfu-delivery">Delivery</span></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="sfuCol" class="col-sm-12 col-md-12 text-left">
+      <div id="sfuContainer" class="well">
+        <table class='table' id="sfuCarrierList">
+          <thead>
+            <tr>
+              <th data-col="order">Key</th>
+              <th data-col="state"><span id="sfu-state">Status</span></th>
+              <th data-col="customer"><span id="sfu-shipper">Shipper</span></th>
+              <th data-col="supplier"><span id="sfu-carrier">Carrier</span></th>
+              <th data-col="from"><span id="sfu-pickup">PickUp</span></th>
+              <th data-col="to"><span id="sfu-delivery">Delivery</span></th>
             </tr>
           </thead>
           <tbody></tbody>

@@ -5,6 +5,8 @@ language: generic
 if: branch IN (master,develop)
 
 before_deploy:
+  - nvm install 'lts/*'
+  - nvm use 'lts/*'
   - npm install -g openode
 
 deploy:

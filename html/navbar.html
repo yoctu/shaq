@@ -21,6 +21,10 @@
             <li class="divider"></li>
             <li><a href="/" target="_blank" id="navbarNewOrder"><span class="glyphicon glyphicon-plus-sign"></span> <span id="navbar-neworder">New Order</span></a></li>
             <li class="divider"></li>
+            <li><a href="/" id="navbarShaq"><span class="glyphicon glyphicon-usd"></span> <span id="navbar-shaq">Shaq</span></a></li>
+            <li class="divider"></li>
+            <li><a href="/" id="navbarSfu"><span class="glyphicon glyphicon-eye-open"></span> <span id="navbar-sfu">Sfu</span></a></li>
+            <li class="divider"></li>
             <li><a href="/" target="_blank" id="navbarStats"><span class="glyphicon glyphicon-stats"></span> <span id="navbar-stats">Statistics</span></a></li>
             <li class="divider"></li>
             <li><a href="/" target="_blank" id="navbarSettings"><span class="glyphicon glyphicon-wrench"></span> <span id="navbar-settings">Settings</span></a></li>
@@ -76,6 +80,8 @@
 $(document).ready(function() {
   $('#navbar-usercode').html(auth.app.usercodename + '<b class="caret"></b>');
   $("#shaq-navbar-url").attr("href", "/center.html" + window.location.search);
+  $("#navbarShaq").attr("href", "/center.html" + window.location.search);
+  $("#navbarSfu").attr("href", "/dispatch.html" + window.location.search);
   $("#navbarNewOrder").attr("href", auth.app.orderingurl);
   $("#navbarStats").attr("href", "/stats.html" + window.location.search);
   $("#navbarSettings").attr("href", "/settings.html" + window.location.search);

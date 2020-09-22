@@ -144,7 +144,7 @@ function rate(rater) {
   $("#" + rater + "_RefreshBtn").addClass("hide");
   if (window.shaq.visible === "public") service = "shaq-public";
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + rater + '/' + window.shaq.key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/' + service + '/' + auth.auth.usercode + '/' + window.shaq.key + '?rater=' + rater,
     "method": "GET",
     "dataType": "json",
     "contentType": "application/json",
@@ -452,12 +452,10 @@ function ShaqCompleted(winbid) {
   $("#closedStatusGlyphiconSymbol").removeClass("glyphicon-remove").addClass();
   $("#closedStatusGlyphicon").removeClass("hide");
   if (winbid) {
-    console.log("winbid1: " + winbid);
     $('.bid-info-list').addClass("hide");
     $('#bid-add').addClass("hide");
     $('.bid-info-list').find('.well').removeClass("well-success").removeClass("well-warning").addClass("well-danger");
     if (winbid in window.bidsInfo) {
-      console.log("winbid2: " + winbid);
       window.bidsInfo[winbid].removeClass("hide");
       window.bidsInfo[winbid].find('.well').removeClass("well-danger").removeClass("well-warning").addClass("well-success");
     }
@@ -773,7 +771,7 @@ function shaqRefresh() {
     $("#shaq-status").prop("disabled", false);
     if ((new Date().toUTCString()) < (new Date(window.shaq.valid_from).toUTCString()) && window.shaq.options && window.shaq.options.includes("shaqupload")) $("#shaq-files").removeClass("hide");
   }
-  $("#shaq-name").html('<div class="shaqlabel text-left">Order</div><div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
+  $("#shaq-name").html('<div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
   if (window.shaq.status === "failed") $("#shaq-name").removeClass("btn-primary").addClass("btn-danger");
   if (window.shaq.targetName) $('#bid-add .bidBidderCode').text(window.shaq.targetName[0]);
   if (window.shaq.getitnow && parseFloat(window.shaq.getitnow) > 0) {
@@ -1094,7 +1092,7 @@ function getBids(orderBy = {
 function AddChatNotification(chat) {
   let d = new Date();
   date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
-  let pre = '<p><div id="' + chat.id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + chat.message + '</strong></div><div>' + date + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(chat.source[0])] + ' (' + chat.from + ') </div></div><p>';
+  let pre = '<p><div id="' + chat.id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + chat.message + '</strong></div><div>' + date + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(chat.source[0])] + ' (' + chat.from || chat.source[0] + ') </div></div><p>';
   $('#chat-notifications-container').append(pre);
 }
 
@@ -1187,7 +1185,7 @@ function getNotifMsgs() {
       $('#notifCount').text(notifs.docs.length);
       $('#chatBadge-notification').text(notifs.docs.length);
       for (let notif in notifs.docs) {
-        let pre = '<p><div id="' + notifs.docs[notif].id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + notifs.docs[notif].message + '</strong></div><div>' + notifs.docs[notif].date.substring(0, 16).replace('T', ' ') + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(notifs.docs[notif].source[0])] + ' (' + notifs.docs[notif].from + ') </div></div><p>';
+        let pre = '<p><div id="' + notifs.docs[notif].id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + notifs.docs[notif].message + '</strong></div><div>' + notifs.docs[notif].date.substring(0, 16).replace('T', ' ') + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(notifs.docs[notif].source[0])] + ' (' + notifs.docs[notif].source[0] + ') </div></div><p>';
         $('#chat-notifications-container').append(pre);
       }
     }
@@ -1776,7 +1774,6 @@ $("#bidAuditstatus").on('click', function(event) {
     "statusCode": {
       "200": function(auditStatus) {
         let audits = '<div class="row">';
-        console.log(auditStatus)
         for (a in auditStatus.docs) {
           if (auditStatus.docs[a].status) audits += '<div class="col-sm-3 text-center">' + auditStatus.docs[a].source + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].status + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].id + '</div><div class="col-sm-3 text-center">' + auditStatus.docs[a].reported_at.substring(0, 19).replace("T", " ") + '</div>';
         }

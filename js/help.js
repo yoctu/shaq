@@ -12,19 +12,26 @@ $('#contactHelpBtn').on('click', function() {
     type: "notification",
     action: "mailsupport"
   };
-  $.ajax({
-    "url": '/api/help/' + auth.auth.usercode + '/send/now',
-    "method": "POST",
-    "dataType": "json",
-    "contentType": "application/json",
-    "data": JSON.stringify(data),
-    "complete": function(json) {
-      $("#subjectHelp").val(""),
-        $("#descriptionHelp").val(""),
-        $("#infoEmail").html("Message has been sent !").addClass("text-success");
-      setTimeout(function() {
-        $("#infoEmail").html("");
-      }, 3000);
-    }
-  });
+
+  var mail = {
+    "subject": "shaq website",
+    "sender": "hello@yoctu.com",
+    "recipients": "lav@yoctu.com",
+    "text_body": JSON.stringify(data)
+  }
+  const params = new URLSearchParams();
+  params.append('mail', JSON.stringify(mail));
+  fetch("https://mailer.test.flash.global/api/mails", {
+      method: 'POST',
+      body: params,
+    })
+    .then(function(res) {
+
+    });
+  $("#subjectHelp").val("");
+  $("#descriptionHelp").val("");
+  $("#infoEmail").html("Message has been sent !").addClass("text-success");
+  setTimeout(function() {
+    $("#infoEmail").html("<br>");
+  }, 3000);
 });

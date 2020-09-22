@@ -1,0 +1,269 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+  <title>ShaQ</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/js/countries-tz.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.25/moment-timezone-with-data.min.js"></script>
+  <link rel="stylesheet" href="/css/shaq.css" />
+  <link rel="stylesheet" href="/css/default.css" id="theme-css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.css" />
+  <script src="/js/apiStatus.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/shaq.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js">
+  </script>
+  <script src="https://flash-global.github.io/translate-client-js/dist/translate-client.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mouse0270/bootstrap-notify/bootstrap-notify.min.js"></script>
+</head>
+
+<body>
+  <div id="load-navbar"></div>
+
+  <div style="margin-top: 60px;">&nbsp;</div>
+
+  <div id="eventPage" class="col-sm-12 text-center hide">
+    <div class="well">
+      <div class="div-event-sfu"><button class="btn btn-default btn-primary btn-event-sfu hide" id="sfu-event-btn-start">START</button></div>
+      <div class="div-event-sfu"><button class="btn btn-default btn-primary btn-event-sfu hide" id="sfu-event-btn-pickup">PICK-UP</button></div>
+      <div class="div-event-sfu"><button class="btn btn-default btn-primary btn-event-sfu hide" id="sfu-event-btn-pickedup">PICKED-UP</button></div>
+      <div class="div-event-sfu"><button class="btn btn-default btn-primary btn-event-sfu hide" id="sfu-event-btn-deliver">DELIVER</button></div>
+      <div class="div-event-sfu"><button class="btn btn-default btn-primary btn-event-sfu hide" id="sfu-event-btn-delivered">DELIVERED</button></div>
+      <div class="div-event-sfu"><button class="btn btn-default btn-warning btn-event-sfu" id="sfu-event-btn-late">LATE</button></div>
+      <div class="div-event-sfu"><button class="btn btn-default btn-danger btn-event-sfu" id="sfu-event-btn-sos">SOS</button></div>
+    </div>
+  </div>
+
+  <div id="DisplayPage" class="col-sm-12 text-center">
+    <div class="top-content header-content">
+      <div id="order-box" class="col-sm-12 text-left" style="margin-bottom: 20px; page-break-after:always;">
+        <div id="orderdetail" class="col-md-12">
+          <div class="col-sm-3 col-xs-12">
+            <div class="col-sm-12 text-center">
+              <button class="btn btn-default btn-primary" id="sfu-name"></button>
+              <div style="margin-top: 10px;" id="sfu-status-event" class="segment text-success"></div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-12">
+            <div class="sfulabel">Shipper: </div>
+            <div id="sfu-shipper" class="segment"></div>
+            <div class="sfulabel">Carrier : </div>
+            <div id="sfu-carrier" class="segment"></div>
+          </div>
+          <div class="col-sm-3 col-xs-12">
+          </div>
+          <div class="col-sm-3 col-xs-12 pull-right">
+            <button class="btn btn-default btn-glyphicon" id="showAuction"><span
+                class="glyphicon glyphicon glyphicon-text-background"></span></button>
+            <button class="btn btn-default btn-glyphicon hideShipment" id="hideShipment"><span
+                class="glyphicon glyphicon-triangle-top btn-shipment-extend-glyphicon"></span></button>
+            <div class="pull-right"><img width="32px;" id="tmslogo" src="/" /></div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="col-md-12 panel-shipment-background" style="padding-top: 20px;">
+          <div class="col-md-4">
+            <div id="map" style="height: 450px; padding-bottom: 20px;"></div>
+            <div id="googleMapStart"></div>
+            <div id="googleMapEnd"></div>
+            <script>
+              var directionsService;
+              var directionsDisplay;
+              var map;
+
+              function initMap() {
+                directionsService = new google.maps.DirectionsService();
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 7
+                });
+                directionsDisplay.setMap(map);
+              };
+
+              function calcRoute(start, end) {
+                var request = {
+                  origin: start,
+                  destination: end,
+                  travelMode: 'DRIVING'
+                };
+                directionsService.route(request, function (result, status) {
+                  if (status == 'OK') {
+                    directionsDisplay.setDirections(result);
+                  }
+                });
+              }
+            </script>
+            <div id="get-it-now" class="col-sm-12 col-md-12 col-lg-12 hide">
+              <div class="row">
+                <div class="well text-center">
+                  <button class="btn btn-default btn-primary get-it-now-text btn-bid"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" style="padding-bottom: 20px;">
+            <div class="well" style="padding-left: 40px;">
+              <div class="sfulabel">Pickup</div>
+              <div id="sfu-puplace" class="segment"></div><br>
+              <div class="sfulabel">Pickup Arrival</div>
+              <div id="sfu-pudate-range-div" class="segment"></div>
+              <div class="sfulabel">Pickup Departure</div>
+              <div id="sfu-pudate-range" class="segment" title="Max"></div>
+            </div>
+            <div id="sfu-well-puContact" class="well" style="padding-left: 40px;">
+              <div><span class="sfulabel">Company </span><span id="sfu-puContactCompany" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="sfulabel">Name </span><span id="sfu-puContactName" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="sfulabel">Phone </span><span id="sfu-puContactPhone" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="sfulabel">Email </span><span id="sfu-puContactEmail" class="segment"
+                  style="float:right;"></span></div>
+            </div>
+            <div id="sfu-well-transport-extra" class="well">
+              <div style="padding-left: 40px;">
+                <div id="sfu-distance-label" class="sfulabel hide">Distance</div>
+                <div id="sfu-distance" class="segment"></div>
+              </div>
+              <div style="padding-left: 40px;">
+                <div class="sfulabel">Notes</div>
+                <div id="sfu-notes" class="segment"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" style="padding-bottom: 20px;">
+            <div class="well" style="padding-left: 40px;">
+              <div class="sfulabel">Delivery</div>
+              <div id="sfu-deplace" class="segment"></div><br>
+              <div class="sfulabel">Delivery Arrival</div>
+              <div id="sfu-dedate-range-div" class="segment"></div>
+              <div class="sfulabel">Delivery Departure</div>
+              <div id="sfu-dedate-range" class="segment" title="Max"></div>
+            </div>
+            <div id="sfu-well-deContact" class="well" style="padding-left: 40px;">
+              <div><span class="sfulabel">Company </span><span id="sfu-deContactCompany" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="sfulabel">Name </span><span id="sfu-deContactName" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="sfulabel">Phone </span><span id="sfu-deContactPhone" class="segment"
+                  style="float:right;"></span></div>
+              <div><span class="sfulabel">Email </span><span id="sfu-deContactEmail" class="segment"
+                  style="float:right;"></span></div>
+            </div>
+            <div id="sfu-well-transport-info" class="well">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div style="padding-left: 40px;">
+                    <div class="sfulabel">Plate Num.</div>
+                    <div id="sfu-vehicle-plate" class="segment"></div>
+                  </div>
+                  <div style="padding-left: 40px;">
+                    <div class="sfulabel">Vehicle type</div>
+                    <div id="sfu-vehicle-type" class="segment"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div style="padding-left: 40px;">
+                    <div class="sfulabel">Transport Mode</div>
+                    <div id="sfu-transportmode" class="segment"></div>
+                  </div>
+                  <div style="padding-left: 40px;">
+                    <div class="sfulabel">Incoterm</div>
+                    <div id="sfu-incoterm" class="segment"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12" id="package-list">
+          <div class="well well-package" id="total-packages-well">
+            <div class="col-sm-3 col-xs-12" align="center">
+              <div class="col-sm-6 col-xs-6">
+                <div class="well well-package-total" style="padding-top:15px;">
+                  <div class="sfulabel">Total Q</div>
+                  <div id="sfu-total-package" class="segment text-center"
+                    style="padding-top:15px;padding-bottom:15px;"></div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-6">
+                <span><img src="/img/package.png" width="92" /></span>
+              </div>
+            </div>
+            <div class="col-sm-3 col-xs-12 text-center">
+              <div class="sfulabel">Total volume</div>
+              <div id="sfu-total-volume" class="segment"></div>
+            </div>
+            <div class="col-sm-3 col-xs-12 text-center">
+              <div class="sfulabel">Total weight</div>
+              <div id="sfu-total-weight" class="segment"></div>
+            </div>
+            <div class="col-sm-1 col-xs-6 text-center">
+              <span><img src="/img/no-ADR.svg" width="64" style="padding-top:15px;" /></span>
+            </div>
+            <div class="col-sm-2 col-xs-6">
+              <button class="btn btn-default pull-right btn-glyphicon showPackage">
+                <span class="glyphicon glyphicon-triangle-bottom btn-message-extend-glyphicon"></span>
+              </button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="hide" id="packageList">
+            <div class="well well-package hide" id="packages-well-template">
+              <div class="col-sm-3 col-xs-12" align="center">
+                <div class="col-sm-6 col-xs-6">
+                  <div class="well well-package-list" style="padding-top:15px;">
+                    <div class="sfulabel">Quantity</div>
+                    <div class="segment sfu-pkg-number"></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                  <span><img src="/img/package.png" width="92" /></span>
+                </div>
+              </div>
+              <div class="col-sm-3 col-xs-12">
+                <div class="sfulabel">Dimensions</div>
+                <div class="segmentlight text-center sfu-pkg-dimension-lenght"></div>
+                <div class="segmentlight text-center sfu-pkg-dimension-width"></div>
+                <div class="segmentlight text-center sfu-pkg-dimension-height"></div>
+              </div>
+              <div class="col-sm-2 col-xs-12">
+                <div class="sfulabel">Weight</div>
+                <div class="segmentlight text-center segmentlight text-center sfu-pkg-dimension-weight"></div>
+              </div>
+              <div class="col-sm-2 col-xs-12">
+                <div class="sfulabel">Stackable</div>
+                <div class="segment text-center sfu-pkg-stackable"></div>
+                <div class="sfulabel">Notes</div>
+                <div id="sfu-pkg-notes" class="segment text-center sfu-pkg-notes"></div>
+              </div>
+              <div class="col-sm-1 col-xs-12 text-center">
+                <span><img src="/img/no-ADR.svg" width="64" style="padding-top:15px;" /></span>
+              </div>
+              <div class="col-sm-1 text-center">
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="load-footer"></div>
+</body>
+
+</html>

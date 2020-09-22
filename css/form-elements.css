@@ -1,0 +1,97 @@
+input[type="text"] {
+    border: 1px solid #ddd;
+}
+
+.btn.paye {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn {
+    height: 50px;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: var(--main-upela-color);
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #fff;
+    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+    text-shadow: none;
+    -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+    -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+}
+
+.btn:hover { opacity: 0.6; color: #fff; }
+
+.btn:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
+
+.btn:focus { outline: 0; opacity: 0.6; background: var(--main-upela-color); color: #fff; }
+
+.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: var(--main-upela-color); color: #fff; }
+
+#progressbar {
+	margin-bottom: 20px;
+	overflow: hidden;
+	counter-reset: step;
+  padding: 0px;
+}
+
+#progressbar li {
+	list-style-type: none;
+	text-transform: uppercase;
+	font-size: 9px;
+	width: 25%;
+	float: left;
+	position: relative;
+}
+
+#progressbar li.box:before {
+        content: "\f49e";
+}
+#progressbar li.home:before {
+        content: "\f015";
+}
+#progressbar li.contact:before {
+        content: "\f007";
+}
+#progressbar li.ship:before {
+        content: "\f48b";
+}
+
+#progressbar li:before {
+        content: "\f001";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+	counter-increment: step;
+	width: 30px;
+	line-height: 30px;
+	display: block;
+	font-size: 16px;
+	background: white;
+	border-radius: 3px;
+	margin: 0 auto 5px auto;
+}
+
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: white;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	z-index: -1;
+}
+#progressbar li:first-child:after {
+	content: none;
+}
+
+#progressbar li.active:before,  #progressbar li.active:after{
+	background: var(--secondary-upela-color);
+	color: white;
+}
