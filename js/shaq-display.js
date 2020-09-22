@@ -771,7 +771,7 @@ function shaqRefresh() {
     $("#shaq-status").prop("disabled", false);
     if ((new Date().toUTCString()) < (new Date(window.shaq.valid_from).toUTCString()) && window.shaq.options && window.shaq.options.includes("shaqupload")) $("#shaq-files").removeClass("hide");
   }
-  $("#shaq-name").html('<div class="shaqlabel text-left">Order</div><div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
+  $("#shaq-name").html('<div style="line-height: 20px; font-weight: bold; padding-bottom: 5px;">' + window.shaq.name + '</div>');
   if (window.shaq.status === "failed") $("#shaq-name").removeClass("btn-primary").addClass("btn-danger");
   if (window.shaq.targetName) $('#bid-add .bidBidderCode').text(window.shaq.targetName[0]);
   if (window.shaq.getitnow && parseFloat(window.shaq.getitnow) > 0) {
@@ -1092,7 +1092,7 @@ function getBids(orderBy = {
 function AddChatNotification(chat) {
   let d = new Date();
   date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
-  let pre = '<p><div id="' + chat.id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + chat.message + '</strong></div><div>' + date + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(chat.source[0])] + ' (' + chat.from + ') </div></div><p>';
+  let pre = '<p><div id="' + chat.id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + chat.message + '</strong></div><div>' + date + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(chat.source[0])] + ' (' + chat.from || chat.source[0] + ') </div></div><p>';
   $('#chat-notifications-container').append(pre);
 }
 
@@ -1185,7 +1185,7 @@ function getNotifMsgs() {
       $('#notifCount').text(notifs.docs.length);
       $('#chatBadge-notification').text(notifs.docs.length);
       for (let notif in notifs.docs) {
-        let pre = '<p><div id="' + notifs.docs[notif].id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + notifs.docs[notif].message + '</strong></div><div>' + notifs.docs[notif].date.substring(0, 16).replace('T', ' ') + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(notifs.docs[notif].source[0])] + ' (' + notifs.docs[notif].from + ') </div></div><p>';
+        let pre = '<p><div id="' + notifs.docs[notif].id + '" class="chat-container-notification alert alert-danger" align="center"><div class="message"><strong>' + notifs.docs[notif].message + '</strong></div><div>' + notifs.docs[notif].date.substring(0, 16).replace('T', ' ') + ' - ' + window.shaq.sourceName[window.shaq.source.indexOf(notifs.docs[notif].source[0])] + ' (' + notifs.docs[notif].source[0] + ') </div></div><p>';
         $('#chat-notifications-container').append(pre);
       }
     }

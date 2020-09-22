@@ -37,14 +37,12 @@ function toggleUnit() {
     $('#form-length').val((parseFloat(envelope["ISO"][$('.form-template-type').val()][parcel_unit][1]) / divide_unit).toFixed(1));
 }
 
-function EnvelopeInit() {
+$(document).ready(function() {
+
   $('#form-type-display').text($('input[name="formType"]').attr('data-text'));
   for (var options in envelope["ISO"]) {
     $('.form-template-type').append($("<option></option>").attr("value", options).text(options));
   }
-}
-
-$(document).ready(function() {
 
   $("select[name='form-template-type']").change(function() {
     $(".form-template-type option:selected").removeAttr("selected");
@@ -56,6 +54,7 @@ $(document).ready(function() {
     $('#form-width').val((parseFloat(envelope["ISO"][$(this).val()][parcel_unit][0]) / divide_unit).toFixed(1));
     $('#form-length').val((parseFloat(envelope["ISO"][$(this).val()][parcel_unit][1]) / divide_unit).toFixed(1));
   });
+  $("select[name='form-template-type']").val(Object.keys(envelope["ISO"])[0]).change();
 
   $(".fa-box-open.pkglist").on('click', function() {
     let html = '<div class="row">';
@@ -76,20 +75,4 @@ $(document).ready(function() {
     $("#InformationModalTitle").html("Package");
     $("#InformationModal").modal();
   });
-
-  $("#save-envelope").on('click', function() {
-    $("#QuestionModalText").html('<br><div class="form-inline form-group"><label>Name : </label>\
-          <input id="EnvelopeName" type="text" class="form-control" autofocus></input></div><br>');
-    $("#QuestionModalTitle").html("Package");
-    $("#QuestionModal").modal();
-    $("#QuestionModalYesBtn").on("click", function() {
-      envelopeFull.envelope["ISO"][$("#EnvelopeName").val()] = {};
-      envelopeFull.envelope["ISO"][$("#EnvelopeName").val()]["fr"] = [$('#form-length').val()*10, $('#form-width').val()*10, $('#form-height').val()*10, $('#form-weight').val()*1];
-      envelopeFull.envelope["ISO"][$("#EnvelopeName").val()]["us"] = [$('#form-length').val()*1, $('#form-width').val()*1, $('#form-height').val()*1, $('#form-weight').val()*1];
-      envelope = envelopeFull.envelope;
-      $('.form-template-type').empty();
-      EnvelopeInit();
-      $('.form-template-type').val($("#EnvelopeName").val());
-    });
   });
-});
