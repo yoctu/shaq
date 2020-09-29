@@ -283,9 +283,7 @@ window.cols = [{
 ];
 
 $("#shaq-navbar-url").attr("href", auth.orderingurl);
-if (localSettings && localSettings.pageLenght) {
-  rows = localSettings.pageLenght;
-}
+
 $('#shaqList').DataTable({
   "columns": window.cols,
   "order": order,
@@ -398,12 +396,15 @@ $('#shaqList thead tr th').each(function(i) {
 });
 
 $('#shaqList_length').css("width", "50%");
-$("#shaqList_wrapper #shaqList_length").after('<div class="pull-right"><select id="solrtarget" class="form-control">' +
+$("#shaqList_wrapper #shaqList_length").after('<div class="pull-right"><select id="typeCode" class="form-control">' +
+  '<option value="all">All</option><option value="bidder">Bidder</option><option value="auctioneer">Auctioneer</option>' +
+  '</select></div>');
+$("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" style="margin-left:10px;"><select id="solrtarget" class="form-control">' +
   '<option value="open">Open</option><option value="public">Public</option><option value="close">Close</option>' +
   '</select></div>');
-  $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" style="margin-left:10px;"><select id="shaqstatus" class="form-control">' +
-    '<option value="all">All</option><option value="completed">Completed</option><option value="running">running</option><option value="expired">Expired</option><option value="cancelled">Cancelled</option><option value="failed">Failed</option>' +
-    '</select></div>');
+$("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" style="margin-left:10px;"><select id="shaqstatus" class="form-control">' +
+  '<option value="all">All</option><option value="completed">Completed</option><option value="running">running</option><option value="expired">Expired</option><option value="cancelled">Cancelled</option><option value="failed">Failed</option>' +
+  '</select></div>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="refresh"><span style="padding-left:20px;"></span><span id="solrRefresh" class="glyphicon glyphicon-refresh"></span>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="clear filters"><span style="padding-left:20px;"></span><span id="solrReload" class="glyphicon glyphicon-repeat"></span>');
 
@@ -415,6 +416,14 @@ $("#solrReload").on("click", function() {
   $(".dtInputFilter").val("");
   $("#shaqstatus").val('all')
   query = ["*", "*"];
+  $('#shaqList').DataTable().draw();
+});
+
+$("#typeCode").change(function() {
+  typeCode = $("#typeCode").val();
+  if (typeCode === 'all') query = ["*", "*"]
+  if (typeCode === 'bidder') query = ["target", auth.auth.usercode ]
+  if (typeCode === 'auctioneer') query = ["source", auth.auth.usercode ]
   $('#shaqList').DataTable().draw();
 });
 
@@ -582,6 +591,11 @@ function getLastVisibleColumn() {
     let td = $(this).find('td:visible:last');
     td.addClass('lastVisibleChild');
   });
+}
+
+if (localSettings) {
+  if (localSettings.pageLenght) rows = localSettings.pageLenght;
+  if (localSettings.typeCode) $('#typeCode').val(localSettings.typeCode.toLowerCase()).change();
 }
 
 $(window).resize(function() {

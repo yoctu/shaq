@@ -12,6 +12,7 @@ if (!localSettings) {
     themeSettings: auth.auth.theme ? auth.auth.theme : "Default",
     chatShow: "Show",
     shipmentShow: "Show",
+    typeCode: "Bidder",
     pageLenght: 10,
     autoNotify: 0
   };

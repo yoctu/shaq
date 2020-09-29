@@ -1,6 +1,7 @@
 if (auth.auth.lang === "en") auth.auth.lang = "gb";
 $('#imgLang').attr('src', 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + auth.auth.lang.toLowerCase() + '.svg');
 $('#unitSettings').val(localSettings.unit);
+$('#shaqTypeCodeFilter').val(localSettings.typeCode);
 $('#currencySettings').val(localSettings.currency);
 $('#dateSettings').val(localSettings.date);
 $('#distanceSettings').val(localSettings.distance);
@@ -164,7 +165,8 @@ function saveSettings() {
     themeSettings: $('#themeSettings').val(),
     chatShow: $('#shaqChatVisibilitySettings').val(),
     autoNotify: parseInt($('#notifPopup').val()),
-    shipmentShow: $('#shaqShipmentVisibilitySettings').val()
+    shipmentShow: $('#shaqShipmentVisibilitySettings').val(),
+    typeCode: $('#shaqTypeCodeFilter').val()
   };
 
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));

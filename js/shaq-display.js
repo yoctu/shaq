@@ -599,6 +599,7 @@ function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidTransitTime').text(TransitCalc(bidInfo.find('.bidPuDate').val(), bidInfo.find('.bidDeDate').val(), window.shaq.puPlace[4], window.shaq.dePlace[4]));
   if (bid.loaded === "Yes") bidInfo.find('.bidLoaded').addClass("btn-info");
   if (bid.driver == "2") bidInfo.find('.bidDriver').addClass("btn-info");
+  bidInfo.find('.bidPlate').val(bid.driver)
   bidInfo.find('.img-bidder-logo').attr("src", auth.app.logourl + bid.source[0] + ".png");
   if (bid.logo && Raters.includes(bid.source[0])) {
     bidInfo.find('.img-rating-logo').attr("src", bid.logo);
@@ -709,6 +710,9 @@ function shaqRefresh() {
   $("#vehicle_type").empty();
   for (const vt in window.vehicle_type) {
     $("#vehicle_type").append('<option value="' + window.vehicle_type[vt] + '">' + window.vehicle_type[vt] + '</option>')
+  }
+  for (const v in auth.vehicles) {
+    $("#vehicle_plate").append('<option value="' + auth.vehicles[v].plate + '">' + auth.vehicles[v].plate + '</option>')
   }
   $("#tmslogo").attr('src', auth.app.logourl + window.shaq.creator + ".png");
   auth.auth.usercodeName = window.shaq.sourceName[0];
@@ -1304,6 +1308,7 @@ function sendBid() {
   if ($('#bid-add').find('.bidLoaded input').is(":checked")) loaded = "Yes";
   let driver = "1";
   if ($('#bid-add').find('.bidDriver input').is(":checked")) driver = "2";
+  driver = $('#bid-add').find('.bidPlate').val();
   let bidstatus = "created";
   let dataSendBid = {
     "id": uuidv4(),
@@ -1385,7 +1390,7 @@ function invitesearch() {
   $('#InviteModalInviteBtn').prop('disabled', true);
   if ($('#InviteModalSearchInput').val() !== "") {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/public/' + $('#InviteModalSearchInput').val() + "/",
+      "url": 'https://' + $('#InviteModalSearchInput').val() + '.shaq' + auth.auth.env + '.yoctu.solutions/public/' + $('#InviteModalSearchInput').val() + "/",
       "method": "GET",
       "dataType": "json",
       "contentType": "application/json",
@@ -1395,8 +1400,8 @@ function invitesearch() {
       },
       "statusCode": {
         "200": function(xhr) {
-          $('#InviteModalCode').html(json.code);
-          $('#InviteModalName').html(json.name);
+          $('#InviteModalCode').html(xhr.usercode);
+          $('#InviteModalName').html(xhr.app.usercodename);
           $("#QuestionModalYesBtn").on("click", function() {
             invite();
           });
@@ -1438,16 +1443,17 @@ function SetItNow() {
 }
 
 function invite() {
+  console.log($('#InviteModalCode').text())
   if (!window.shaq.target.includes($('#InviteModalCode').text().toUpperCase()) &&
     !window.shaq.source.includes($('#InviteModalCode').text().toUpperCase())) {
+      console.log('IN')
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + '/' + window.shaq.key,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + window.shaq.key,
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
       "data": JSON.stringify({
-        usercode: $('#InviteModalCode').text(),
-        usercodename: $('#InviteModalName').text()
+        usercode: $('#InviteModalCode').text()
       }),
       "headers": {
         "redspher-auth": "yes",
