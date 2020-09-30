@@ -88,6 +88,7 @@ function informShow(msg, close = true) {
 }
 
 function questionShow(msg, btnmsg) {
+  $("#QuestionModalYesBtn").attr('disabled', false);
   $("#QuestionModalYesBtn").unbind("click");
   $("#QuestionModalYesBtn").text(btnmsg);
   $("#QuestionModalText").html(msg);

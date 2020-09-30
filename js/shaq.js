@@ -132,6 +132,9 @@ $(document).ready(function() {
           $.getScript("/js/type-package.js");
           $.getScript("/js/quote.js");
           break;
+        case "rels.html":
+          $.getScript("/js/rels.js");
+          break;
         case "stats.html":
           $.getScript("/js/stats.js");
           break;

@@ -1,10 +1,11 @@
-var MOTD = 9;
+var MOTD = 10;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
   <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
-  <p><div class="text-center">New Filter<br><br>\
-  You can now filter your auction based on your role :<br>\
+  <p><div class="text-center">New Filter and <b>Relations</b><br><br>\
+  <b>Relations</b> are out : <br>Managed who can invite you or who you can invite !<br>\
+  You can also now filter your auction based on your role :<br>\
   Bidder or Auctioneer.<br></p>\
   </div>\
 </div>\
