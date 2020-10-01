@@ -1443,10 +1443,8 @@ function SetItNow() {
 }
 
 function invite() {
-  console.log($('#InviteModalCode').text())
   if (!window.shaq.target.includes($('#InviteModalCode').text().toUpperCase()) &&
     !window.shaq.source.includes($('#InviteModalCode').text().toUpperCase())) {
-      console.log('IN')
     $.ajax({
       "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/invite/' + window.shaq.key,
       "method": "POST",
