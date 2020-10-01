@@ -2,7 +2,6 @@ const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
 window.config = {};
 
 var localSettings = localStorage.getItem('shaqSettings');
-console.log(localSettings)
 if (localSettings === null) {
   localSettings = {
     date: 'YYYY-MM-dd HH:mm',

@@ -595,7 +595,10 @@ function getLastVisibleColumn() {
 
 if (localSettings) {
   if (localSettings.pageLenght) rows = localSettings.pageLenght;
-  if (localSettings.typeCode) $('#typeCode').val(localSettings.typeCode.toLowerCase()).change();
+  if (localSettings.typeCode) {
+    $('#typeCode').val(localSettings.typeCode.toLowerCase())
+    $('#typeCode').change()
+  }
 }
 
 $(window).resize(function() {
