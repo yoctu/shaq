@@ -1,10 +1,29 @@
 const Raters = ["UGO", "GOSHIPPO", "SHIPENGINE", "SKYQUOTE", "BOXTAL"];
 window.config = {};
 
-var localSettings = {}
+var localSettings = localStorage.getItem('shaqSettings');
+console.log(localSettings)
+if (localSettings === null) {
+  localSettings = {
+    date: 'YYYY-MM-dd HH:mm',
+    currency: 'Euros',
+    distance: 'Kilometers',
+    unit: 'Metric',
+    weight: 'Kgs',
+    chathistory: 100,
+    shaqvalidtimer: "Enable",
+    themeSettings: "Default",
+    chatShow: "Show",
+    shipmentShow: "Show",
+    typeCode: "Bidder",
+    pageLenght: 10,
+    autoNotify: 0
+  };
+  localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
+} else {
+  localSettings = JSON.parse(localSettings);
+}
 
-if (window.localStorage !== null)
-  localSettings = localStorage.getItem('shaqSettings');
 var socket;
 
 $(document).ready(function() {
