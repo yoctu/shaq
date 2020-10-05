@@ -60,7 +60,7 @@ function showmore(showmore) {
 
 function closeShaq(shaq) {
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + shaq,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + "/cancel/" + shaq,
     "type": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -68,8 +68,7 @@ function closeShaq(shaq) {
       "redspher-auth": "yes",
       "Authorization": "Basic " + auth.auth.authbasic
     },
-    "success": function(msgs) {
-    }
+    "success": function(msgs) {}
   });
 }
 
@@ -91,7 +90,7 @@ function removebidder(remove) {
     action: action
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/' + action + '/' + key,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -123,7 +122,7 @@ function subscribe(button) {
     action: "subscribe"
   };
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq-public/' + auth.auth.usercode + '/subscribe/' + id,
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
@@ -132,8 +131,7 @@ function subscribe(button) {
       "redspher-auth": "yes",
       "Authorization": "Basic " + auth.auth.authbasic
     },
-    "success": function(json) {
-    }
+    "success": function(json) {}
   });
 }
 
@@ -283,6 +281,10 @@ window.cols = [{
 ];
 
 $("#shaq-navbar-url").attr("href", auth.orderingurl);
+if (qs.has('typecode') && ['bidder', 'auctioneer'].includes(qs.get('typecode'))) localSettings.typeCode = qs.get('typecode')
+if (localSettings.typeCode === 'all') query = ["*", "*"]
+if (localSettings.typeCode === 'bidder') query = ["target", auth.auth.usercode]
+if (localSettings.typeCode === 'auctioneer') query = ["source", auth.auth.usercode]
 
 $('#shaqList').DataTable({
   "columns": window.cols,
@@ -297,14 +299,14 @@ $('#shaqList').DataTable({
   "pagingType": "numbers",
   "createdRow": function(createdRow, data, dataIndex) {
     $(createdRow).addClass(data.id);
-    if (data.status === "failed") $(createdRow).find("td:first-child").css("border-left-color","red");
+    if (data.status === "failed") $(createdRow).find("td:first-child").css("border-left-color", "red");
   },
   "initComplete": function(settings, json) {
     getLastVisibleColumn();
   },
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={"' + query[0] + '":"' + query[1] + '"}',
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&sort={"' + sort[0] + '":"' + sort[1] + '"}&fq={"' + query[0] + '":"' + query[1] + '"}',
       "dataType": "json",
       "json": "json.wrf",
       "headers": {
@@ -341,7 +343,7 @@ $('#shaqList').DataTable({
           $("#center_cost").html(cost);
           if (cost > 0) $("#well_center_cost").removeClass('hide')
           $.ajax({
-            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
             "dataType": "json",
             "json": "json.wrf",
             "headers": {
@@ -370,7 +372,7 @@ $('#shaqList').DataTable({
               if (revenue > 0) $("#well_center_revenue").removeClass('hide')
             }
           });
-        } else $("#shaqList").find("tr td:first-child").css("border-left-width","0px");
+        } else $("#shaqList").find("tr td:first-child").css("border-left-width", "0px");
       }
     });
   }
@@ -422,8 +424,8 @@ $("#solrReload").on("click", function() {
 $("#typeCode").change(function() {
   typeCode = $("#typeCode").val();
   if (typeCode === 'all') query = ["*", "*"]
-  if (typeCode === 'bidder') query = ["target", auth.auth.usercode ]
-  if (typeCode === 'auctioneer') query = ["source", auth.auth.usercode ]
+  if (typeCode === 'bidder') query = ["target", auth.auth.usercode]
+  if (typeCode === 'auctioneer') query = ["source", auth.auth.usercode]
   $('#shaqList').DataTable().draw();
 });
 
@@ -512,10 +514,10 @@ socket.on(auth.auth.usercode, function(data) {
       updateShaq(msg);
       $(".dataTables_info").text("Showing 1 to 10 of " + $("#shaqList_length").val() + " entries (filtered from " + window.shaqs.length + " total entries)");
       $("#center_shaqs").html(window.shaqs.length);
-      $("#shaqList").find("tr td:first-child").css("border-left-width","5px");
+      $("#shaqList").find("tr td:first-child").css("border-left-width", "5px");
       if (searchShaqID(msg.id)) {
         if (msg.bestbidprice) $('.bestbid_' + msg.key).text(parseFloat(msg.bestbidprice).toFixed(2));
-        if (msg.status === "failed") $("#shaqList").find("tr."+msg.id+" td:first-child").css("border-left-color","red");
+        if (msg.status === "failed") $("#shaqList").find("tr." + msg.id + " td:first-child").css("border-left-color", "red");
         if (msg.getitnow && parseFloat(msg.getitnow) > 0) $('.getitnow_' + msg.key).removeClass("hide").text(parseFloat(msg.getitnow).toFixed(2));
         $('span[data-bids-number=' + msg.key + '_' + msg.source[0] + ']').removeClass('label-primary').addClass("label-success");
         $("#shaq-valid-from_" + msg.id).text(msg.valid_from.substring(0, 16).replace('T', ' '));
@@ -571,7 +573,7 @@ socket.on(auth.auth.usercode, function(data) {
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.puPlace, "pu") + '</td>';
       tbodyadd += '<td>' + renderFuncPlace(msg, msg.dePlace, "de") + '</td></tr>';
       $('tbody').prepend(tbodyadd);
-      if (msg.status === "failed") $("#shaqList").find("tr."+msg.id+" td:first-child").css("border-left-color","red");
+      if (msg.status === "failed") $("#shaqList").find("tr." + msg.id + " td:first-child").css("border-left-color", "red");
       let lastVisibleCell = $(".lastVisibleChild").first().prop("cellIndex");
       $("." + msg.id + " td").eq(lastVisibleCell).addClass("lastVisibleChild");
       for (let lvc = lastVisibleCell + 1; lvc < $("." + msg.id + " td").length; lvc++) {
@@ -593,12 +595,9 @@ function getLastVisibleColumn() {
   });
 }
 
-if (localSettings) {
-  if (localSettings.pageLenght) rows = localSettings.pageLenght;
-  if (localSettings.typeCode) {
-    $('#typeCode').val(localSettings.typeCode.toLowerCase())
-    $('#typeCode').change()
-  }
+if (localSettings.pageLenght) rows = localSettings.pageLenght;
+if (localSettings.typeCode) {
+  $('#typeCode').val(localSettings.typeCode.toLowerCase())
 }
 
 $(window).resize(function() {
