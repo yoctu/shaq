@@ -1,4 +1,5 @@
 var ShaqID = new URLSearchParams(location.search).has('key') ? new URLSearchParams(location.search).get('key') : "";
+var PriceDetails = [];
 var timerFrom = 0;
 var shaqValiditytimer = 0;
 var showAllbids = 0;
@@ -9,7 +10,7 @@ window.bids = [];
 window.chats = [];
 window.bidsInfo = [];
 window.chatsInfo = [];
-window.vehicle_type = ["LAMBDA","BREAK","FRG1","FRG2","FRG3","FRG4","PL5","PL9","SEMI","FRGR","PKW","DI","FRG4+HAYON","LOADED_KM","FRG4H","PL"];
+window.vehicle_type = ["LAMBDA", "BREAK", "FRG1", "FRG2", "FRG3", "FRG4", "PL5", "PL9", "SEMI", "FRGR", "PKW", "DI", "FRG4+HAYON", "LOADED_KM", "FRG4H", "PL"];
 
 localStorage.setItem(auth.auth.usercode + "-" + ShaqID, window.id);
 window.addEventListener('storage', storageChanged);
@@ -65,8 +66,7 @@ function archiveShaq() {
       "redspher-auth": "yes",
       "Authorization": "Basic " + auth.auth.authbasic
     },
-    "success": function(msgs) {
-    }
+    "success": function(msgs) {}
   });
 }
 
@@ -81,8 +81,7 @@ function closeShaq() {
       "redspher-auth": "yes",
       "Authorization": "Basic " + auth.auth.authbasic
     },
-    "success": function(msgs) {
-    }
+    "success": function(msgs) {}
   });
 }
 
@@ -131,8 +130,7 @@ function sendMessage(data) {
       "redspher-auth": "yes",
       "Authorization": "Basic " + auth.auth.authbasic
     },
-    "success": function(msgs) {
-    }
+    "success": function(msgs) {}
   });
 }
 
@@ -474,6 +472,13 @@ function bidHideAllBtn(bidInfo) {
 
 function bidRefresh(bidInfo, bid) {
   bidInfo.find('.bidPrice').val(parseFloat(bid.price).toFixed(2));
+  bidInfo.find(".bidflags").removeClass("hide");
+  if ('priceDetails' in bid) {
+    bidInfo.find('.pricedetail').prop("onclick", null).off("click").on("click", function() {
+      console.log(bid.priceDetails)
+      editPriceDetailFunc(bid.priceDetails, false)
+    })
+  } else bidInfo.find('.pricedetail').addClass("hide");
   bidInfo.attr("id", "bid_id_" + bid.id);
   for (key in window.shaq.target) {
     if (window.shaq.target[key] === bid.source[0]) {
@@ -1011,8 +1016,7 @@ $.ajax({
     "Authorization": "Basic " + auth.auth.authbasic
   },
   "statusCode": {
-    "200": function(xhr) {
-    },
+    "200": function(xhr) {},
     "429": function(xhr) {
       status429();
     }
@@ -1261,8 +1265,7 @@ function updateBid(bidData) {
         status429();
       }
     },
-    "success": function(msgs) {
-    }
+    "success": function(msgs) {}
   });
 }
 
@@ -1298,8 +1301,7 @@ function sendMessageAll() {
         status429();
       }
     },
-    "success": function(msg) {
-    }
+    "success": function(msg) {}
   });
 }
 
@@ -1333,7 +1335,8 @@ function sendBid() {
     "driver": driver
   };
   if ($('#bid-add > .bidPuDateRange').val()) dataSendBid.puDateRange = $('#bid-add > .bidPuDateRange').val().replace(' ', 'T') + ":00.000Z";
-  if ($('#bid-add > .bidDeDateRange').val()) dataSendBid.deDateRange = $('#bid-add > .bidDeDateRange').val().replace(' ', 'T') + ":00.000Z"
+  if ($('#bid-add > .bidDeDateRange').val()) dataSendBid.deDateRange = $('#bid-add > .bidDeDateRange').val().replace(' ', 'T') + ":00.000Z";
+  if (PriceDetails.length > 0) dataSendBid.priceDetails = PriceDetails
   $.ajax({
     "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid/' + auth.auth.usercode + "/" + ShaqID,
     "type": "POST",
@@ -1349,10 +1352,11 @@ function sendBid() {
       429: function(xhr) {
         status429();
       },
-      406: function() {
-        informShow('   <span>Max bid reached !!!</span>');
+      406: function(error) {
+        informShow('   <span>' + error.responseJSON.error + ' !!!</span>');
       },
       201: function(msgs) {
+        PriceDetails = []
         $("#amount").attr("disabled", false);
       }
     }
@@ -1853,8 +1857,30 @@ function bidsFlag(bf) {
           status406();
         }
       },
-      "success": function(json) {
-      }
+      "success": function(json) {}
     });
   });
+}
+
+function editPriceDetailFunc(pricedetail, edit) {
+  let html = '<div><p>Price Type: \
+  <label>BASE</label><input id="pricedetailBASE" type="number" class="form-control" step="0.01" value=' + (pricedetail.length > 0 ? pricedetail[1] : "0.00") + '></input>\
+  <label>TAXES</label><input id="pricedetailTAXES" type="number" class="form-control" step="0.01" value=' + (pricedetail.length > 0 ? pricedetail[3] : "0.00") + '></input>\
+  <label>DISCOUNT</label><input id="pricedetailDISCOUNT" type="number" class="form-control" step="0.01" value=' + (pricedetail.length > 0 ? pricedetail[5] : "0.00") + '></input>\
+  <label>VOUNCHER</label><input id="pricedetailVOUNCHER" type="number" class="form-control" step="0.01" value=' + (pricedetail.length > 0 ? pricedetail[7] : "0.00") + '></input>\
+  <label>HUMAN</label><input id="pricedetailHUMAN" type="number" class="form-control" step="0.01" value=' + (pricedetail.length > 0 ? pricedetail[9] : "0.00") + '></input>\
+  <label>DRIVERS</label><input id="pricedetailDRIVERS" type="number" class="form-control" step="0.01"  value=' + (pricedetail.length > 0 ? pricedetail[11] : "0.00") + '></input>\
+  </p></div>'
+
+  if (edit) {
+    questionShow(html, 'Set Detail');
+    $("#QuestionModalYesBtn").on("click", function() {
+      PriceDetails = ["BASE", $('#pricedetailBASE').val(), "TAXES-SV", $('#pricedetailTAXES').val(), "DISCOUNT-SV", $('#pricedetailDISCOUNT').val(), "VOUNCHER-SV", $('#pricedetailVOUNCHER').val(), "HUMAN-SV", $('#pricedetailHUMAN').val(), "DRIVERS-SV", $('#pricedetailDRIVERS').val()]
+      $('#amount').val(parseFloat(PriceDetails[1]) + parseFloat(PriceDetails[3]) + parseFloat(PriceDetails[5]) + parseFloat(PriceDetails[7]) + parseFloat(PriceDetails[9]) + parseFloat(PriceDetails[11]))
+    });
+  } else informShow(html, false)
+}
+
+function editPriceDetail() {
+  editPriceDetailFunc(PriceDetails, true)
 }

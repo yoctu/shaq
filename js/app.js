@@ -62,7 +62,7 @@ function informShow(msg, close = true) {
   $("#InformationModalCloseBtn").attr("disabled", close);
   if (close) setTimeout(function() {
     $("#InformationModal").modal('hide');
-  }, 1000);
+  }, 1500);
 }
 
 function questionShow(msg, btnmsg) {

@@ -369,6 +369,12 @@ table.dataTable.no-footer {
   border-radius: 8px;
 }
 
+.pricedetail {
+  background-color: transparent;
+  border: none;
+  color: var(--main-bg-color);
+}
+
 .btn-event-sfu {
   width: 80%;
 }
