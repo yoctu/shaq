@@ -315,7 +315,7 @@
               <span class="glyphicon glyphicon-bookmark fa-2x bflag2 hide" style="color:orange;"></span>
             </div>
             <div class="col-sm-12" style="padding-bottom:10px;padding-left:5px; padding-right:5px">
-              <span class="pull-right glyphicon glyphicon-plus bidflags" title="add flag and comment"></span>
+              <span class="pull-right glyphicon glyphicon-plus bidflags hide" title="add flag and comment"></span>
               <div class="col-sm-4 col-xs-12" style="padding-left:5px; padding-right:5px;">
                 <div class="input-group">
                   <span class="input-group-btn">
@@ -346,8 +346,11 @@
                 <div class="col-sm-6">
                   <div id="amount-form-group" class="form-group">
                     <div class="shaqlabel" for="amount">offer</div>
-                    <input id="amount" name="amount" type="number" class="form-control bidPrice" placeholder="0,00"
+                    <div class="input-group">
+                      <input id="amount" name="amount" type="number" class="form-control bidPrice" placeholder="0,00"
                       step="0.01" min=0 oninput="validity.valid||(value='');" require />
+                      <span class="input-group-addon glyphicon glyphicon-eye-open pricedetail" onclick="editPriceDetail();"></span>
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-6">
