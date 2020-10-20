@@ -343,7 +343,7 @@ $('#shaqList').DataTable({
           $("#center_cost").html(cost);
           if (cost > 0) $("#well_center_cost").removeClass('hide')
           $.ajax({
-            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=500&fl=id,key',
             "dataType": "json",
             "json": "json.wrf",
             "headers": {
@@ -381,13 +381,13 @@ $('#shaqList').DataTable({
 $('#shaqList thead tr th').each(function(i) {
   var title = $(this).text();
   if (window.cols[$(this)[0].cellIndex].filterable) {
-    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" />');
-    $('input', this).on('keyup', function(k) {
+    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" id="search_' + window.cols[i].data + '" />');
+    $(this).off()
+    $(this).on('keyup', function(k) {
       if (k.keyCode == 13) {
-        let value = this.value;
         query[0] = window.cols[i].data;
-        if (value) {
-          query[1] = "*" + value + "*";
+        if ($('#search_' + window.cols[i].data).val()) {
+          query[1] = "*" + $('#search_' + window.cols[i].data).val() + "*";
         } else {
           query[1] = "*";
         }
@@ -398,6 +398,7 @@ $('#shaqList thead tr th').each(function(i) {
 });
 
 $('#shaqList_length').css("width", "50%");
+$("#shaqList_wrapper #shaqList_length").before('<div class="pull-left"><a href="#" id="locateAuction"><span class="glyphicon glyphicon-screenshot"></span></a>&nbsp;</div>')
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right"><select id="typeCode" class="form-control">' +
   '<option value="all">All</option><option value="bidder">Bidder</option><option value="auctioneer">Auctioneer</option>' +
   '</select></div>');
@@ -409,6 +410,43 @@ $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" style="ma
   '</select></div>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="refresh"><span style="padding-left:20px;"></span><span id="solrRefresh" class="glyphicon glyphicon-refresh"></span>');
 $("#shaqList_wrapper #shaqList_length").after('<div class="pull-right" title="clear filters"><span style="padding-left:20px;"></span><span id="solrReload" class="glyphicon glyphicon-repeat"></span>');
+
+$('#locateAuction').on("click", function() {
+  questionShow('<div><label>Address : <button id="LocateMe" class="btn btn-default" disabled> Me </button></label><input id="LocateAddress" type="text" class="form-control" autofocus /></div><br>\
+            <div><label>Type : </label><select class="form-control" id="LocateType"><option>pu</option><option>de</option></select><br>\
+            <div><label>Distance : </label><input id="LocateDistance" type="number" class="form-control" value="60" /></div></div>', 'Locate');
+  if (navigator.geolocation) $("#LocateMe").prop('disabled', false)
+  $("#LocateMe").on("click", function() {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      $('#LocateAddress').val(pos.coords.latitude + "," + pos.coords.longitude)
+    }, function(error) {
+    }, {});
+  });
+  $("#QuestionModalYesBtn").on("click", function() {
+    if ($('#LocateAddress').val()) {
+      $.ajax({
+        "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq' + solrTarget + '/' + auth.auth.usercode + '/locate/' + $('#LocateType').val() + '?lat=' + $('#LocateAddress').val().split(',')[0] + '&lon=' + $('#LocateAddress').val().split(',')[1] + '&distance=' + $('#LocateDistance').val(),
+        "method": "GET",
+        "dataType": "json",
+        "contentType": "application/json",
+        "headers": {
+          "redspher-auth": "yes",
+          "Authorization": "Basic " + auth.auth.authbasic
+        },
+        "statusCode": {
+          "429": function(error) {
+            status429();
+          },
+          "200": function(response) {
+            let html = '<div>Result</div>'
+            for (const r of response.docs) html += '<div class="text-center"><a href="#">' + r.key + '</a></div>'
+            informShow(html, false)
+          }
+        }
+      });
+    }
+  });
+})
 
 $("#solrRefresh").on("click", function() {
   $('#shaqList').DataTable().draw();

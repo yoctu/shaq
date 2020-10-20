@@ -795,9 +795,11 @@ function shaqRefresh() {
   $("#shaq-puplace").html(window.shaq.puPlace[0] + '<br>');
   $("#shaq-puplace").append(window.shaq.puPlace[1] + ' ' + window.shaq.puPlace[2] + '<br>');
   $("#shaq-puplace").append(window.shaq.puPlace[3] + '   <img width="24px" title="' + window.shaq.puPlace[4] + '" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + window.shaq.puPlace[4].toLowerCase() + '.svg" class="pull-right" /><br>');
+  if ('puLocation' in window.shaq) $("#shaq-puplace").append('<h6>' + window.shaq.puLocation + '</h6>')
   $("#shaq-deplace").html(window.shaq.dePlace[0] + '<br>');
   $("#shaq-deplace").append(window.shaq.dePlace[1] + ' ' + window.shaq.dePlace[2] + '<br>');
   $("#shaq-deplace").append(window.shaq.dePlace[3] + '   <img width="24px" title="' + window.shaq.puPlace[4] + '" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + window.shaq.dePlace[4].toLowerCase() + '.svg" class="pull-right" /><br>');
+  if ('deLocation' in window.shaq) $("#shaq-deplace").append('<h6>' + window.shaq.deLocation + '</h6>')
   $("#shaq-pudate").text(moment(window.shaq.puDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
   if (window.shaq.puDateRange) $("#shaq-pudate-range-div").removeClass("hide").text(moment(window.shaq.puDateRange).tz('UTC').format('YYYY-MM-DD HH:mm'));
   let pudateCet = moment.tz(window.shaq.puDate.replace("T", " ").substring(0, 16), tzSettings.countries[window.shaq.puPlace[4]].timezones[0]).tz("UTC");
