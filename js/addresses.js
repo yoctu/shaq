@@ -6,7 +6,8 @@ var From = {
     country_code: '',
     postcode: '',
     city: '',
-    pro: 0
+    pro: 0,
+    location: ''
 };
 
 var To = {
@@ -16,7 +17,8 @@ var To = {
     country_code: '',
     postcode: '',
     city: '',
-    pro: 0
+    pro: 0,
+    location: ''
 };
 
 function initMap() {
@@ -45,7 +47,6 @@ function initMap() {
         if (!placeTo.geometry) {
             return;
         }
-
         var addressTo = '';
         if (placeTo.address_components) {
             addressTo = [
@@ -101,4 +102,5 @@ var parseGoogleAdresse = function (googleAdresse, target) {
             default:
         }
     }
+    target.location = googleAdresse.geometry.location.lat() + "," + googleAdresse.geometry.location.lng()
 };
