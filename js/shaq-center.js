@@ -448,8 +448,6 @@ $('#locateAuction').on("click", function() {
   });
 })
 
-
-
 $("#solrRefresh").on("click", function() {
   $('#shaqList').DataTable().draw();
 });
