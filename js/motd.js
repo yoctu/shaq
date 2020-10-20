@@ -3,6 +3,8 @@ var MOTD = 12;
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
   <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
+  <p><div class="text-center">Loctae Auction on Position</b><br><br>\
+  find auction based on location and distance<br></p>\
   <p><div class="text-center">Fix search on Centers</b><br><br>\
   Shaq center and Sfu center bug fixing<br></p>\
   </div>\
