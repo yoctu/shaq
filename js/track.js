@@ -123,9 +123,12 @@ function displayTransport() {
   $("#sfu-puplace").html(Transport.starting_point.address_street + '<br>');
   $("#sfu-puplace").append(Transport.starting_point.address_zip_code + ' ' + Transport.starting_point.address_city + '<br>');
   $("#sfu-puplace").append(Transport.starting_point.address_country + '   <img width="24px" title="' + Transport.starting_point.address_country + '" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + Transport.starting_point.address_country.toLowerCase() + '.svg" class="pull-right" /><br>');
+  $("#sfu-puplace").append('<h6>' + Transport.starting_point.address_position + '</h6>')
+
   $("#sfu-deplace").html(Transport.destination_point.address_street + '<br>');
   $("#sfu-deplace").append(Transport.destination_point.address_zip_code + ' ' + Transport.destination_point.address_city + '<br>');
   $("#sfu-deplace").append(Transport.destination_point.address_country + '   <img width="24px" title="' + Transport.destination_point.address_country + '" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/4x3/' + Transport.destination_point.address_country.toLowerCase() + '.svg" class="pull-right" /><br>');
+  $("#sfu-deplace").append('<h6>' + Transport.destination_point.address_position + '</h6>')
 
   $("#sfu-puContactCompany").html(Transport.starting_point.contact_company);
   $("#sfu-puContactName").html(Transport.starting_point.contact_name);

@@ -172,18 +172,34 @@ socket.on(auth.usercode, function(data) {
     case "auction":
       switch (msg.status) {
         case "running":
-          if (!msg.bestbid || msg.bestbid == "") statusMessage = 'Shaq created for <a href="/' + auth.usercode + '/display/' + msg.key + '" target="_blank">' + msg.name + '</a>';
+          if (!msg.bestbid || msg.bestbid == "") statusMessage = 'Auction created for <a href="/' + auth.usercode + '/display/' + msg.key + '" target="_blank">' + msg.name + '</a>';
           break;
         case "expired":
-          statusMessage = "Shaq expired for " + msg.name;
+          statusMessage = "Auction expired for " + msg.name;
           break;
         case "completed":
-          statusMessage = "Shaq completed for " + msg.name;
+          statusMessage = "Auction completed for " + msg.name;
           break;
         default:
           break;
       }
-      if (statusMessage !== "") notificationCreate(uuidv4(), statusMessage, 'Shaq: ', 'success');
+      if (statusMessage !== "") notificationCreate(uuidv4(), statusMessage, 'Auction: ', 'success');
+      break;
+    case "transport":
+      switch (msg.status) {
+        case "planned":
+          statusMessage = 'Transort created for <a href="/' + auth.usercode + '/track?key=' + msg.key + '" target="_blank">' + msg.name + '</a>';
+          break;
+        case "expired":
+          statusMessage = "Transort expired for " + msg.key;
+          break;
+        case "arrived":
+          statusMessage = "Transort arrived for " + msg.key;
+          break;
+        default:
+          break;
+      }
+      if (statusMessage !== "") notificationCreate(uuidv4(), statusMessage, 'Auction: ', 'success');
       break;
     default:
       break;

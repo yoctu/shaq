@@ -124,7 +124,7 @@ $('#sfuCarrierList').DataTable({
   "pagingType": "numbers",
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/transports' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/transports' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start+ '&fq={"' + query[0] + '":"' + query[1] + '"}',
       "dataType": "json",
       "json": "json.wrf",
       "headers": {
@@ -176,7 +176,7 @@ $('#sfuShipperList').DataTable({
   "pagingType": "numbers",
   "ajax": function(data, callback, settings) {
     $.ajax({
-      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/tracks' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start,
+      "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env +  '.yoctu.solutions/api/tracks' + solrTarget + '/' + auth.auth.usercode + '?rows=' + rows + '&start=' + start + '&fq={"' + query[0] + '":"' + query[1] + '"}',
       "dataType": "json",
       "json": "json.wrf",
       "headers": {
@@ -221,13 +221,13 @@ $('#sfuShipperList').on('length.dt', function(e, settings, len) {
 $('#sfuCarrierList thead tr th').each(function(i) {
   var title = $(this).text();
   if (window.cols[$(this)[0].cellIndex].filterable) {
-    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" />');
+    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" id="searchCarrier_' + window.cols[i].data + '" />');
+    $(this).off()
     $('input', this).on('keyup', function(k) {
       if (k.keyCode == 13) {
-        let value = this.value;
         query[0] = window.cols[i].data;
-        if (value) {
-          query[1] = "*" + value + "*";
+        if ($('#searchCarrier_' + window.cols[i].data).val()) {
+          query[1] = "*" + $('#searchCarrier_' + window.cols[i].data).val() + "*";
         } else {
           query[1] = "*";
         }
@@ -240,13 +240,13 @@ $('#sfuCarrierList thead tr th').each(function(i) {
 $('#sfuShipperList thead tr th').each(function(i) {
   var title = $(this).text();
   if (window.cols[$(this)[0].cellIndex].filterable) {
-    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" />');
+    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" id="searchShipper_' + window.cols[i].data + '" />');
+    $(this).off()
     $('input', this).on('keyup', function(k) {
       if (k.keyCode == 13) {
-        let value = this.value;
         query[0] = window.cols[i].data;
-        if (value) {
-          query[1] = "*" + value + "*";
+        if ($('#searchShipper_' + window.cols[i].data).val()) {
+          query[1] = "*" + $('#searchShipper_' + window.cols[i].data).val() + "*";
         } else {
           query[1] = "*";
         }

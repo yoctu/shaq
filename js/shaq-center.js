@@ -343,7 +343,7 @@ $('#shaqList').DataTable({
           $("#center_cost").html(cost);
           if (cost > 0) $("#well_center_cost").removeClass('hide')
           $.ajax({
-            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=10000&fl=id,key',
+            "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/bid' + solrBidTarget + '/' + auth.auth.usercode + '?rows=500&fl=id,key',
             "dataType": "json",
             "json": "json.wrf",
             "headers": {
@@ -381,13 +381,13 @@ $('#shaqList').DataTable({
 $('#shaqList thead tr th').each(function(i) {
   var title = $(this).text();
   if (window.cols[$(this)[0].cellIndex].filterable) {
-    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" />');
-    $('input', this).on('keyup', function(k) {
+    $(this).append('<br><input class="dtInputFilter" type="text" --data-column="' + i + '" placeholder="Search ' + title + '" id="search_' + window.cols[i].data + '" />');
+    $(this).off()
+    $(this).on('keyup', function(k) {
       if (k.keyCode == 13) {
-        let value = this.value;
         query[0] = window.cols[i].data;
-        if (value) {
-          query[1] = "*" + value + "*";
+        if ($('#search_' + window.cols[i].data).val()) {
+          query[1] = "*" + $('#search_' + window.cols[i].data).val() + "*";
         } else {
           query[1] = "*";
         }
