@@ -418,10 +418,8 @@ $('#locateAuction').on("click", function() {
   if (navigator.geolocation) $("#LocateMe").prop('disabled', false)
   $("#LocateMe").on("click", function() {
     navigator.geolocation.getCurrentPosition(function(pos) {
-      console.log(pos)
       $('#LocateAddress').val(pos.coords.latitude + "," + pos.coords.longitude)
     }, function(error) {
-      console.log(error)
     }, {});
   });
   $("#QuestionModalYesBtn").on("click", function() {
