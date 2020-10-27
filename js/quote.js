@@ -54,6 +54,7 @@ function shaq2go() {
     puLocation: From.location,
     reported_at: new Date().toISOString(),
     source: [auth.auth.usercode],
+    target: [],
     stackable: "No",
     visible: "public",
     valid_from: validFrom.toISOString(),
