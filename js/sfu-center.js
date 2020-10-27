@@ -151,7 +151,7 @@ $('#sfuCarrierList').DataTable({
         }
         o = {
           recordsTotal: json.numFound,
-          recordsFiltered: rows,
+          recordsFiltered: json.numFound,
           data: window.transports
         };
         $("#CenterPage").removeClass("hide");

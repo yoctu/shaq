@@ -325,10 +325,11 @@ $('#shaqList').DataTable({
         }
       },
       "success": function(json) {
+        console.log(json)
         window.shaqs = json.docs;
         o = {
           recordsTotal: json.numFound,
-          recordsFiltered: rows,
+          recordsFiltered: json.numFound,
           data: window.shaqs
         };
         $("#CenterPage").removeClass("hide");
@@ -385,6 +386,7 @@ $('#shaqList thead tr th').each(function(i) {
     $(this).off()
     $(this).on('keyup', function(k) {
       if (k.keyCode == 13) {
+        start = 0
         query[0] = window.cols[i].data;
         if ($('#search_' + window.cols[i].data).val()) {
           query[1] = "*" + $('#search_' + window.cols[i].data).val() + "*";
@@ -455,6 +457,7 @@ $("#solrRefresh").on("click", function() {
 $("#solrReload").on("click", function() {
   $(".dtInputFilter").val("");
   $("#shaqstatus").val('all')
+  start = 0
   query = ["*", "*"];
   $('#shaqList').DataTable().draw();
 });
