@@ -100,7 +100,7 @@ $('#alert-target').on('click', function() {
   notificationInit();
   socket.emit('notification', {
     "type": "notification",
-    "user": auth.username,
+    "user": auth.auth.username,
     "action": "clear"
   });
 });
