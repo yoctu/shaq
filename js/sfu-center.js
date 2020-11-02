@@ -77,7 +77,7 @@ window.cols = [{
     render: renderFuncKey
   },
   {
-    data: 'state',
+    data: 'status',
     filterable: true,
     sortable: true
   },
