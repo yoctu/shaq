@@ -325,7 +325,6 @@ $('#shaqList').DataTable({
         }
       },
       "success": function(json) {
-        console.log(json)
         window.shaqs = json.docs;
         o = {
           recordsTotal: json.numFound,
