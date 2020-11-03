@@ -2,12 +2,21 @@ var RELS = []
 
 $(document).ready(function() {
 
+window.autoinvite = function(key, autoinvite){
+  	for (const r in RELS) {
+      if (RELS[r].key === key) RELS[r].autoinvite = !autoinvite
+    }
+    refreshRelPanel()
+}
+
 function refreshRelPanel() {
   $('#rels-content-panel').html('');
   for (const r in RELS) {
     let display = 'NA'
+    let autoinvite = false
     if ('display' in RELS[r]) display = RELS[r].display;
-    $('#rels-content-panel').append('<div class="col-sm-12" id="rels-row-' + RELS[r].key + '"><div class="col-sm-4">' + RELS[r].key + '</div><div class="col-sm-4">' + RELS[r].name + '</div><div class="col-sm-4">' + display + '</div></div>')
+    if ('autoinvite' in RELS[r]) autoinvite = RELS[r].autoinvite;
+    $('#rels-content-panel').append('<div class="col-sm-12" id="rels-row-' + RELS[r].key + '"><div class="col-sm-3">' + RELS[r].key + '</div><div class="col-sm-3">' + RELS[r].name + '</div><div class="col-sm-3">' + display + '</div><div class="col-sm-3"><a href="#" onclick=\'autoinvite("' + RELS[r].key + '", ' + autoinvite + ')\'>' + autoinvite + '</a></div></div>')
   }
 }
 
@@ -42,7 +51,6 @@ function refreshRelPanel() {
   })
 
   function addRel(xhr, display) {
-    console.log(xhr)
       RELS.push({
         "name": xhr.app.usercodename,
         "key": xhr.usercode,
@@ -79,6 +87,14 @@ function refreshRelPanel() {
       saveRels();
     });
   });
+
+  $('#rels-delete-all').on('click', function() {
+    questionShow('Are you sure to delete all rels ?', 'Delete all');
+    $("#QuestionModalYesBtn").on("click", function() {
+      RELS = []
+      saveRels();
+    });
+  })
 
   $('#rels-delete').on('click', function() {
     let showText = '<p>Name : <select class="pull-right" id="rels-delete-key">'

@@ -20,12 +20,12 @@ function displayEventBtn() {
   $('#sfu-event-btn-pickedup').addClass('hide')
   $('#sfu-event-btn-deliver').addClass('hide')
   $('#sfu-event-btn-delivered').addClass('hide')
-  switch (Transport.state) {
-    case 'PLANNED':
+  switch (Transport.status) {
+    case 'planned':
       $('#sfu-event-btn-start').removeClass('hide')
       break
-    case 'RUNNING':
-    case 'DELAYED':
+    case 'running':
+    case 'delayed':
       $('#sfu-event-btn-pickup').removeClass('hide')
       //$('#sfu-event-btn-pickedup').removeClass('hide')
       $('#sfu-event-btn-deliver').removeClass('hide')
@@ -66,7 +66,7 @@ function displayPackage() {
       pkgInfo.find('.sfu-pkg-dimension-weight').html(dimWeight);
       pkgInfo.find('.sfu-pkg-stackable').html(dim[d].stackable);
       pkgInfo.find('.sfu-pkg-notes').html(dim[d].state);
-      if (dim[d].state.match('DELAYED')) pkgInfo.find('.sfu-pkg-notes').addClass('text-danger')
+      if (dim[d].state.match('delayed')) pkgInfo.find('.sfu-pkg-notes').addClass('text-danger')
       else pkgInfo.find('.sfu-pkg-notes').removeClass('text-danger')
       pkgInfo.removeClass('hide')
       $('#packageList').append(pkgInfo);
@@ -78,7 +78,7 @@ function displayPackage() {
       $('.sfu-pkg-dimension-weight').html(dimWeight);
       $('.sfu-pkg-stackable').html(dim[d].stackable ? 'yes' : 'no');
       $('.sfu-pkg-notes').html(dim[d].state);
-      if (dim[d].state.match('DELAYED')) $('.sfu-pkg-notes').addClass('text-danger')
+      if (dim[d].state.match('delayed')) $('.sfu-pkg-notes').addClass('text-danger')
       else $('.sfu-pkg-notes').removeClass('text-danger')
     }*/
   }
@@ -104,8 +104,8 @@ function displayTransport() {
   $('#sfu-name').html(Transport.key)
   $('#sfu-shipper').html(Transport.shippers_name)
   $('#sfu-carrier').html(Transport.vehicle_owner_name)
-  $('#sfu-status-event').html(Transport.state)
-  if (Transport.state === 'DELAYED') $('#sfu-status-event').addClass('text-danger')
+  $('#sfu-status-event').html(Transport.status)
+  //if (Transport.status === 'delayed') $('#sfu-status-event').addClass('text-danger')
   else $('#sfu-status-event').removeClass('text-danger')
   $("#tmslogo").attr('src', auth.app.logourl + Transport.creator + ".png");
 
@@ -184,8 +184,8 @@ $(document).ready(function() {
       "contentType": "application/json",
       "statusCode": {
         "202": function(result) {
-          Transport.state = 'DELAYED'
-          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'DELAYED'
+          Transport.status = 'running'
+          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].status = 'delayed'
           displayEventBtn()
           displayTransport()
           displayPackage()
@@ -202,8 +202,8 @@ $(document).ready(function() {
       "contentType": "application/json",
       "statusCode": {
         "202": function(result) {
-          Transport.state = 'RUNNING'
-          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'PICKED UP'
+          Transport.status = 'running'
+          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'picked up'
           displayEventBtn()
           displayTransport()
           displayPackage()
@@ -220,8 +220,8 @@ $(document).ready(function() {
       "contentType": "application/json",
       "statusCode": {
         "202": function(result) {
-          Transport.state = 'RUNNING'
-          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'PICKED UP'
+          Transport.status = 'running'
+          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'picked up'
           displayEventBtn()
           displayTransport()
           displayPackage()
@@ -238,8 +238,8 @@ $(document).ready(function() {
       "contentType": "application/json",
       "statusCode": {
         "202": function(result) {
-          Transport.state = 'RUNNING'
-          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'PICKED UP'
+          Transport.status = 'running'
+          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'picked up'
           displayEventBtn()
           displayTransport()
           displayPackage()
@@ -256,8 +256,8 @@ $(document).ready(function() {
       "contentType": "application/json",
       "statusCode": {
         "202": function(result) {
-          Transport.state = 'RUNNING'
-          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'DELIVERED'
+          Transport.status = 'running'
+          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'delivered'
           displayEventBtn()
           displayTransport()
           displayPackage()
@@ -274,8 +274,8 @@ $(document).ready(function() {
       "contentType": "application/json",
       "statusCode": {
         "202": function(result) {
-          Transport.state = 'RUNNING'
-          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'DELIVERED'
+          Transport.status = 'running'
+          for (const p in Transport.packages_loaded) Transport.packages_loaded[p].state = 'delivered'
           displayEventBtn()
           displayTransport()
           displayPackage()
