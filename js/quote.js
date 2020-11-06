@@ -95,6 +95,7 @@ jQuery(document).ready(function() {
       "data": JSON.stringify([shaq]),
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {

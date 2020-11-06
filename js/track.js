@@ -160,6 +160,7 @@ $(document).ready(function() {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -182,6 +183,11 @@ $(document).ready(function() {
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
+      "headers": {
+        "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
+        "Authorization": "Basic " + auth.auth.authbasic
+      },
       "statusCode": {
         "202": function(result) {
           Transport.status = 'running'
@@ -200,6 +206,11 @@ $(document).ready(function() {
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
+      "headers": {
+        "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
+        "Authorization": "Basic " + auth.auth.authbasic
+      },
       "statusCode": {
         "202": function(result) {
           Transport.status = 'running'
@@ -218,6 +229,11 @@ $(document).ready(function() {
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
+      "headers": {
+        "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
+        "Authorization": "Basic " + auth.auth.authbasic
+      },
       "statusCode": {
         "202": function(result) {
           Transport.status = 'running'
@@ -236,6 +252,11 @@ $(document).ready(function() {
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
+      "headers": {
+        "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
+        "Authorization": "Basic " + auth.auth.authbasic
+      },
       "statusCode": {
         "202": function(result) {
           Transport.status = 'running'
@@ -254,6 +275,11 @@ $(document).ready(function() {
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
+      "headers": {
+        "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
+        "Authorization": "Basic " + auth.auth.authbasic
+      },
       "statusCode": {
         "202": function(result) {
           Transport.status = 'running'
@@ -272,6 +298,11 @@ $(document).ready(function() {
       "method": "POST",
       "dataType": "json",
       "contentType": "application/json",
+      "headers": {
+        "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
+        "Authorization": "Basic " + auth.auth.authbasic
+      },
       "statusCode": {
         "202": function(result) {
           Transport.status = 'running'

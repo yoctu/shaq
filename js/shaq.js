@@ -89,6 +89,7 @@ $(document).ready(function() {
     "dataType": "json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {

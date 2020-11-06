@@ -25,6 +25,7 @@ function refreshRelPanel() {
     "dataType": "json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -68,6 +69,7 @@ function refreshRelPanel() {
       "data": JSON.stringify(RELS),
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
@@ -140,6 +142,7 @@ function refreshRelPanel() {
           "contentType": "application/json",
           "headers": {
             "redspher-auth": "yes",
+            "app-key": auth.auth.userkey,
             "Authorization": "Basic " + auth.auth.authbasic
           },
           "statusCode": {

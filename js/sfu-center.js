@@ -25,6 +25,7 @@ function cancelSfu(shaq) {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
@@ -129,6 +130,7 @@ $('#sfuCarrierList').DataTable({
       "json": "json.wrf",
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
@@ -181,6 +183,7 @@ $('#sfuShipperList').DataTable({
       "json": "json.wrf",
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {

@@ -228,6 +228,7 @@ function saveSettings() {
     "data": JSON.stringify(window.config),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -329,28 +330,17 @@ $("#shaq-settings-rating-goshippo-auto,#shaq-settings-rating-ugo-auto,#shaq-sett
   if ($(this).hasClass("glyphicon-remove")) window.config.raters[$(this).prop("id").split("-")[3]].auto = 1;
 });
 
-$("#discordTestSettings").on('click', function() {
-  $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/discordtest/test",
-    "method": "POST",
-    "dataType": "json",
-    "contentType": "application/json",
-    "data": JSON.stringify({
-      type: "notification",
-      action: "discordTest"
-    }),
-    "success": function() {
-      informShow('<div class="text-center" id="settings-configuration-saved">Test Sent !</div>');
-    }
-  });
-});
-
 function bidvaluemaxmodif() {
   $.ajax({
     "url": "/api/shaq/" + usercode + "/maxbidaccept/" + $("#newbidmax").val(),
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
+    "headers": {
+      "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
+      "Authorization": "Basic " + auth.auth.authbasic
+    },
     "success": function(data) {
       informShow('<div class="text-center" id="settings-configuration-saved">Request Sent !</div>');
     }
@@ -375,6 +365,11 @@ $('#refresh-score').on('click', function() {
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
+    "headers": {
+      "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
+      "Authorization": "Basic " + auth.auth.authbasic
+    },
     "success": function(data) {
       $(".scoreinvitedspan").html(data.invitation);
       $(".scoreavgbidspan").html(data.avgbid);
