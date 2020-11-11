@@ -153,6 +153,9 @@ $(document).ready(function() {
         case "rels.html":
           $.getScript("/js/rels.js");
           break;
+        case "fleet.html":
+          $.getScript("/js/fleet.js");
+          break;
         case "stats.html":
           $.getScript("/js/stats.js");
           break;
