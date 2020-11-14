@@ -45,6 +45,7 @@ function deleteShaq() {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {
@@ -64,6 +65,7 @@ function archiveShaq() {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {}
@@ -79,6 +81,7 @@ function closeShaq() {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {}
@@ -116,6 +119,7 @@ function sendMessage(data) {
   data.date = new Date().toISOString();
   data.from = auth.auth.username;
   data.key = window.shaq.key;
+  data.source = [auth.auth.usercode]
   if (!data.target) data.target = [window.chatCurrent];
   data.type = "message";
   data.status = "sent";
@@ -128,6 +132,7 @@ function sendMessage(data) {
     "data": JSON.stringify([data]),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {}
@@ -148,6 +153,7 @@ function rate(rater) {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -175,6 +181,7 @@ function readdallbidders() {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -205,6 +212,7 @@ function removeallbidders() {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -239,6 +247,7 @@ function removebidder(remove) {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -282,6 +291,7 @@ function extendShaqDecision(xHour) {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
@@ -312,6 +322,7 @@ function extendShaqValidity(xHour) {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -356,7 +367,7 @@ function bidderDisplay() {
     bidderDisplay += '</div>';
   }
   bidderDisplay += '</b>';
-  if (window.shaq.targetName.length > 4) bidderDisplay += '<div class="pull-right"><a onclick="showmore(this);"><i><h6>show more (' + window.shaq.target.length + ')<h6></i></a></div>';
+  if ('targetName' in window.shaq && window.shaq.targetName.length > 4) bidderDisplay += '<div class="pull-right"><a onclick="showmore(this);"><i><h6>show more (' + window.shaq.target.length + ')<h6></i></a></div>';
   $("#shaq-bidder").html(bidderDisplay);
 }
 
@@ -373,6 +384,7 @@ function uploadFile(bid) {
     "data": formData,
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -396,6 +408,7 @@ function uploadshaqFile() {
     "data": formData,
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "complete": function(json) {
@@ -1015,6 +1028,7 @@ $.ajax({
   "json": "json.wrf",
   "headers": {
     "redspher-auth": "yes",
+    "app-key": auth.auth.userkey,
     "Authorization": "Basic " + auth.auth.authbasic
   },
   "statusCode": {
@@ -1085,6 +1099,7 @@ function getBids(orderBy = {
     "json": "json.wrf",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1157,6 +1172,7 @@ function getChatMsgs() {
     "json": "json.wrf",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1184,6 +1200,7 @@ function getNotifMsgs() {
     "json": "json.wrf",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1260,6 +1277,7 @@ function updateBid(bidData) {
     "data": bidData,
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1296,6 +1314,7 @@ function sendMessageAll() {
     "data": JSON.stringify([dataSendMessageAll]),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1348,6 +1367,7 @@ function sendBid() {
     "data": JSON.stringify([dataSendBid]),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1402,6 +1422,7 @@ function invitesearch() {
       "contentType": "application/json",
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
@@ -1434,6 +1455,7 @@ function SetItNow() {
       }),
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
@@ -1461,6 +1483,7 @@ function invite() {
       }),
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
@@ -1525,6 +1548,7 @@ $('#winningbidcalc').on('click', function() {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {
@@ -1597,6 +1621,7 @@ $(document).on('click', '.btn-no-solution-bid', function() {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1756,6 +1781,7 @@ $("#shaq-name").on('click', function(event) {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1779,6 +1805,7 @@ $("#bidAuditstatus").on('click', function(event) {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -1847,6 +1874,7 @@ function bidsFlag(bf) {
       }),
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {

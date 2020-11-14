@@ -136,16 +136,6 @@ function setConfigValue(data) {
     $("#bidBidderScoring").removeClass("hide");
   }
 
-  if (data.vehicles) {
-    $('#settings-vehicle-panel-list').html('')
-    for (const v in data.vehicles) {
-      $('#settings-vehicle-panel-list').append('<div id="settings-vehicles-row-' + data.vehicles[v].name + '"><div class="col-sm-3">' + data.vehicles[v].name + '</div>\
-      <div class="col-sm-2">' + data.vehicles[v].id + '</div>\
-      <div class="col-sm-3">' + data.vehicles[v].driver + '</div>\
-      <div class="col-sm-2">' + data.vehicles[v].plate + '</div>\
-      <div class="col-sm-2">' + data.vehicles[v].provider + '</div></div><br><br>')
-    }
-  }
 }
 
 if (window.config) {
@@ -228,6 +218,7 @@ function saveSettings() {
     "data": JSON.stringify(window.config),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -240,49 +231,6 @@ function saveSettings() {
     }
   });
 }
-
-$('#settings-vehicle-delete').on('click', function() {
-  $('#settings-vehicle-add').addClass('hide')
-  $('#settings-vehicle-delete').addClass('hide')
-  let showText = '<p>Name : <select class="pull-right" id="settings-vehicle-delete-name">'
-  for (const v in window.config.vehicles)
-    showText += '<option>' + window.config.vehicles[v].name  + '</option>'
-  showText += '</select></p><br>'
-  questionShow(showText, 'Delete');
-  $("#QuestionModalYesBtn").on("click", function() {
-    for (const v in window.config.vehicles) {
-      if (window.config.vehicles[v].name === $('#settings-vehicle-delete-name').val())  {
-        $('#settings-vehicles-row-' + window.config.vehicles[v].name).addClass('hide')
-        window.config.vehicles.splice(v,1)
-        break
-      }
-    }
-  });
-})
-
-$('#settings-vehicle-add').on('click', function() {
-  $('#settings-vehicle-add').addClass('hide')
-  $('#settings-vehicle-delete').addClass('hide')
-  questionShow('<p>Name : <input class="pull-right" id="settings-vehicle-add-name"></input></p><br>\
-              <p>DeviceId : <input class="pull-right" id="settings-vehicle-add-id"></input></p><br>\
-              <p>Driver : <input class="pull-right" id="settings-vehicle-add-driver"></input></p><br>\
-              <p>Plate : <input class="pull-right" id="settings-vehicle-add-plate"></input></p><br>\
-              <p>Provider : <select class="pull-right" id="settings-vehicle-add-provider"><option>ftk</option><option>shippeo</option></select></p><br>', 'Add');
-  $("#QuestionModalYesBtn").on("click", function() {
-    let vehicle = {}
-    vehicle.id = $('#settings-vehicle-add-id').val() || "000000"
-    vehicle.name = $('#settings-vehicle-add-name').val() || "default"
-    vehicle.driver = $('#settings-vehicle-add-driver').val() || "default"
-    vehicle.plate = $('#settings-vehicle-add-plate').val() || "xxxx-xx-xx"
-    vehicle.provider  = $('#settings-vehicle-add-provider').val()
-    window.config.vehicles.push(vehicle)
-    $('#settings-vehicle-panel-list').append('<div id="settings-vehicles-row-' + vehicle.name + '"><div class="col-sm-3">' + vehicle.name + '</div>\
-    <div class="col-sm-2">' + vehicle.id + '</div>\
-    <div class="col-sm-3">' + vehicle.driver + '</div>\
-    <div class="col-sm-2">' + vehicle.plate + '</div>\
-    <div class="col-sm-2">' + vehicle.provider + '</div><div><br><br>')
-  });
-})
 
 $("#shaq-ugo-carriers-btn").on('click', function() {
   if ($("#UgoCarriersDisplay").hasClass("hide")) {
@@ -329,28 +277,17 @@ $("#shaq-settings-rating-goshippo-auto,#shaq-settings-rating-ugo-auto,#shaq-sett
   if ($(this).hasClass("glyphicon-remove")) window.config.raters[$(this).prop("id").split("-")[3]].auto = 1;
 });
 
-$("#discordTestSettings").on('click', function() {
-  $.ajax({
-    "url": "/api/shaq/" + auth.auth.usercode + "/discordtest/test",
-    "method": "POST",
-    "dataType": "json",
-    "contentType": "application/json",
-    "data": JSON.stringify({
-      type: "notification",
-      action: "discordTest"
-    }),
-    "success": function() {
-      informShow('<div class="text-center" id="settings-configuration-saved">Test Sent !</div>');
-    }
-  });
-});
-
 function bidvaluemaxmodif() {
   $.ajax({
     "url": "/api/shaq/" + usercode + "/maxbidaccept/" + $("#newbidmax").val(),
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
+    "headers": {
+      "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
+      "Authorization": "Basic " + auth.auth.authbasic
+    },
     "success": function(data) {
       informShow('<div class="text-center" id="settings-configuration-saved">Request Sent !</div>');
     }
@@ -375,6 +312,11 @@ $('#refresh-score').on('click', function() {
     "method": "POST",
     "dataType": "json",
     "contentType": "application/json",
+    "headers": {
+      "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
+      "Authorization": "Basic " + auth.auth.authbasic
+    },
     "success": function(data) {
       $(".scoreinvitedspan").html(data.invitation);
       $(".scoreavgbidspan").html(data.avgbid);

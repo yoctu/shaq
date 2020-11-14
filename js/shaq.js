@@ -89,6 +89,7 @@ $(document).ready(function() {
     "dataType": "json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -151,6 +152,9 @@ $(document).ready(function() {
           break;
         case "rels.html":
           $.getScript("/js/rels.js");
+          break;
+        case "fleet.html":
+          $.getScript("/js/fleet.js");
           break;
         case "stats.html":
           $.getScript("/js/stats.js");

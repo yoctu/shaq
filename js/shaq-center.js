@@ -66,6 +66,7 @@ function closeShaq(shaq) {
     "contentType": "application/json",
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(msgs) {}
@@ -97,6 +98,7 @@ function removebidder(remove) {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "statusCode": {
@@ -129,6 +131,7 @@ function subscribe(button) {
     "data": JSON.stringify(data),
     "headers": {
       "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
       "Authorization": "Basic " + auth.auth.authbasic
     },
     "success": function(json) {}
@@ -311,6 +314,7 @@ $('#shaqList').DataTable({
       "json": "json.wrf",
       "headers": {
         "redspher-auth": "yes",
+        "app-key": auth.auth.userkey,
         "Authorization": "Basic " + auth.auth.authbasic
       },
       "statusCode": {
@@ -348,6 +352,7 @@ $('#shaqList').DataTable({
             "json": "json.wrf",
             "headers": {
               "redspher-auth": "yes",
+              "app-key": auth.auth.userkey,
               "Authorization": "Basic " + auth.auth.authbasic
             },
             "statusCode": {
@@ -432,6 +437,7 @@ $('#locateAuction').on("click", function() {
         "contentType": "application/json",
         "headers": {
           "redspher-auth": "yes",
+          "app-key": auth.auth.userkey,
           "Authorization": "Basic " + auth.auth.authbasic
         },
         "statusCode": {
