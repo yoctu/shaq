@@ -30,9 +30,8 @@ if (auth.auth.email) {
   $("#shaq-settings-email").text(auth.auth.email);
   $("#settings-email").removeClass("hide");
 }
-if (auth.auth.userkey) {
-  $("#shaq-settings-apikey").text(auth.auth.userkey);
-  $("#settings-apikey").removeClass("hide");
+if (auth.app.apikey) {
+  $("#apikeySettings").val(auth.app.apikey);
 }
 if (auth.auth.lang) {
   $("#shaq-settings-lang").text(auth.auth.lang);
@@ -56,11 +55,16 @@ function setConfigValue(data) {
   if (data.usercode) $("#usercodeSettings").val(data.usercode);
   if (data.app) {
     $("#maxbidsSettings").val(data.shaq.maxbids || 3);
+    $("#shaq-settings-auctionmax").text(data.shaq.shaqmax);
+    $("#shaq-settings-transportmax").text(data.shaq.sfumax);
+    $("#shaq-settings-relsmax").text(data.shaq.relsmax);
+    $("#shaq-settings-vehiclemax").text(data.shaq.vehiclemax);
     $("#usercodenameSettings").val(data.app.usercodename);
     $("#usercodeemailSettings").val(data.app.usercodeemail);
     $("#orderingurlSettings").val(data.app.orderingurl);
     $("#shaq-settings-validatoremail").text(data.app.validatoremail);
     $("#shaq-settings-bidvaluemax").text(data.app.bidvaluemax);
+    $("#shaq-settings-autofillvehicle").text(data.app.autofillvehicle)
   }
   if (data.tms) {
     if (data.tms.e4p) {
@@ -293,6 +297,11 @@ function bidvaluemaxmodif() {
     }
   });
 }
+
+$("#shaq-settings-autofillvehicle").on('click', function() {
+    window.config.app.autofillvehicle = !window.config.app.autofillvehicle
+    $("#shaq-settings-autofillvehicle").text(window.config.app.autofillvehicle)
+})
 
 $('#bidvaluemaxmodif').on('click', function() {
   questionShow('<p>Current Bid Max : <span class="pull-right" id="currentbidmax"></span></p><br>\
