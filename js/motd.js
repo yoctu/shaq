@@ -3,8 +3,8 @@ var MOTD = 13;
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
   <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
-  <p><div class="text-center">Fleet Management</b><br><br>\
-  Vehicle management has been moved to a Fleet management<br></p>\
+  <p><div class="text-center">Ugo Validity</b><br><br>\
+  Define your own ugo bid validity time<br></p>\
   </div>\
 </div>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
