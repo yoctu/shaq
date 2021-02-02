@@ -887,7 +887,7 @@ function shaqRefresh() {
     dimUnit[2] = "<b>Height</b> : " + dim[pkg + 3] + ' cm';
     let dimWeight = "<b>Weight</b> : " + dim[pkg + 4] + ' kgs';
     totaldim[0] += parseInt(dim[pkg]);
-    totaldim[1] += parseFloat(dim[pkg + 4]);
+    totaldim[1] += parseInt(dim[pkg]) * parseFloat(dim[pkg + 4]);
     totaldim[2] += parseInt(dim[pkg]) * (parseFloat(dim[pkg + 1]) * parseFloat(dim[pkg + 2]) * parseFloat(dim[pkg + 3]));
     if (localSettings.unit === "Imperial") {
       dimUnit[0] = "<b>Lenght</b> : " + (Math.ceil(dim[pkg + 1] * 39.37) / 100) + ' inches'
