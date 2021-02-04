@@ -93,6 +93,7 @@ function setConfigValue(data) {
     if (data.raters.ugo) {
       $("#settings-ugo-body").removeClass("hide");
       $("#ugoNameSettings").val(data.raters.ugo.name || 'Ugo');
+      $("#ugoValiditySettings").val(data.raters.ugo.validity || 0);
       $("#ugoUrlSettings").val(data.raters.ugo.url);
       $("#ugoLoginSettings").val(data.raters.ugo.username);
       $("#ugoPasswordSettings").val(data.raters.ugo.password);
@@ -176,6 +177,7 @@ function saveSettings() {
   window.config.app.notifications = parseInt($("#notifChat").val()) + parseInt($("#notifMail").val());
   if ($("#ugoUrlSettings").val()) {
     window.config.raters.ugo.name = $("#ugoNameSettings").val();
+    window.config.raters.ugo.validity = $("#ugoValiditySettings").val();
     window.config.raters.ugo.url = $("#ugoUrlSettings").val();
     window.config.raters.ugo.username = $("#ugoLoginSettings").val();
     window.config.raters.ugo.password = $("#ugoPasswordSettings").val();

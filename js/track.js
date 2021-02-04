@@ -106,7 +106,7 @@ function displayTransport() {
   $('#sfu-carrier').html(Transport.vehicle_owner_name)
   $('#sfu-status-event').html(Transport.status)
   //if (Transport.status === 'delayed') $('#sfu-status-event').addClass('text-danger')
-  else $('#sfu-status-event').removeClass('text-danger')
+  //else $('#sfu-status-event').removeClass('text-danger')
   $("#tmslogo").attr('src', auth.app.logourl + Transport.creator + ".png");
 
   $('#sfu-vehicle-type').html(Transport.vehicle_type)

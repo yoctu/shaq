@@ -12,6 +12,22 @@ window.bidsInfo = [];
 window.chatsInfo = [];
 window.vehicle_type = ["LAMBDA", "BREAK", "FRG1", "FRG2", "FRG3", "FRG4", "PL5", "PL9", "SEMI", "FRGR", "PKW", "DI", "FRG4+HAYON", "LOADED_KM", "FRG4H", "PL"];
 
+$.ajax({
+  "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/fleet/' + auth.auth.usercode,
+  "dataType": "json",
+  "headers": {
+    "redspher-auth": "yes",
+    "app-key": auth.auth.userkey,
+    "Authorization": "Basic " + auth.auth.authbasic
+  },
+  "error": function() {
+    status500();
+  },
+  "success": function(fleet) {
+    auth.vehicles = fleet;
+  }
+})
+
 localStorage.setItem(auth.auth.usercode + "-" + ShaqID, window.id);
 window.addEventListener('storage', storageChanged);
 
@@ -871,7 +887,7 @@ function shaqRefresh() {
     dimUnit[2] = "<b>Height</b> : " + dim[pkg + 3] + ' cm';
     let dimWeight = "<b>Weight</b> : " + dim[pkg + 4] + ' kgs';
     totaldim[0] += parseInt(dim[pkg]);
-    totaldim[1] += parseFloat(dim[pkg + 4]);
+    totaldim[1] += parseInt(dim[pkg]) * parseFloat(dim[pkg + 4]);
     totaldim[2] += parseInt(dim[pkg]) * (parseFloat(dim[pkg + 1]) * parseFloat(dim[pkg + 2]) * parseFloat(dim[pkg + 3]));
     if (localSettings.unit === "Imperial") {
       dimUnit[0] = "<b>Lenght</b> : " + (Math.ceil(dim[pkg + 1] * 39.37) / 100) + ' inches'
