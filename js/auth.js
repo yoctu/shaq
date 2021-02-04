@@ -3,7 +3,7 @@ const qs = new URLSearchParams(window.location.search)
 var auth = {};
 auth.auth = {};
 
-auth.webversion = "1.5.2-1";
+auth.webversion = "1.5.2-2";
 
 function getCookie(cname) {
   var name = cname + "=";
