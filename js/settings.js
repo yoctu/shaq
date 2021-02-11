@@ -30,6 +30,10 @@ if (auth.auth.email) {
   $("#shaq-settings-email").text(auth.auth.email);
   $("#settings-email").removeClass("hide");
 }
+if (auth.auth.phone) {
+  $("#shaq-settings-phone").text(auth.auth.phone);
+  $("#settings-phone").removeClass("hide");
+}
 if (auth.app.apikey) {
   $("#apikeySettings").val(auth.app.apikey);
 }
@@ -61,6 +65,7 @@ function setConfigValue(data) {
     $("#shaq-settings-vehiclemax").text(data.shaq.vehiclemax);
     $("#usercodenameSettings").val(data.app.usercodename);
     $("#usercodeemailSettings").val(data.app.usercodeemail);
+    $("#usercodephoneSettings").val(data.app.usercodephone);
     $("#orderingurlSettings").val(data.app.orderingurl);
     $("#shaq-settings-validatoremail").text(data.app.validatoremail);
     $("#shaq-settings-bidvaluemax").text(data.app.bidvaluemax);
@@ -167,6 +172,7 @@ function saveSettings() {
   localStorage.setItem('shaqSettings', JSON.stringify(localSettings));
   window.config.app.usercodename = $("#usercodenameSettings").val();
   window.config.app.usercodeemail = $("#usercodeemailSettings").val();
+  window.config.app.usercodephone = $("#usercodephoneSettings").val();
   window.config.app.orderingurl = $("#orderingurlSettings").val();
   window.config.app.notifications = parseInt($("#notifChat").val()) + parseInt($("#notifMail").val());
   if ($("#ugoUrlSettings").val()) {
