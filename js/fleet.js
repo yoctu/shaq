@@ -21,7 +21,7 @@ function refreshFleetPanel() {
 }
 
   $.ajax({
-    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/fleet/' + auth.auth.usercode,
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/cache/' + auth.auth.usercode,
     "dataType": "json",
     "headers": {
       "redspher-auth": "yes",
@@ -45,11 +45,45 @@ function refreshFleetPanel() {
     "error": function() {
       status500();
     },
-    "success": function(fleet) {
-      FLEET = fleet;
+    "success": function(cache) {
+      FLEET = cache.fleet;
+      POSITION = cache.vehicles_positions;
       refreshFleetPanel()
+      refreshMap()
     }
   })
+
+function refreshMap() {
+  const infowindow = []
+  const marker = []
+  for (const p in POSITION) {
+    const Position = {
+      info: POSITION[p].vehicle,
+      lat: POSITION[p].position.split('","')[0],
+      lng: POSITION[p].position.split('","')[1]
+    }
+    marker[p] = new google.maps.Marker({
+      position: new google.maps.LatLng(Position.lat, Position.lng),
+      map: map,
+      title: Position.info,
+      icon: {
+        url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+      }
+    });
+    for (const f in FLEET) {
+      if (FLEET[f].id === POSITION[p].vehicle) {
+        infowindow[p] = new google.maps.InfoWindow({
+          content: JSON.stringify(FLEET[f]),
+        });
+        break
+      }
+    }
+    marker[p].setMap(map);
+    marker[p].addListener("click", () => {
+      infowindow[p].open(map, marker[p]);
+    });
+  }
+}
 
   function addVehicle(xhr, display) {
       FLEET.push({
@@ -135,4 +169,6 @@ function refreshFleetPanel() {
       refreshFleetPanel()
     });
   });
+
+
 })

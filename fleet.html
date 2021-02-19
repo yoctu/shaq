@@ -35,9 +35,23 @@
       <div class="pull-right"><button class="btn btn-default btn-primary" id="saveRelsBtn"><span id="shaq-fleet-save-btn">Save</span></button></div>
     </div><br>
     <div class="container">
+      <div id="map" style="height: 450px; padding-bottom: 20px;"></div>
+      <script>
+        var map;
+
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 6,
+            center: { lat: 48.692054, lng: 6.184417 }
+          });
+        };
+
+      </script>
+    </div><br>
+    <div class="container">
       <div id="fleet-list" class="panel panel-default">
         <div class="panel-heading panel-heading-settings">
-          <b><span id="fleet-heading">Relations</span></b>
+          <b><span id="fleet-heading">Fleet</span></b>
           <span class="pull-right glyphicon glyphicon-equalizer" style="font-size: 48px;"></span>
         </div>
         <div class="panel-body">
