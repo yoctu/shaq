@@ -106,6 +106,7 @@ function closeShaq() {
 
 function noSolution() {
   $('.btn-create-bid').hide();
+  $('.btn-draft-bid').hide();
   $('.btn-no-solution-bid').attr("disabled", true);
   $('.btn-getitnow-bid').attr("disabled", true);
   $('.btn-no-solution-bid').attr('title', 'No Solution !');
@@ -494,6 +495,7 @@ function bidHideAllBtn(bidInfo) {
   bidInfo.find('.btn-forward-bid').addClass('hide');
   bidInfo.find('.btn-decline-bid').addClass('hide');
   bidInfo.find('.btn-create-bid').addClass('hide');
+  bidInfo.find('.btn-draft-bid').addClass('hide');
   bidInfo.find('.btn-cancel-bid').addClass('hide');
   bidInfo.find('.btn-no-solution-bid').addClass('hide');
   bidInfo.find('.btn-bid').addClass('hide');
@@ -614,7 +616,7 @@ function bidRefresh(bidInfo, bid) {
   });
   bidInfo.find('.btn-bid-extend-detail').addClass('hide');
   if (["running"].includes(window.shaq.status)) {
-    if (["created", "running", "forwarded", "authorized"].includes(bid.status)) bidInfo.find('.well').addClass('well-warning');
+    if (["draft", "created", "running", "forwarded", "authorized"].includes(bid.status)) bidInfo.find('.well').addClass('well-warning')
     else {
       bidInfo.find('.well').addClass('well-danger');
       if (!showAllbids) {
@@ -622,6 +624,7 @@ function bidRefresh(bidInfo, bid) {
       }
     }
   }
+  if (["draft"].includes(bid.status)) bidInfo.find('.well').removeClass("well-warning").addClass('well-info')
   if (window.shaq.bestbid === bid.id) {
     bidInfo.find('.well').removeClass("well-warning").removeClass('.well-danger').addClass("well-success");
   }
@@ -648,6 +651,7 @@ function bidRefresh(bidInfo, bid) {
       bidInfo.find('.btn-accept-bid').html('<span class="glyphicon glyphicon-ok"></span> Authorized');
       bidInfo.data("bid-id", bid.id);
       bidInfo.find('.btn-create-bid').addClass('hide').data("btn-bid-id", bid.id);
+      bidInfo.find('.btn-draft-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-no-solution-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-getitnow-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-accept-bid').removeClass('hide').data("btn-bid-id", bid.id);
@@ -655,6 +659,10 @@ function bidRefresh(bidInfo, bid) {
       bidInfo.find('.btn-cancel-bid').removeClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-status-bid').addClass('hide').data("btn-bid-id", bid.id);
       break;
+    case "draft":
+      bidHideAllBtn(bidInfo)
+      bidInfo.find('.btn-validate-bid').removeClass('hide').data("btn-bid-id", bid.id);
+      break
     case "created":
     case "selected":
     case "validated":
@@ -662,6 +670,7 @@ function bidRefresh(bidInfo, bid) {
     case "running":
       bidInfo.data("bid-id", bid.id);
       bidInfo.find('.btn-create-bid').addClass('hide').data("btn-bid-id", bid.id);
+      bidInfo.find('.btn-draft-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-no-solution-bid').addClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-getitnow-bid').addClass('hide').data("btn-bid-id", bid.id);
       if ((auth.app.bidvaluemax !== 0) && (bid.price > auth.app.bidvaluemax)) bidInfo.find('.btn-forward-bid').removeClass('hide').data("btn-bid-id", bid.id);
@@ -765,6 +774,7 @@ function shaqRefresh() {
     $('#bid-add').removeClass("hide");
     $('#bid-add').find('.btn-bid-extend-detail').removeClass("hide");
     $("#bid-add").find('.btn-create-bid').removeClass('hide');
+    $("#bid-add").find('.btn-draft-bid').removeClass('hide');
     $("#bid-add").find('.btn-no-solution-bid').removeClass('hide');
     $("#bid-add").find('.btn-getitnow-bid').removeClass('hide');
     $("#bid-add").find(".bidBidderRatingScore").html("");
@@ -1342,13 +1352,12 @@ function sendMessageAll() {
   });
 }
 
-function sendBid() {
+function sendBid(bidstatus = "created") {
   let loaded = "No";
   if ($('#bid-add').find('.bidLoaded input').is(":checked")) loaded = "Yes";
   let driver = "1";
   if ($('#bid-add').find('.bidDriver input').is(":checked")) driver = "2";
   driver = $('#bid-add').find('.bidPlate').val();
-  let bidstatus = "created";
   let dataSendBid = {
     "id": uuidv4(),
     "reported_at": "NOW",
@@ -1607,7 +1616,7 @@ $('#shaq-status').on('click', function() {
   }
 });
 
-$(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .btn-forward-bid', function() {
+$(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .btn-forward-bid, .btn-validate-bid', function() {
   if ($(this).hasClass('btn-decline-bid')) window.bids[$(this).data("btn-bid-id")].status = "declined";
   if ($(this).hasClass('btn-cancel-bid')) window.bids[$(this).data("btn-bid-id")].status = "cancelled";
   if ($(this).hasClass('btn-accept-bid')) {
@@ -1616,6 +1625,10 @@ $(document).on('click', '.btn-decline-bid, .btn-cancel-bid, .btn-accept-bid, .bt
   }
   if ($(this).hasClass('btn-forward-bid')) {
     window.bids[$(this).data("btn-bid-id")].status = "forwarded";
+    window.bids[$(this).data("btn-bid-id")].forwarder = auth.auth.username;
+  }
+  if ($(this).hasClass('btn-validate-bid')) {
+    window.bids[$(this).data("btn-bid-id")].status = "validate";
     window.bids[$(this).data("btn-bid-id")].forwarder = auth.auth.username;
   }
   window.bids[$(this).data("btn-bid-id")].decision_maker = auth.auth.username;
@@ -1676,6 +1689,12 @@ $('.btn-create-bid').on('click', function() {
       $('#amount').removeClass("has-error");
     }, 2000)
   }
+});
+
+$('.btn-draft-bid').on('click', function() {
+    if (!$('#amount').val()) $('#amount').val(1000.00)
+    informShow('   <div class="loader"></div>&nbsp;&nbsp;&nbsp;<span>Drafting Offer...</span>');
+    sendBid('draft');
 });
 
 $('.showPackage').on('click', function() {

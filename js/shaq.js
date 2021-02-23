@@ -154,6 +154,7 @@ $(document).ready(function() {
           $.getScript("/js/rels.js");
           break;
         case "fleet.html":
+          $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
           $.getScript("/js/fleet.js");
           break;
         case "stats.html":

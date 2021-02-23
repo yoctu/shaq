@@ -1,10 +1,12 @@
-var MOTD = 13;
+var MOTD = 14;
 
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
   <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
-  <p><div class="text-center">Phone Setting</b><br><br>\
-  set your default phone number in settings<br></p>\
+  <p><div class="text-center">Fleet View</b><br>\
+  You have a now a fleet map based on location<br></p>\
+  <p><div class="text-center">Bid Draft</b><br>\
+  Draft Bid. First version.<br></p>\
   </div>\
 </div>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
