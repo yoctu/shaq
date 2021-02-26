@@ -678,6 +678,10 @@ function bidRefresh(bidInfo, bid) {
       bidInfo.find('.btn-decline-bid').removeClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-cancel-bid').removeClass('hide').data("btn-bid-id", bid.id);
       bidInfo.find('.btn-status-bid').addClass('hide').data("btn-bid-id", bid.id);
+      if (solrTarget === "-archive") {
+        bidInfo.find('.bid-validity-count').removeClass('hide');
+        bidInfo.find('.bidValidUntil').removeClass('hide').html(bid.status);
+      }
       break;
     case "expired":
       bidInfo.find('.btn-status-bid').removeClass('hide').html('<span class="glyphicon glyphicon-remove"></span> Expired').addClass('btn-primary').attr("disabled", "disabled");
