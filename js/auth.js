@@ -3,7 +3,7 @@ const qs = new URLSearchParams(window.location.search)
 var auth = {};
 auth.auth = {};
 
-auth.webversion = "1.5.4-1";
+auth.webversion = "1.5.4-2";
 
 function getCookie(cname) {
   var name = cname + "=";
@@ -36,7 +36,7 @@ if (getCookie("ConnectUser") !== "") {
 
 if (!auth.auth.email) {
   if (qs.has('usercode')) auth.auth.usercode = qs.get('usercode')
-  if (qs.has('email')) auth.auth.email = qs.get('email') || 'ftaggart@yoctu.com'
+  auth.auth.email = qs.get('email') || 'ftaggart@yoctu.com'
   if (qs.has('apikey')) auth.auth.userkey = qs.get('apikey')
   auth.auth.username = auth.auth.email
   auth.auth.provider = "local"
