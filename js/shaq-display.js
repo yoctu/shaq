@@ -358,14 +358,14 @@ function bidderDisplay() {
   let tohide = "";
   $('#bid-filtering-field').empty();
   $('#bid-filtering-field').append('<option value="">All</option>');
-  for (let bidders in window.shaq.targetName) {
+  for (let bidders in window.shaq.target) {
     let color = "";
     if (bidders >= 4) tohide = "hide"
     if (window.shaq.targetStatus && window.shaq.targetStatus[bidders] === "NoSolution") color = "text-danger";
     if (window.shaq.targetStatus && window.shaq.targetStatus[bidders] === "Removed") color = "text-warning";
     if (window.shaq.targetStatus && window.shaq.targetStatus[bidders] === "Searching") color = "text-success";
     $('#bid-filtering-field').append('<option value="' + window.shaq.target[bidders] + '">' + window.shaq.targetName[bidders] + '</option>');
-    bidderDisplay += '<div id="bidderList_' + window.shaq.target[bidders] + '" class="bidderslist ' + tohide + ' ' + color + '"><img width="16" src="' + auth.app.logourl + window.shaq.target[bidders] + '.png" /> ' + window.shaq.targetName[bidders] + '</font>';
+    bidderDisplay += '<div title="' + ( "targetOwner" in window.shaq ? window.shaq.targetOwner[bidders] : "" ) + '" id="bidderList_' + window.shaq.target[bidders] + '" class="bidderslist ' + tohide + ' ' + color + '"><img width="16" src="' + auth.app.logourl + window.shaq.target[bidders] + '.png" /> ' + window.shaq.targetName[bidders] + '</font>';
     if (auth.auth.usercode === window.shaq.source[0]) {
       let glyphiconbidder = "remove";
       if (window.shaq.targetStatus && (window.shaq.targetStatus[bidders] === "Removed")) glyphiconbidder = "ok";
@@ -881,7 +881,7 @@ function shaqRefresh() {
   $("#shaq-stackable").text(window.shaq.stackable);
   $(".shaq-pkg-notes").text(window.shaq.notes);
   $("#shaq-notes").text(window.shaq.notes);
-  $("#shaq-auctioneer").html('<img width="24" src="' + auth.app.logourl + window.shaq.source[0] + '.png" />  <b>' + window.shaq.sourceName[0] + '</b>');
+  $("#shaq-auctioneer").html('<img width="24" src="' + auth.app.logourl + window.shaq.source[0] + '.png" />  <b>' + window.shaq.sourceName[0] + '</b> <span class="auctioneer-owner">(' + ( window.shaq.sourceOwner || '' )+ ')</span>');
   bidderDisplay();
   $('#pickupdate').val(moment(window.shaq.puDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
   $('#deliverydate').val(moment(window.shaq.deDate).tz('UTC').format('YYYY-MM-DD HH:mm'));
@@ -1600,6 +1600,33 @@ $('#bid-add').find('.bidDriver input').on('change', function() {
 
 $('#bid-add').find('.bidLoaded input').on('change', function() {
   $('#bid-add').find('.bidLoaded').toggleClass('btn-info');
+});
+
+$('#shaq-owner-btn').on('click', function() {
+  let ownerType = 'sourceowner'
+  if ('target' in window.shaq && window.shaq.target.includes(auth.auth.usercode)) ownerType = 'targetowner'
+  $.ajax({
+    "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/shaq/' + auth.auth.usercode + '/' + ownerType + '/' + window.shaq.key,
+    "method": "POST",
+    "dataType": "json",
+    "contentType": "application/json",
+    "data": JSON.stringify({
+      owner: auth.auth.username
+    }),
+    "headers": {
+      "redspher-auth": "yes",
+      "app-key": auth.auth.userkey,
+      "Authorization": "Basic " + auth.auth.authbasic
+    },
+    "statusCode": {
+      "403": function(xhr) {
+        informShow('   <div class="text-danger">Already In!</div>');
+      }
+    },
+    "success": function(json) {
+      if (ownerType === 'sourceowner') $('#shaq-auctioneer').find('.auctioneer-owner').html('(' + auth.auth.username + ')')
+    }
+  });
 });
 
 $('#shaq-status').on('click', function() {

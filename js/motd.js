@@ -3,11 +3,8 @@ var MOTD = 14;
 var MOTDMessage = '<br><hr><br>\
 <div class="col-sm-12">\
   <div class="text-center"><b><font color="#4981F1">Minor Upgrade</font></b></div><br>\
-  <p><div class="text-center">Fleet View</b><br>\
-  You have a now a fleet map based on location<br></p>\
-  <p><div class="text-center">Bid Draft</b><br>\
-  Draft Bid. First version.<br></p>\
-  </div>\
+  <p><div class="text-center">Set Owner</b><br>\
+  acknowledge or assign auction to yourself<br></p>\
 </div>\
 <div class="col-sm-12 text-center"><br><b><font color="#4981F1">Happy Shaqing !</font></b></div>\
 <div class="col-sm-12 text-right"><br><br>\

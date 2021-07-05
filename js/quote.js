@@ -43,7 +43,7 @@ function shaq2go() {
     deDate: deDate,
     dePlace: [To.address1, To.postcode, To.city, To.country_code, To.country_code],
     deLocation: To.location,
-    dimension: [1, parseFloat($('#form-length').val()), parseFloat($('#form-width').val()), parseFloat($('#form-height').val()), parseFloat($('#form-weight').val()), "no"],
+    dimension: ["1", $('#form-length').val(), $('#form-width').val(), $('#form-height').val(), $('#form-weight').val(), "no"],
     id: id,
     key: key,
     name: key,
@@ -59,7 +59,6 @@ function shaq2go() {
     visible: "public",
     valid_from: validFrom.toISOString(),
     valid_until: validUntil.toISOString(),
-    transport: "LAMBDA",
     currency: "EUR"
   };
   shaq.distance = parseInt(window.geolib.getDistance({
