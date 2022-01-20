@@ -131,20 +131,25 @@ $(document).ready(function() {
           $.getScript("/js/settings.js");
           break;
         case "display.html":
+        case "display":
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
           $.getScript("/js/shaq-display-functions.js");
           $.getScript("/js/shaq-display.js");
           break;
         case "maxbidauthorizations.html":
+        case "maxbidauthorizations":
           $.getScript("/js/mba.js");
           break;
         case "bidauthorizations.html":
+        case "bidauthorizations":
           $.getScript("/js/ba.js");
           break;
         case "help.html":
+        case "help":
           $.getScript("/js/help.js");
           break;
         case "quote.html":
+        case "quote":
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&libraries=places&callback=initMap');
           $.getScript("/js/addresses.js");
           $.getScript("/js/scripts.js");
@@ -152,20 +157,25 @@ $(document).ready(function() {
           $.getScript("/js/quote.js");
           break;
         case "rels.html":
+        case "rels":
           $.getScript("/js/rels.js");
           break;
         case "fleet.html":
+        case "fleet":
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
           $.getScript("/js/fleet.js");
           break;
         case "stats.html":
+        case "stats":
           $.getScript("/js/stats.js");
           break;
         case "track.html":
+        case "track":
           $.getScript('https://maps.googleapis.com/maps/api/js?key=' + auth.app.gmapkey + '&callback=initMap');
           $.getScript("/js/track.js");
           break;
         case "dispatch.html":
+        case "dispatch":
           $.getScript("/js/sfu-center.js");
           break;
         default:
