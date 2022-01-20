@@ -127,6 +127,7 @@ $(document).ready(function() {
       $.getScript("/js/app.js");
       switch (window.location.pathname.split("/")[1]) {
         case "settings.html":
+        case "settings":
           $.getScript("/js/settings.js");
           break;
         case "display.html":
