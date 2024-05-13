@@ -48,5 +48,4 @@ if ([null,undefined].includes(auth.auth.usercode)) window.location.replace("erro
 auth.auth.env = ".eu";
 if (qs.has('env')) auth.auth.env = qs.get('env')
 if (qs.has('theme')) auth.auth.theme = qs.get('theme')
-if (qs.has('ajaxnocache')) auth.auth.ajaxcache = false
 if (!auth.auth.lang || (auth.auth.lang == "(null)")) auth.auth.lang = "en";
