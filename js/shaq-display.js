@@ -12,21 +12,7 @@ window.bidsInfo = [];
 window.chatsInfo = [];
 window.vehicle_type = ["LAMBDA", "BREAK", "FRG1", "FRG2", "FRG3", "FRG4", "PL5", "PL9", "SEMI", "FRGR", "PKW", "DI", "FRG4+HAYON", "LOADED_KM", "FRG4H", "PL"];
 
-$.ajax({
-  "url": 'https://' + auth.auth.usercode + '.shaq' + auth.auth.env + '.yoctu.solutions/api/fleet/' + auth.auth.usercode,
-  "dataType": "json",
-  "headers": {
-    "redspher-auth": "yes",
-    "app-key": auth.auth.userkey,
-    "Authorization": "Basic " + auth.auth.authbasic
-  },
-  "error": function() {
-    status500();
-  },
-  "success": function(fleet) {
-    auth.vehicles = fleet;
-  }
-})
+auth.vehicles = [];
 
 localStorage.setItem(auth.auth.usercode + "-" + ShaqID, window.id);
 window.addEventListener('storage', storageChanged);
