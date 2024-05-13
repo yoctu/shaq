@@ -26,10 +26,6 @@ if (localSettings === null) {
 var socket;
 
 $(document).ready(function() {
-  $.ajaxSetup({
-    cache: auth.auth.ajaxcache || true
-  });
-
   (function(e, r, n, t, s) {
     var a = [];
     e[s] = function() {
